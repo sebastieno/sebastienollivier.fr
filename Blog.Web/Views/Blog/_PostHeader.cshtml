@@ -1,0 +1,28 @@
+﻿@using System.Threading.Tasks
+@using Microsoft.AspNet.Http
+
+@model Blog.Data.Post
+
+@{
+    var postUrl = Url.Action("Post", "Blog", new { categoryCode = Model.Category.Code, postUrl = Model.Url }, this.Context.Request.IsHttps ? "https" : "http");
+}
+
+<div class="postheader @Model.Category.Code">
+    <h1>
+        <a href="@postUrl" rel="bookmark">
+            @Model.Title
+        </a>
+    </h1>
+
+    <div class="postinfo">
+        <div class="posttags">
+            Cat&eacute;gorie:
+            @Html.RouteLink(Model.Category.Name, "PostsListForCategory", new { categoryCode = Model.Category.Code })
+        </div>
+        <div class="postdate">
+            Post&eacute; le @Model.PublicationDate.Value.ToString("dd MMMM yyyy")
+        </div>
+
+        <div class="clear"></div>
+    </div>
+</div>
