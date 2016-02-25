@@ -1,21 +1,19 @@
-﻿@model IEnumerable<Blog.Domain.Entity.CategoryWithPostsNumber>
+@model IEnumerable<Blog.Domain.Entities.CategoryWithPostsNumber>
 
 @{
     var categoriesCode = new[] { "angularjs", "javascript", "cordova", "asp-net-mvc", "html5" };
 }
 
-<h1>Catégories:</h1>
-
 <ul>
     @foreach (var item in Model)
     {
-        if (categoriesCode.Contains(item.Category.Code))
+        if (categoriesCode.Contains(item.Code))
         {
             var title = item.PostsNumber > 1 ? "Voir les " + item.PostsNumber + " articles" : "Voir l'article";
 
-            <li class="@item.Category.Code">
-                <a href="@Url.RouteUrl("PostsListForCategory", new { categoryCode = item.Category.Code })" title="@title">
-                    @item.Category.Name
+            <li>
+                <a href="@Url.RouteUrl("PostsListForCategory", new { categoryCode = item.Code })" title="@title">
+                    @item.Name
                     <span class="count">@item.PostsNumber</span>
                 </a>
             </li>

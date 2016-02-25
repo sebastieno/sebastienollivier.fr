@@ -61,17 +61,6 @@ namespace Blog.Web.Controllers
             return View(post);
         }
 
-        //[ChildActionOnly]
-        [Route("categories")]
-        [ResponseCache(Duration = 600)]
-        //[OutputCache(Duration = 600)]
-        public PartialViewResult Categories()
-        {
-            var categories = new GetCategoriesWithPostsNumberQuery(this.context).Execute().ToList();
-
-            return PartialView(categories);
-        }
-
         [Route("draft/{id}/{postUrl}")]
         public async Task<ActionResult> Post(int id, string postUrl)
         {

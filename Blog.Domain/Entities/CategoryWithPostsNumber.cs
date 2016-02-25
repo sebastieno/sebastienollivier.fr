@@ -4,7 +4,8 @@ namespace Blog.Domain.Entities
 {
     public class CategoryWithPostsNumber
     {
-        public Category Category { get; set; }
+        public string Code { get; set; }
+        public string Name { get; set; }
         public int PostsNumber { get; set; }
     }
 }

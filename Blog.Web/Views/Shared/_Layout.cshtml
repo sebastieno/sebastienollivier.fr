@@ -63,7 +63,9 @@
             </div>
             <div class="clear"></div>
             <div class="categories">
-                @*@Html.Action("Categories", "Blog")*@
+                <cache expires-after="@TimeSpan.FromDays(1)">
+                    @await Component.InvokeAsync("Categories")
+                </cache>
             </div>
         </div>
     </section>
@@ -76,7 +78,7 @@
 
     <div id="fb-root"></div>
 
-    <script src='~/bundles/js/syntaxhyghlighter' defer async></script>
+    <script src='/styles/syntaxhighlighter.css' defer async></script>
 
     <script type="text/javascript">
         (function (w, d, s) {
@@ -109,7 +111,7 @@
             }
 
             function go() {
-                css("~/bundles/css/syntaxhighlighter");
+                css("/js/syntaxhighlighter.js");
                 img();
                 socials();
             }

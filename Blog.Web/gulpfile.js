@@ -1,11 +1,12 @@
 ﻿var gulp = require("gulp");
-var browserSync = require('browser-sync').create();
+var browserSync = require('browser-sync');
 var shell = require('gulp-shell');
 var autoprefixer = require('gulp-autoprefixer');
 var cssnano = require("gulp-cssnano");
 var less = require("gulp-less");
 var concat = require("gulp-concat");
 var notify = require("gulp-notify");
+var watch = require("gulp-watch");
 
 gulp.task('compile-less', function () {
     return gulp.src('./Styles/**/*.less')
@@ -15,7 +16,7 @@ gulp.task('compile-less', function () {
         }))
         .pipe(autoprefixer())
         .pipe(cssnano())
-        .pipe(gulp.dest('./wwwroot/css'));
+        .pipe(gulp.dest('./wwwroot/styles'));
 });
 
 var handlerError = function (err) {
@@ -23,24 +24,32 @@ var handlerError = function (err) {
     this.emit('end');
 };
 
+gulp.task('copy-syntaxhighlighter', function () {
+    return gulp.src('./Styles/SyntaxHighlighter/**/*.css')
+        .pipe(cssnano())
+        .pipe(concat('syntaxhighlighter.css'))
+        .pipe(gulp.dest('./wwwroot/styles'));
+});
+
 gulp.task('copy-images', function() {
     return gulp.src('./Styles/Images/**')
         .pipe(gulp.dest('./wwwroot/images'));
 });
 
-gulp.task('dnxwatch', function () {
-    gulp.src('')
-       .pipe(shell(['dnx-watch --project ./project.json --dnx-args web ASPNET_ENV=Development']));
+gulp.task('server', function () {
+    gulp.src('./')
+       .pipe(shell(['dnx-watch web ASPNET_ENV=Development']));
 });
 
-gulp.task('default', ['dnxwatch', 'compile-less', 'copy-images'], function () {
-    browserSync.init({
-        files: ['./wwwroot/**/*', './Views/*.cshtml'],
-        port: '5000',
-        server: {
-            baseDir: './wwwroot/'
-        }
+gulp.task('default', ['compile-less', 'copy-images'], function () {
+    // browserSync.init({
+    //     
+    //     proxy: "localhost:5000"
+    // });
+    
+    browserSync.init(null, {
+        proxy: "localhost:5000"
     });
 
-    gulp.watch('./Styles/**/*.less', ['compile:styles']);
+    watch('./Styles/**/*.less', ['compile-less']);
 });
