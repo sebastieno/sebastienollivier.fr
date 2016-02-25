@@ -13,9 +13,9 @@ namespace Blog.Domain.Queries
             this.context = context;
         }
 
-        public IQueryable<CategoryWithPostsNumber> Execute()
+        public IQueryable<CategoryWithPostsNumber> Build()
         {
-            return context.Categories.Select(c => new CategoryWithPostsNumber { Category = c, PostsNumber = context.Posts.Count(p => p.Category == c) }).Where(c => c.PostsNumber > 0).OrderByDescending(c => c.PostsNumber).ThenBy(c => c.Category.Name);
+            return context.Categories.Select(c => new CategoryWithPostsNumber { Code = c.Code, Name = c.Name, PostsNumber = c.Posts.Count }).OrderByDescending(c => c.PostsNumber).ThenBy(c => c.Name);
             ;
         }
     }

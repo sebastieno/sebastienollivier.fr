@@ -8,21 +8,8 @@
 }
 
 <div class="postheader @Model.Category.Code">
-    <h1>
-        <a href="@postUrl" rel="bookmark">
-            @Model.Title
-        </a>
-    </h1>
-
-    <div class="postinfo">
-        <div class="posttags">
-            Cat&eacute;gorie:
-            @Html.RouteLink(Model.Category.Name, "PostsListForCategory", new { categoryCode = Model.Category.Code })
-        </div>
-        <div class="postdate">
-            Post&eacute; le @Model.PublicationDate.Value.ToString("dd MMMM yyyy")
-        </div>
-
-        <div class="clear"></div>
-    </div>
+    <a href="@postUrl" rel="bookmark">
+    <h1>@Model.Title</h1>
+    <div class='postdate'>Publi&eacute; le @Model.PublicationDate.Value.ToString("dd MMMM yyyy")</div>
+    </a>
 </div>
