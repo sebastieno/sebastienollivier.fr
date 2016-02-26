@@ -14,6 +14,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Blog.Domain", "Blog.Domain\
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Blog.Web", "Blog.Web\Blog.Web.xproj", "{1071E5F8-824A-47AF-AE89-E1BB5B3B26CF}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Blog.Database", "Blog.Database\Blog.Database.sqlproj", "{F140667B-6B98-4A46-BBDD-02AF549EB8C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,12 @@ Global
 		{1071E5F8-824A-47AF-AE89-E1BB5B3B26CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1071E5F8-824A-47AF-AE89-E1BB5B3B26CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1071E5F8-824A-47AF-AE89-E1BB5B3B26CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F140667B-6B98-4A46-BBDD-02AF549EB8C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F140667B-6B98-4A46-BBDD-02AF549EB8C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F140667B-6B98-4A46-BBDD-02AF549EB8C5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F140667B-6B98-4A46-BBDD-02AF549EB8C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F140667B-6B98-4A46-BBDD-02AF549EB8C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F140667B-6B98-4A46-BBDD-02AF549EB8C5}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
