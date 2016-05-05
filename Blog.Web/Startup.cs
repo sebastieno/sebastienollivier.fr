@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Blog.Data;
 using Microsoft.Data.Entity;
+using Microsoft.AspNet.Localization;
+using System.Globalization;
 
 namespace Blog.Web
 {
@@ -56,6 +58,14 @@ namespace Blog.Web
 
             app.UseIISPlatformHandler();
             app.UseStaticFiles();
+
+            app.UseRequestLocalization(new RequestLocalizationOptions()
+            {
+                SupportedCultures = new List<CultureInfo>
+                {
+                    new CultureInfo("fr"),
+                }
+            }, new RequestCulture("fr"));
 
             app.UseMvc();
         }
