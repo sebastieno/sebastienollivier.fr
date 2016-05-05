@@ -32,21 +32,8 @@ gulp.task('copy-syntaxhighlighter:css', function () {
         .pipe(gulp.dest('./wwwroot/styles'));
 });
 
-gulp.task('copy-syntaxhighlighter:js', function () {
-    return gulp.src(['./Scripts/SyntaxHighlighter/shCore.js',
-                     './Scripts/SyntaxHighlighter/shBrushCSharp.js',
-                     './Scripts/SyntaxHighlighter/shBrushCss.js',
-                     './Scripts/SyntaxHighlighter/shBrushJScript.js',
-                     './Scripts/SyntaxHighlighter/shBrushXml.js',
-                     './Scripts/SyntaxHighlighter/shBrushPowerShell.js',
-                     './Scripts/shInit.js'])
-        .pipe(uglify())
-        .pipe(concat('syntaxhighlighter.js'))
-        .pipe(gulp.dest('./wwwroot/scripts'));
-});
 
-
-gulp.task('copy-images', function() {
+gulp.task('copy-images', function () {
     return gulp.src('./Styles/Images/**')
         .pipe(gulp.dest('./wwwroot/images'));
 });
