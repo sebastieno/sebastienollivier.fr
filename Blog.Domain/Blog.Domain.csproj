@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Company>Sébastien Ollivier</Company>
+    <Authors>Sébastien Ollivier</Authors>
+    <Product>sebastienollivier.fr</Product>
+    <Copyright>Sébastien Ollivier</Copyright>
+    <PackageProjectUrl>https://sebastienollivier.fr/blog</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/sebastieno/sebastienollivier.fr</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Blog.Data\Blog.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+</Project>
