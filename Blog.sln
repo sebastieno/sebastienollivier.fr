@@ -1,18 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{99C114EA-4C77-4178-AAF0-BEC7B59F9E1E}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Blog.Data", "Blog.Data\Blog.Data.xproj", "{5F8CF925-D963-46CB-A8F3-ADF7A3EFAFAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Data", "Blog.Data\Blog.Data.csproj", "{5F8CF925-D963-46CB-A8F3-ADF7A3EFAFAF}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Blog.Domain", "Blog.Domain\Blog.Domain.xproj", "{976A27EC-6E88-4B75-A2FF-6DE62C5AA06C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Domain", "Blog.Domain\Blog.Domain.csproj", "{976A27EC-6E88-4B75-A2FF-6DE62C5AA06C}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Blog.Web", "Blog.Web\Blog.Web.xproj", "{1071E5F8-824A-47AF-AE89-E1BB5B3B26CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Web", "Blog.Web\Blog.Web.csproj", "{1071E5F8-824A-47AF-AE89-E1BB5B3B26CF}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Blog.Database", "Blog.Database\Blog.Database.sqlproj", "{F140667B-6B98-4A46-BBDD-02AF549EB8C5}"
 EndProject
@@ -43,5 +40,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {218A9262-5AE1-48C6-B438-C8A674214DE8}
 	EndGlobalSection
 EndGlobal

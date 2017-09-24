@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Data.Entity;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Data
 {
     public class BlogContext : DbContext, IBlogContext
     {
+        public BlogContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Post> Posts { get; set; }
         public DbSet<Category> Categories { get; set; }
