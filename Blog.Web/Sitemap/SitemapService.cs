@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Blog.Domain;
 using Blog.Domain.Queries;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace Blog.Web.Sitemap
 {
@@ -32,12 +34,16 @@ namespace Blog.Web.Sitemap
 
         public async Task<string> GetSitemapXml(int? index = null)
         {
-            var sitemapDocuments = await this.distributedCache.GetAsJsonAsync<List<string>>("Sitemap");
+            var data = await this.distributedCache.GetStringAsync("Sitemap");
+            var sitemapDocuments = JsonConvert.DeserializeObject(data) as List<string>;
             if (sitemapDocuments == null)
             {
-                IReadOnlyCollection<SitemapNode> sitemapNodes = GetSitemapNodes();
-                sitemapDocuments = GetSitemapDocuments(sitemapNodes);
-                await this.distributedCache.SetAsJsonAsync("Sitemap", sitemapDocuments,
+                IReadOnlyCollection<SitemapNode> sitemapNodes = this.GetSitemapNodes();
+                sitemapDocuments = this.GetSitemapDocuments(sitemapNodes);
+                
+                var serializedData = JsonConvert.SerializeObject(sitemapDocuments);
+
+                await this.distributedCache.SetStringAsync("Sitemap", serializedData,
                     options: new DistributedCacheEntryOptions
                     {
                         AbsoluteExpirationRelativeToNow = this.expirationDuration
