@@ -1,8 +1,4 @@
-﻿using Microsoft.Data.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Data
 {
@@ -10,5 +6,7 @@ namespace Blog.Data
     {
         DbSet<Post> Posts { get; set; }
         DbSet<Category> Categories { get; set; }
+
+        DbSet<Tag> Tags { get; set; }
     }
 }

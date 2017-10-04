@@ -1,24 +1,24 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Mvc;
-using Blog.Data;
 using Blog.Domain.Queries;
 using Blog.Web.Models;
-using Microsoft.Data.Entity;
 using Blog.Domain.Filters;
+using Microsoft.AspNetCore.Mvc;
+using Blog.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Web.Controllers
 {
     [Route("blog")]
     public class BlogController : Controller
     {
-        private IBlogContext context;
+        private QueryCommandBuilder queryCommandBuilder;
         private const int postsPerPage = 10;
 
-        public BlogController(IBlogContext context)
+        public BlogController(QueryCommandBuilder queryCommandBuilder)
         {
-            this.context = context;
+            this.queryCommandBuilder = queryCommandBuilder;
         }
 
         [Route("category/{categoryCode}", Name = "PostsListForCategory")]
@@ -29,12 +29,12 @@ namespace Blog.Web.Controllers
             {
                 page = 1;
             }
-           
-            var query = new GetPostsQuery(this.context).ForCategory(categoryCode).Build();
 
-            var pagesCount = Math.Ceiling((double) query.Count()/postsPerPage);
 
-            var posts = await query.Paginate((page - 1)*postsPerPage, postsPerPage).ToListAsync();
+            var query = this.queryCommandBuilder.Build<GetPostsQuery>().ForCategory(categoryCode).Build();
+            var pagesCount = Math.Ceiling((double)query.Count() / postsPerPage);
+
+            var posts = await query.Paginate((page - 1) * postsPerPage, postsPerPage).ToListAsync();
 
             var model = new PostsListModel
             {
@@ -49,11 +49,10 @@ namespace Blog.Web.Controllers
         [Route("{categoryCode}/{postUrl}", Order = 3)]
         public async Task<ActionResult> Post(string categoryCode, string postUrl)
         {
-            var post = await new GetPostQuery(this.context, categoryCode, postUrl).ExecuteAsync();
-
+            var post = await this.queryCommandBuilder.Build<GetPostQuery>().ExecuteAsync(categoryCode, postUrl);
             if (post == null)
             {
-                return new HttpNotFoundResult();
+                return new NotFoundResult();
             }
 
             ViewBag.Title = post.Title;
@@ -64,11 +63,11 @@ namespace Blog.Web.Controllers
         [Route("draft/{id}/{postUrl}")]
         public async Task<ActionResult> Post(int id, string postUrl)
         {
-            var post = await new GetDraftQuery(this.context, id, postUrl).ExecuteAsync();
+            var post = await this.queryCommandBuilder.Build<GetDraftQuery>().ExecuteAsync(id, postUrl);
 
             if (post == null)
             {
-                return new HttpNotFoundResult();
+                return new NotFoundResult();
             }
 
             post.PublicationDate = new DateTime();
