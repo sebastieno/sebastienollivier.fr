@@ -1,23 +1,24 @@
-using Microsoft.AspNet.Mvc;
 using System.Threading.Tasks;
-using Blog.Data;
 using Blog.Domain.Queries;
-using Microsoft.Data.Entity;
+using Microsoft.AspNetCore.Mvc;
+using Blog.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Web
 {
     public class CategoriesViewComponent : ViewComponent
     {
-        private IBlogContext context;
+        private QueryCommandBuilder queryCommandBuilder;
 
-        public CategoriesViewComponent(IBlogContext context)
+        public CategoriesViewComponent(QueryCommandBuilder queryCommandBuilder)
         {
-            this.context = context;
+            this.queryCommandBuilder = queryCommandBuilder;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var categories = await (new GetCategoriesWithPostsNumberQuery(this.context).Build()).ToListAsync();
+            var query = this.queryCommandBuilder.Build<GetCategoriesWithPostsNumberQuery>().Build();
+            var categories = await query.ToListAsync();
 
             return View(categories);
         }

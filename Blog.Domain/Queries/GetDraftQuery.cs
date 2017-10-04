@@ -1,7 +1,7 @@
 ﻿using Blog.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Domain.Queries
 {
@@ -11,18 +11,16 @@ namespace Blog.Domain.Queries
         private readonly int id;
         private readonly string postUrl;
 
-        public GetDraftQuery(IBlogContext context, int id, string postUrl)
+        public GetDraftQuery(IBlogContext context)
         {
             this.context = context;
-            this.id = id;
-            this.postUrl = postUrl;
         }
 
-        public async Task<Post> ExecuteAsync()
+        public async Task<Post> ExecuteAsync(int id, string postUrl)
         {
-           return await context.Posts.Include(p => p.Category)
-                .Where(p => !p.PublicationDate.HasValue)
-                .FirstOrDefaultAsync(p => p.Id == p.Id && p.Url.ToLower() == postUrl.ToLower());
+            return await context.Posts.Include(p => p.Category)
+                 .Where(p => !p.PublicationDate.HasValue)
+                 .FirstOrDefaultAsync(p => p.Id == p.Id && p.Url.ToLower() == postUrl.ToLower());
         }
     }
 }
