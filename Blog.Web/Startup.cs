@@ -10,6 +10,8 @@ using Blog.Domain.Queries;
 using Blog.Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace Blog.Web
 {
@@ -19,16 +21,6 @@ namespace Blog.Web
         {
             Configuration = configuration;
         }
-
-        //public Startup(IHostingEnvironment env)
-        //{
-        //    var builder = new ConfigurationBuilder()
-        //        .AddJsonFile("appsettings.json")
-        //        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-        //        .AddEnvironmentVariables();
-
-        //    Configuration = builder.Build();
-        //}
 
         public IConfiguration Configuration { get; }
 
@@ -45,6 +37,11 @@ namespace Blog.Web
             services.AddScoped<GetPostsQuery>();
 
             services.AddMvc();
+
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new RequireHttpsAttribute());
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -60,6 +57,9 @@ namespace Blog.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            var options = new RewriteOptions().AddRedirectToHttps();
+            app.UseRewriter(options);
 
             app.UseStaticFiles();
 
