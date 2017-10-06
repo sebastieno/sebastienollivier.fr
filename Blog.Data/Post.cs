@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Blog.Data
 {
@@ -39,5 +40,19 @@ namespace Blog.Data
         public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
+
+        protected string InternalTags { get; set; }
+
+        public string[] Tags
+        {
+            get
+            {
+                return this.InternalTags.Split(',').Select(t => t.Trim()).ToArray();
+            }
+            set
+            {
+                this.InternalTags = String.Join(',', value);
+            }
+        }
     }
 }
