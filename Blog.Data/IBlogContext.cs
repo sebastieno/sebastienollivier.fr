@@ -6,7 +6,5 @@ namespace Blog.Data
     {
         DbSet<Post> Posts { get; set; }
         DbSet<Category> Categories { get; set; }
-
-        DbSet<Tag> Tags { get; set; }
     }
 }
