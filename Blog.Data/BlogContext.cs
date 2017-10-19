@@ -15,8 +15,10 @@ namespace Blog.Data
             {
                 post.HasKey(p => p.Id);
                 post.ToTable("Posts");
+                post.Property(p => p.InternalTags).HasColumnName("Tags");
 
                 post.Ignore(p => p.ComputedDescription);
+                post.Ignore(p => p.Tags);
             });
 
             modelBuilder.Entity<Category>(category =>

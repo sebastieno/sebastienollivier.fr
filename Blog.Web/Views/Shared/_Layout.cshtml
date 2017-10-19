@@ -3,11 +3,11 @@
 <head>
     @if (ViewBag.Title != null)
     {
-        <title>@ViewBag.Title</title>
+    <title>@ViewBag.Title</title>
     }
     else
     {
-        <title>Blog de Sébastien Ollivier</title>
+    <title>Blog de Sébastien Ollivier</title>
     }
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -16,12 +16,14 @@
 
     @if (ViewBag.Description != null)
     {
-        <meta name="description" content="@ViewBag.Description" />
+    <meta name="description" content="@ViewBag.Description" />
     }
     else
     {
-        <meta name="description" content="Je parle de ASP.NET MVC /  WebAPI, d'AngularJS, de HTML 5 et de bien d'autres trucs cool ! Bonne lecture." />
+    <meta name="description" content="Je parle de ASP.NET MVC /  WebAPI, d'AngularJS, de HTML 5 et de bien d'autres trucs cool ! Bonne lecture." />
     }
+
+    @RenderSection("meta", required: false)
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="application-name" content="S&eacute;bastien Ollivier" />
