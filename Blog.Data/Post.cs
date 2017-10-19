@@ -41,12 +41,17 @@ namespace Blog.Data
 
         public virtual Category Category { get; set; }
 
-        protected string InternalTags { get; set; }
+        internal string InternalTags { get; set; }
 
         public string[] Tags
         {
             get
             {
+                if (string.IsNullOrEmpty(this.InternalTags))
+                {
+                    return new string[0];
+                }
+
                 return this.InternalTags.Split(',').Select(t => t.Trim()).ToArray();
             }
             set
