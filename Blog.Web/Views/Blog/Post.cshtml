@@ -1,7 +1,17 @@
 ﻿@model Blog.Data.Post
 
-@{ 
+@{
     var absolutePostUrl = Url.Action("Post", "Blog", new { categoryCode = Model.Category.Code, postUrl = Model.Url }, this.Context.Request.IsHttps ? "https" : "http");
+    ViewBag.Title = Model.Title;
+    ViewBag.Description = Model.Title;
+}
+
+@section meta {
+    @if (Model.Tags.Any())
+    {
+    <meta name="keywords" content="@string.Join(", ", Model.Tags)" />
+
+    }
 }
 
 <div class="post">

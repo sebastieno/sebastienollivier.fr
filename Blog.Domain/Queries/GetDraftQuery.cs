@@ -8,8 +8,6 @@ namespace Blog.Domain.Queries
     public class GetDraftQuery
     {
         private IBlogContext context;
-        private readonly int id;
-        private readonly string postUrl;
 
         public GetDraftQuery(IBlogContext context)
         {
