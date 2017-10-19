@@ -55,8 +55,6 @@ namespace Blog.Web.Controllers
                 return new NotFoundResult();
             }
 
-            ViewBag.Title = post.Title;
-
             return View(post);
         }
 

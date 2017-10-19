@@ -16,7 +16,6 @@ namespace Blog.Domain.Queries
         public IQueryable<CategoryWithPostsNumber> Build()
         {
             return context.Categories.Select(c => new CategoryWithPostsNumber { Code = c.Code, Name = c.Name, PostsNumber = c.Posts.Count }).OrderByDescending(c => c.PostsNumber).ThenBy(c => c.Name);
-            ;
         }
     }
 }
