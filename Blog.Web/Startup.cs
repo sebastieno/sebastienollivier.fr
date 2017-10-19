@@ -10,6 +10,8 @@ using Blog.Domain.Queries;
 using Blog.Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 using Blog.Web.Sitemap;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
@@ -21,7 +23,7 @@ namespace Blog.Web
         {
             Configuration = configuration;
         }
-        
+
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
@@ -42,6 +44,11 @@ namespace Blog.Web
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
             services.AddMvc();
+
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new RequireHttpsAttribute());
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -57,6 +64,9 @@ namespace Blog.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            var options = new RewriteOptions().AddRedirectToHttps();
+            app.UseRewriter(options);
 
             app.UseStaticFiles();
 
