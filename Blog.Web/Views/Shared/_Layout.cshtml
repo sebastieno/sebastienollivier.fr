@@ -1,6 +1,10 @@
 ﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Sébastien Ollivier" />
+    <meta name="copyright" content="2011 - @DateTime.Now.Year © Sébastien Ollivier" />
+
     @if (ViewBag.Title != null)
     {
     <title>@ViewBag.Title</title>
@@ -10,9 +14,7 @@
     <title>Blog de Sébastien Ollivier</title>
     }
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta charset="utf-8" />
-    <meta name="robots" content="index,follow" />
+    <meta name="robots" content="all" />
 
     @if (ViewBag.Description != null)
     {
@@ -20,7 +22,7 @@
     }
     else
     {
-    <meta name="description" content="Je parle de ASP.NET MVC /  WebAPI, d'AngularJS, de HTML 5 et de bien d'autres trucs cool ! Bonne lecture." />
+    <meta name="description" content="Je parle de ASP.NET Core, d'Angular, de Web et de bien d'autres trucs cool ! Bonne lecture." />
     }
 
     @RenderSection("meta", required: false)
