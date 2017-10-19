@@ -2,17 +2,24 @@ using System.Text;
 using System.Threading.Tasks;
 using Blog.Web.Sitemap;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using Blog.Domain.Queries;
+using Blog.Domain;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Web.Controllers
 {
     [Route("")]
     public class SeoController : Controller
     {
-        private readonly SitemapService sitemapService;
+        private readonly SitemapBuilder sitemapBuilder;
+        private readonly QueryCommandBuilder queryCommandBuilder;
 
-        public SeoController(SitemapService sitemapService)
+        public SeoController(SitemapBuilder sitemapBuilder, QueryCommandBuilder queryCommandBuilder)
         {
-            this.sitemapService = sitemapService;
+            this.sitemapBuilder = sitemapBuilder;
+            this.queryCommandBuilder = queryCommandBuilder;
         }
 
         [ResponseCache(Duration = 86400, Location = ResponseCacheLocation.Any)]
@@ -30,16 +37,53 @@ namespace Blog.Web.Controllers
         }
 
         [Route("sitemap.xml")]
-        public async Task<IActionResult> SitemapXml(int? index = null)
+        public async Task<IActionResult> SitemapXml()
         {
-            string content = await this.sitemapService.GetSitemapXml(index);
+            var now = DateTime.Now;
 
-            if (content == null)
+            // Fixed pages -> Home & Home blog
+            this.sitemapBuilder.AddUrl(new SitemapNode
             {
-                return BadRequest("Sitemap index is out of range.");
+                Url = this.Url.Action("Index", "Home", null, "https"),
+                ChangeFrequency = ChangeFrequency.Always,
+                Modified = now,
+                Priority = 1
+            });
+
+            this.sitemapBuilder.AddUrl(new SitemapNode
+            {
+                Url = this.Url.Action("List", "Blog", null, "https"),
+                Priority = 1,
+                Modified = now,
+                ChangeFrequency = ChangeFrequency.Always
+            });
+            // Categories pages
+            var categories = await this.queryCommandBuilder.Build<GetCategoriesQuery>().Build().Select(c => c.Code).ToListAsync();
+            foreach (var categoryCode in categories)
+            {
+                this.sitemapBuilder.AddUrl(new SitemapNode
+                {
+                    Url = this.Url.Action("List", "Blog", new { categoryCode = categoryCode }, "https"),
+                    Priority = 0.5,
+                    Modified = now,
+                    ChangeFrequency = ChangeFrequency.Always
+                });
             }
 
-            return Content(content, "application/xml", Encoding.UTF8);
+            // Posts pages
+            var posts = await this.queryCommandBuilder.Build<GetPostsQuery>().Build().Select(p => new { PostUrl = p.Url, CategoryCode = p.Category.Code, PublicationDate = p.PublicationDate }).ToListAsync();
+            foreach (var post in posts)
+            {
+                this.sitemapBuilder.AddUrl(new SitemapNode
+                {
+                    Url = this.Url.Action("Post", "Blog", new { categoryCode = post, postUrl = post.PostUrl }, "https"),
+                    Priority = 0.5,
+                    Modified = post.PublicationDate,
+                    ChangeFrequency = ChangeFrequency.Always
+                });
+            }
+
+            return Content(this.sitemapBuilder.ToString(), "application/xml", Encoding.UTF8);
         }
     }
 }

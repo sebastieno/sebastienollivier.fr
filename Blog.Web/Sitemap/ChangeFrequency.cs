@@ -1,6 +1,6 @@
 namespace Blog.Web.Sitemap
 {
-    public enum SitemapFrequency
+    public enum ChangeFrequency
     {
         Never,
         Yearly,
