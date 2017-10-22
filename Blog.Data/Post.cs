@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 
 namespace Blog.Data
 {
@@ -39,5 +40,8 @@ namespace Blog.Data
         public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
+
+
+        public static Expression<Func<Post, bool>> IsPublished = post => post.PublicationDate.HasValue && DateTime.Now > post.PublicationDate;
     }
 }
