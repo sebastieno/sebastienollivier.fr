@@ -6,6 +6,7 @@
     [Content]     NVARCHAR (MAX) NOT NULL,
     [PublicationDate] DATETIME NULL, 
     [CategoryId] INT NOT NULL, 
+    [Tags]     NVARCHAR (MAX) NULL,
     CONSTRAINT [PK_Posts] PRIMARY KEY CLUSTERED ([Id] ASC), 
     CONSTRAINT [AK_Posts_Url] UNIQUE ([Url]),
 	CONSTRAINT [FK_Post_Category] FOREIGN KEY ([CategoryId]) REFERENCES [dbo].[Categories] ([Id]),

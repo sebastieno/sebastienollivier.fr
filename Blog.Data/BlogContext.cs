@@ -8,7 +8,6 @@ namespace Blog.Data
 
         public DbSet<Post> Posts { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Tag> Tags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -16,8 +15,10 @@ namespace Blog.Data
             {
                 post.HasKey(p => p.Id);
                 post.ToTable("Posts");
+                post.Property(p => p.InternalTags).HasColumnName("Tags");
 
                 post.Ignore(p => p.ComputedDescription);
+                post.Ignore(p => p.Tags);
             });
 
             modelBuilder.Entity<Category>(category =>
@@ -25,13 +26,7 @@ namespace Blog.Data
                 category.HasKey(c => c.Id);
                 category.ToTable("Categories");
             });
-
-            modelBuilder.Entity<Tag>(tag =>
-            {
-                tag.HasKey(c => c.Id);
-                tag.ToTable("Tags");
-            });
-
+            
             base.OnModelCreating(modelBuilder);
         }
     }

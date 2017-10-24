@@ -63,7 +63,5 @@
   <ItemGroup>
     <Build Include="dbo\Tables\Categories.sql" />
     <Build Include="dbo\Tables\Posts.sql" />
-    <Build Include="dbo\Tables\TagPost.sql" />
-    <Build Include="dbo\Tables\Tags.sql" />
   </ItemGroup>
 </Project>
