@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using Blog.Web.Sitemap;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.ResponseCompression;
+using System;
 
 namespace Blog.Web
 {
@@ -49,6 +51,9 @@ namespace Blog.Web
             {
                 options.Filters.Add(new RequireHttpsAttribute());
             });
+
+            services.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Optimal);
+            services.AddResponseCompression();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -68,7 +73,18 @@ namespace Blog.Web
             var options = new RewriteOptions().AddRedirectToHttps();
             app.UseRewriter(options);
 
-            app.UseStaticFiles();
+            app.UseResponseCompression();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                OnPrepareResponse = context =>
+                {
+                    if (!string.IsNullOrEmpty(context.Context.Request.Query["v"]))
+                    {
+                        context.Context.Response.Headers.Add("cache-control", new[] { "public,max-age=31536000" });
+                        context.Context.Response.Headers.Add("Expires", new[] { DateTime.UtcNow.AddYears(1).ToString("R") }); // Format RFC1123
+                    }
+                }
+            });
 
             app.UseRequestLocalization(new RequestLocalizationOptions()
             {
