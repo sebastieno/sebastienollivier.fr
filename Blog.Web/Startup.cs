@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
+using Blog.Web.Sitemap;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace Blog.Web
 {
@@ -35,6 +37,11 @@ namespace Blog.Web
             services.AddScoped<GetDraftQuery>();
             services.AddScoped<GetPostQuery>();
             services.AddScoped<GetPostsQuery>();
+            services.AddScoped<GetCategoriesQuery>();
+
+            services.AddScoped<SitemapBuilder>();
+
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
             services.AddMvc();
 
