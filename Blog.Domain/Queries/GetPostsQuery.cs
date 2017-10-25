@@ -1,4 +1,5 @@
 ﻿using Blog.Data;
+using Blog.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -22,7 +23,7 @@ namespace Blog.Domain.Queries
 
         public IQueryable<Post> Build()
         {
-            var query = context.Posts.Include(p => p.Category).Where(p => p.PublicationDate.HasValue);
+            var query = context.Posts.Include(p => p.Category).PublishedOnly();
             if (!string.IsNullOrEmpty(this.categoryCode))
             {
                 query = query.Where(p => p.Category.Code.ToLower() == this.categoryCode.ToLower());

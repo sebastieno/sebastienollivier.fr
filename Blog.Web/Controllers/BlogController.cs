@@ -29,8 +29,7 @@ namespace Blog.Web.Controllers
             {
                 page = 1;
             }
-
-
+            
             var query = this.queryCommandBuilder.Build<GetPostsQuery>().ForCategory(categoryCode).Build();
             var pagesCount = Math.Ceiling((double)query.Count() / postsPerPage);
 
