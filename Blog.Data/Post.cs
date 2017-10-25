@@ -57,7 +57,7 @@ namespace Blog.Data
             }
             set
             {
-                this.InternalTags = String.Join(',', value);
+                this.InternalTags = String.Join(",", value);
             }
         }
     }
