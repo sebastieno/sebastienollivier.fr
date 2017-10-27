@@ -7,29 +7,24 @@ using Blog.Data;
 using Blog.Domain.Queries;
 using Microsoft.EntityFrameworkCore;
 using Blog.Functions.SearchIndexer.BindingRedirectHelper;
+using Blog.SearchIndexer;
 
 namespace Blog.Functions.SearchIndexer
 {
-    public static class SearchIndexer
+    public static class SearchIndexerFunction
     {
-        static SearchIndexer()
+        static SearchIndexerFunction()
         {
             ApplicationHelper.Startup();
         }
 
-        [FunctionName("SearchIndexer")]
+        [FunctionName("SearchIndexerFunction")]
         public static async Task Run([TimerTrigger("0 */5 * * * *")]TimerInfo myTimer, TraceWriter log)
         {
             log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
 
-            var optionsBuilder = new DbContextOptionsBuilder<BlogContext>();
-            optionsBuilder.UseSqlServer(ConfigurationManager.AppSettings["BlogConnection"]);
-
-            var dbContext = new BlogContext(optionsBuilder.Options);
-
-            var posts = await new GetPostsQuery(dbContext).Build().ToListAsync();
-
-            log.Info($"{posts.Count} posts found");
+            var searchIndexer = new Indexer();
+            await searchIndexer.LaunchIndexation(ConfigurationManager.AppSettings["BlogConnection"], ConfigurationManager.AppSettings["AzureSearchName"], ConfigurationManager.AppSettings["AzureSearchKey"]);
         }
     }
 }
