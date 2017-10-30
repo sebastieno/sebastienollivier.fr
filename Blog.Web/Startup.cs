@@ -49,6 +49,8 @@ namespace Blog.Web
             {
                 options.Filters.Add(new RequireHttpsAttribute());
             });
+
+            services.AddApplicationInsightsTelemetry(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
