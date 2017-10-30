@@ -3,7 +3,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using System.Configuration;
 using System.Threading.Tasks;
-using Blog.Data; 
+using Blog.Data;
 using Blog.Domain.Queries;
 using Microsoft.EntityFrameworkCore;
 using Blog.Functions.SearchIndexer.BindingRedirectHelper;
@@ -23,8 +23,8 @@ namespace Blog.Functions.SearchIndexer
         {
             log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
 
-            var searchIndexer = new Indexer();
-            await searchIndexer.LaunchIndexation(ConfigurationManager.AppSettings["BlogConnection"], ConfigurationManager.AppSettings["AzureSearchName"], ConfigurationManager.AppSettings["AzureSearchKey"]);
+            var searchIndexer = new Indexer(ConfigurationManager.AppSettings["BlogConnection"], ConfigurationManager.AppSettings["AzureSearchName"], ConfigurationManager.AppSettings["AzureSearchKey"]);
+            await searchIndexer.LaunchIndexation();
         }
     }
 }

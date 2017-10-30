@@ -11,23 +11,41 @@ namespace Blog.SearchIndexer
 {
     public class Indexer
     {
-        public async Task LaunchIndexation(string databaseConnectionString, string azureSearchName, string azureSearchKey)
+        private readonly string IndexName = "posts";
+
+        private readonly string databaseConnectionString;
+        private readonly string azureSearchName;
+        private readonly string azureSearchKey;
+
+        public Indexer(string databaseConnectionString, string azureSearchName, string azureSearchKey)
+        {
+            this.databaseConnectionString = databaseConnectionString;
+            this.azureSearchName = azureSearchName;
+            this.azureSearchKey = azureSearchKey;
+        }
+
+        public async Task LaunchIndexation()
         {
             var optionsBuilder = new DbContextOptionsBuilder<BlogContext>();
-            optionsBuilder.UseSqlServer(databaseConnectionString);
+            optionsBuilder.UseSqlServer(this.databaseConnectionString);
 
+            IEnumerable<Post> posts = null;
             using (var dbContext = new BlogContext(optionsBuilder.Options))
             {
-                var posts = await new GetPostsQuery(dbContext).Build().ToListAsync();
+                posts = await new GetPostsQuery(dbContext).Build().ToListAsync();
             }
+
+            await this.IndexPosts(this.azureSearchName, this.azureSearchKey, posts);
         }
 
         public async Task IndexPosts(string azureSearchName, string azureSearchKey, IEnumerable<Post> posts)
         {
             var searchService = new SearchServiceClient(azureSearchName, new SearchCredentials(azureSearchKey));
 
-            var fields = new Field[]
+            if (!await searchService.Indexes.ExistsAsync(this.IndexName))
             {
+                var fields = new Field[]
+           {
                 new Field("id", DataType.String) { IsKey = true },
                 new Field("url", DataType.String) { IsSearchable = true },
                 new Field("publicationDate", DataType.DateTimeOffset) { IsFilterable = true, IsSortable = true },
@@ -35,21 +53,19 @@ namespace Blog.SearchIndexer
                 new Field("category", DataType.String) { IsSearchable = true, IsFilterable = true,  IsSortable = true},
                 new Field("title", DataType.String) { IsSearchable = true, IsSortable = true, IsFilterable = true },
                 new Field("description", DataType.String) { IsSearchable = true },
-                new Field("content", DataType.String) { IsSearchable = true }
-            };
+                new Field("content", DataType.String) { IsSearchable = true, IsRetrievable = false }
+           };
 
-            var index = new Microsoft.Azure.Search.Models.Index
-            {
-                Name = "posts",
-                Fields = fields
-            };
+                var index = new Microsoft.Azure.Search.Models.Index
+                {
+                    Name = this.IndexName,
+                    Fields = fields
+                };
 
-            if (!await searchService.Indexes.ExistsAsync(index.Name))
-            {
                 await searchService.Indexes.CreateAsync(index);
             }
 
-            var indexClient = searchService.Indexes.GetClient("post");
+            var indexClient = searchService.Indexes.GetClient(this.IndexName);
 
             var batch = IndexBatch.Upload(posts.Select(PostSearchModel.FromPost));
             await indexClient.Documents.IndexAsync(batch);

@@ -1,9 +1,11 @@
 ﻿using Blog.Data;
+using Microsoft.Azure.Search.Models;
 using System;
 using System.Linq;
 
 namespace Blog.SearchIndexer
 {
+    [SerializePropertyNamesAsCamelCase]
     public class PostSearchModel
     {
         public string Id { get; set; }
