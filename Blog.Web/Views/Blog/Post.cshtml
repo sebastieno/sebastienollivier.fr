@@ -1,7 +1,7 @@
-﻿@model Blog.Data.Post
+﻿@model Blog.Web.Models.PostModel
 
 @{
-    var absolutePostUrl = Url.Action("Post", "Blog", new { categoryCode = Model.Category.Code, postUrl = Model.Url }, this.Context.Request.IsHttps ? "https" : "http");
+    var absolutePostUrl = Url.Action("Post", "Blog", new { categoryCode = Model.CategoryCode, postUrl = Model.Url }, this.Context.Request.IsHttps ? "https" : "http");
     ViewBag.Title = Model.Title;
     ViewBag.Description = Model.Title;
 }

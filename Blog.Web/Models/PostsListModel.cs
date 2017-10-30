@@ -5,7 +5,7 @@ namespace Blog.Web.Models
 {
     public class PostsListModel
     {
-        public IEnumerable<Post> Posts { get; set; }
+        public IEnumerable<PostModel> Posts { get; set; }
 
         public int CurrentPageIndex { get; set; }
 

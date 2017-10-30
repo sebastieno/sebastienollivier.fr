@@ -1,4 +1,5 @@
 ﻿using Blog.Data;
+using Blog.Domain.Entities;
 using Blog.Domain.Queries;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;

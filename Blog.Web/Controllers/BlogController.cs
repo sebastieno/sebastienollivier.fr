@@ -23,27 +23,40 @@ namespace Blog.Web.Controllers
 
         [Route("category/{categoryCode}", Name = "PostsListForCategory")]
         [Route("", Name = "PostsList")]
-        public async Task<ActionResult> List(string categoryCode = null, int page = 1)
+        public async Task<ActionResult> List(string categoryCode = null, string search = null, int page = 1)
         {
             if (page < 1)
             {
                 page = 1;
             }
 
-
-            var query = this.queryCommandBuilder.Build<GetPostsQuery>().ForCategory(categoryCode).Build();
-            var pagesCount = Math.Ceiling((double)query.Count() / postsPerPage);
-
-            var posts = await query.Paginate((page - 1) * postsPerPage, postsPerPage).ToListAsync();
-
-            var model = new PostsListModel
+            if (string.IsNullOrEmpty(search))
             {
-                Posts = posts,
-                CurrentPageIndex = page,
-                TotalPageNumber = pagesCount
-            };
+                var query = this.queryCommandBuilder.Build<GetPostsQuery>().ForCategory(categoryCode).Build();
+                var posts = await query.Paginate((page - 1) * postsPerPage, postsPerPage).ToListAsync();
 
-            return View(model);
+                var model = new PostsListModel
+                {
+                    TotalPageNumber = Math.Ceiling((double)query.Count() / postsPerPage),
+                    Posts = posts.Select(PostModel.FromPost),
+                    CurrentPageIndex = page
+                };
+
+                return View(model);
+            }
+            else
+            {
+                var searchResult = await this.queryCommandBuilder.Build<GetPostsFromSearchQuery>().ExecuteAsync(search);
+
+                var model = new PostsSearchListModel
+                {
+                    TotalPageNumber = searchResult.Count.HasValue ? searchResult.Count.Value : page,
+                    Posts = searchResult.Results.Select(r => r.Document).Select(PostModel.FromSearchModel),
+                    CurrentPageIndex = page
+                };
+
+                return View(model);
+            }
         }
 
         [Route("{categoryCode}/{postUrl}", Order = 3)]

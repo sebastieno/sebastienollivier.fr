@@ -2,12 +2,12 @@
 
 @foreach (var post in Model.Posts)
 {
-    var postUrl = Url.Action("Post", new { categoryCode = post.Category.Code, postUrl = post.Url });
+    var postUrl = Url.Action("Post", new { categoryCode = post.CategoryCode, postUrl = post.Url });
     <div class="post">
         @Html.Partial("_PostHeader", post)
 
         <div class="postdata">
-            @Html.Raw(post.ComputedDescription)
+            @Html.Raw(post.Description)
             <p>
                 <a href="@postUrl#more" class="more-link">(lire plus&#8230;)</a>
             </p>

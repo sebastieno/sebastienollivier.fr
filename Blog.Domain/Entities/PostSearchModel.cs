@@ -3,7 +3,7 @@ using Microsoft.Azure.Search.Models;
 using System;
 using System.Linq;
 
-namespace Blog.SearchIndexer
+namespace Blog.Domain.Entities
 {
     [SerializePropertyNamesAsCamelCase]
     public class PostSearchModel
