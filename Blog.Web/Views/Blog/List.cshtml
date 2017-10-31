@@ -14,45 +14,4 @@
     </div>
 }
 
-@if (Model.CurrentPageIndex > 1)
-{
-    if (Model.CurrentPageIndex == 2)
-    {
-        if (ViewContext.RouteData.Values["categoryCode"] != null)
-        {
-            @Html.RouteLink("« Nouveaux Posts", "PostsListForCategory", new { categoryCode = ViewContext.RouteData.Values["categoryCode"] });
-        }
-        else
-        {
-            @Html.RouteLink("« Nouveaux Posts", "PostsList", new { search = ViewContext.HttpContext.Request.Query["search"] });
-        }
-    }
-    else
-    {
-        if (ViewContext.RouteData.Values["categoryCode"] != null)
-        {
-            @Html.RouteLink("« Nouveaux Posts", "PostsListForCategory", new { categoryCode = ViewContext.RouteData.Values["categoryCode"], page = Model.CurrentPageIndex - 1 });
-        }
-        else
-        {
-            @Html.RouteLink("« Nouveaux Posts", "PostsList", new { page = Model.CurrentPageIndex - 1, search = ViewContext.HttpContext.Request.Query["search"] });
-        }
-    }
-}
-
-@if (Model.CurrentPageIndex > 1 && Model.CurrentPageIndex < Model.TotalPageNumber)
-{
-    <text> — </text>
-}
-
-@if (Model.CurrentPageIndex < Model.TotalPageNumber)
-{
-    if (ViewContext.RouteData.Values["categoryCode"] != null)
-    {
-        @Html.RouteLink("Anciens Posts »", "PostsListForCategory", new { categoryCode = ViewContext.RouteData.Values["categoryCode"], page = Model.CurrentPageIndex + 1 });
-    }
-    else
-    {
-        @Html.RouteLink("Anciens Posts »", "PostsList", new { page = Model.CurrentPageIndex + 1, search = ViewContext.HttpContext.Request.Query["search"] });
-    }
-}
+@Html.Partial("_Pager", Model)
