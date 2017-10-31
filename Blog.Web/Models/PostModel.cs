@@ -51,7 +51,7 @@ namespace Blog.Web.Models
                 Content = post.Content,
                 PublicationDate = post.PublicationDate,
                 Category = post.Category,
-                //CategoryCode = post.Category.Code,
+                CategoryCode = post.CategoryCode,
                 Tags = post.Tags
             };
         }

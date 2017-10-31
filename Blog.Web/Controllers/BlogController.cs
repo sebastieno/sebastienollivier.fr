@@ -46,16 +46,17 @@ namespace Blog.Web.Controllers
             }
             else
             {
-                var searchResult = await this.queryCommandBuilder.Build<GetPostsFromSearchQuery>().ExecuteAsync(search);
+                var searchResult = await this.queryCommandBuilder.Build<GetPostsFromSearchQuery>().Paginate((page - 1) * postsPerPage, postsPerPage).ExecuteAsync(search);
 
                 var model = new PostsSearchListModel
                 {
-                    TotalPageNumber = searchResult.Count.HasValue ? searchResult.Count.Value : page,
+                    Search = search,
+                    TotalPageNumber = searchResult.Count.HasValue ? Math.Ceiling((double)searchResult.Count.Value / postsPerPage): page,
                     Posts = searchResult.Results.Select(r => r.Document).Select(PostModel.FromSearchModel),
                     CurrentPageIndex = page
                 };
 
-                return View(model);
+                return View("SearchList", model);
             }
         }
 
@@ -68,7 +69,7 @@ namespace Blog.Web.Controllers
                 return new NotFoundResult();
             }
 
-            return View(post);
+            return View(PostModel.FromPost(post));
         }
 
         [Route("draft/{id}/{postUrl}")]
@@ -83,7 +84,7 @@ namespace Blog.Web.Controllers
 
             post.PublicationDate = new DateTime();
 
-            return View(post);
+            return View(PostModel.FromPost(post));
         }
     }
 }

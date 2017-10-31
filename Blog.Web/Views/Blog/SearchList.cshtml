@@ -1,0 +1,8 @@
+﻿@model Blog.Web.Models.PostsSearchListModel
+@{
+    ViewBag.Search = Model.Search;
+}
+
+<p>Résultat(s) pour la recherche '@Model.Search' :</p>
+
+@Html.Partial("List", Model)

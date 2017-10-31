@@ -7,22 +7,22 @@
 
     @if (ViewBag.Title != null)
     {
-    <title>@ViewBag.Title</title>
+        <title>@ViewBag.Title</title>
     }
     else
     {
-    <title>Blog de Sébastien Ollivier</title>
+        <title>Blog de Sébastien Ollivier</title>
     }
 
     <meta name="robots" content="all" />
 
     @if (ViewBag.Description != null)
     {
-    <meta name="description" content="@ViewBag.Description" />
+        <meta name="description" content="@ViewBag.Description" />
     }
     else
     {
-    <meta name="description" content="Je parle de ASP.NET Core, d'Angular, de Web et de bien d'autres trucs cool ! Bonne lecture." />
+        <meta name="description" content="Je parle de ASP.NET Core, d'Angular, de Web et de bien d'autres trucs cool ! Bonne lecture." />
     }
 
     @RenderSection("meta", required: false)
@@ -38,7 +38,7 @@
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-27136294-1']);
         _gaq.push(['_trackPageview']);
-        (function() {
+        (function () {
             var ga = document.createElement('script');
             ga.type = 'text/javascript';
             ga.async = true;
@@ -64,10 +64,10 @@
                 <a asp-controller="Home" asp-action="Index" class="more-about"></a>
             </div>
             <div class="clear"></div>
-            <div class="categories">
-                <cache expires-after="@TimeSpan.FromDays(1)">
-                    @await Component.InvokeAsync("Categories")
-                </cache>
+            <div class="search">
+                <form asp-action="List" asp-controller="Blog" method="get">
+                    <input type="text" placeholder="Je recherche..." name="search" value="@ViewBag.Search" />
+                </form>
             </div>
         </div>
     </section>

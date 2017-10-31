@@ -52,6 +52,7 @@ namespace Blog.SearchIndexer
                 new Field("publicationDate", DataType.DateTimeOffset) { IsFilterable = true, IsSortable = true },
                 new Field("tags", DataType.Collection(DataType.String)) { IsSearchable = true, IsFilterable = true, IsFacetable = true },
                 new Field("category", DataType.String) { IsSearchable = true, IsFilterable = true,  IsSortable = true},
+                new Field("categoryCode", DataType.String) { IsSearchable = false, IsFilterable = false},
                 new Field("title", DataType.String) { IsSearchable = true, IsSortable = true, IsFilterable = true },
                 new Field("description", DataType.String) { IsSearchable = true },
                 new Field("content", DataType.String) { IsSearchable = true, IsRetrievable = false }

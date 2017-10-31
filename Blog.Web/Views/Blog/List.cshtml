@@ -2,10 +2,9 @@
 
 @foreach (var post in Model.Posts)
 {
-    var postUrl = Url.Action("Post", new { categoryCode = post.CategoryCode, postUrl = post.Url });
+    var postUrl = Url.Action("Post", "Blog", new { categoryCode = post.CategoryCode, postUrl = post.Url });
     <div class="post">
         @Html.Partial("_PostHeader", post)
-
         <div class="postdata">
             @Html.Raw(post.Description)
             <p>
@@ -25,7 +24,7 @@
         }
         else
         {
-            @Html.RouteLink("« Nouveaux Posts", "PostsList");
+            @Html.RouteLink("« Nouveaux Posts", "PostsList", new { search = ViewContext.HttpContext.Request.Query["search"] });
         }
     }
     else
@@ -36,7 +35,7 @@
         }
         else
         {
-            @Html.RouteLink("« Nouveaux Posts", "PostsList", new { page = Model.CurrentPageIndex - 1 });
+            @Html.RouteLink("« Nouveaux Posts", "PostsList", new { page = Model.CurrentPageIndex - 1, search = ViewContext.HttpContext.Request.Query["search"] });
         }
     }
 }
@@ -54,6 +53,6 @@
     }
     else
     {
-        @Html.RouteLink("Anciens Posts »", "PostsList", new { page = Model.CurrentPageIndex + 1 });
+        @Html.RouteLink("Anciens Posts »", "PostsList", new { page = Model.CurrentPageIndex + 1, search = ViewContext.HttpContext.Request.Query["search"] });
     }
 }
