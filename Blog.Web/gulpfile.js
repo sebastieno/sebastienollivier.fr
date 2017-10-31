@@ -38,15 +38,14 @@ gulp.task('copy-images', function () {
         .pipe(gulp.dest('./wwwroot/images'));
 });
 
-gulp.task('server', function () {
-    gulp.src('./')
-       .pipe(shell(['dnx-watch web ASPNET_ENV=Development']));
-});
-
 gulp.task('default', ['compile-less', 'copy-images'], function () {
     browserSync.init(null, {
-        proxy: "localhost:5000"
+        proxy: "https://localhost:44322"
     });
 
-    watch('./Styles/**/*.less', ['compile-less']);
+    watch('./Styles/**/*.less', ['compile-less'], function () {
+        gulp.start('compile-less', function () {
+            browserSync.reload();
+        });
+    });
 });
