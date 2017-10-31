@@ -5,4 +5,8 @@
 
 <p>Résultat(s) pour la recherche '@Model.Search' :</p>
 
-@Html.Partial("List", Model)
+@if(Model.Posts.Any()) {
+    @Html.Partial("List", Model)
+} else {
+    <p>Aucun résultat</p>
+}
