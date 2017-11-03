@@ -1,129 +1,28 @@
-﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
 <!DOCTYPE html>
-<html lang="fr">
-<head>
+<html>
+  <head>
+    <base href="@(Url.Content("~/"))" />
+    <title>@ViewData["Title"]</title>
+
     <meta charset="utf-8" />
-    <meta name="author" content="Sébastien Ollivier" />
-    <meta name="copyright" content="2011 - @DateTime.Now.Year © Sébastien Ollivier" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @Html.Raw(ViewData["Meta"])
+    @Html.Raw(ViewData["Links"])
 
-    @if (ViewBag.Title != null)
-    {
-    <title>@ViewBag.Title</title>
-    }
-    else
-    {
-    <title>Blog de Sébastien Ollivier</title>
-    }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/0.8.2/css/flag-icon.min.css" />
+    <!-- <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" /> -->
 
-    <meta name="robots" content="all" />
+    @Html.Raw(ViewData["Styles"])
 
-    @if (ViewBag.Description != null)
-    {
-    <meta name="description" content="@ViewBag.Description" />
-    }
-    else
-    {
-    <meta name="description" content="Je parle de ASP.NET Core, d'Angular, de Web et de bien d'autres trucs cool ! Bonne lecture." />
-    }
+  </head>
+  <body>
+    @RenderBody()
 
-    @RenderSection("meta", required: false)
+    <!-- Here we're passing down any data to be used by grabbed and parsed by Angular -->
+    @Html.Raw(ViewData["TransferData"])
+    @Html.Raw(ViewData["Scripts"])
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="application-name" content="S&eacute;bastien Ollivier" />
-    <meta name="msapplication-starturl" content="https://sebastienollivier.fr/" />
-    <meta name="msapplication-TileImage" content="/favicon.png" />
+    @RenderSection("scripts", required: false)
 
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Condensed:700|Lobster">
-
-    <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-27136294-1']);
-        _gaq.push(['_trackPageview']);
-        (function() {
-            var ga = document.createElement('script');
-            ga.type = 'text/javascript';
-            ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(ga, s);
-        })();
-    </script>
-
-    <link rel="stylesheet" href="/styles/style.css" />
-    @Html.Raw(JavaScriptSnippet.FullScript)
-</head>
-<body>
-    <section role="presentation" class="presentation">
-        <div class="container">
-            <div class="me">
-                <a asp-route="PostsList">
-                    <img src="/styles/images/headshot.png" alt="Moi" class="headshot" />
-                </a>
-                <div class="name">Sébastien Ollivier</div>
-                <p class="description">Développeur Web<br /> TechLead Web <a href="https://www.infinitesquare.com" target="_blank">@@InfiniteSquare</a><br /> Microsoft <a href="https://mvp.microsoft.com/en-us/mvp/S%C3%A9bastien%20Ollivier-5001163" target="_blank">MVP ASP.NET / IIS</a></p>
-            </div>
-            <div class="socials">
-                <a asp-controller="Home" asp-action="Index" class="more-about"></a>
-            </div>
-            <div class="clear"></div>
-            <div class="categories">
-                <cache expires-after="@TimeSpan.FromDays(1)">
-                    @await Component.InvokeAsync("Categories")
-                </cache>
-            </div>
-        </div>
-    </section>
-
-    <section role="main" class="main">
-        <div class="container">
-            @RenderBody()
-        </div>
-    </section>
-
-    <div id="fb-root"></div>
-
-    <script src='/scripts/syntaxhighlighter.js' defer async></script>
-
-    <script type="text/javascript">
-        (function (w, d, s) {
-            function socials() {
-                var js, fjs = d.getElementsByTagName(s)[0], load = function (url, id) {
-                    if (d.getElementById(id)) { return; }
-                    js = d.createElement(s); js.src = url; js.id = id;
-                    fjs.parentNode.insertBefore(js, fjs);
-                };
-                load('//connect.facebook.net/en_US/all.js#xfbml=1&appId=310837429005416', 'fbjssdk');
-                load('//platform.twitter.com/widgets.js', 'tweetjs');
-                load('//apis.google.com/js/plusone.js', 'gplus1js');
-            }
-
-            function css(url) {
-                var el = d.createElement('link');
-                el.rel = 'stylesheet';
-                el.type = 'text/css';
-                el.href = url;
-                d.getElementsByTagName('head')[0].appendChild(el);
-            }
-
-            function img() {
-                var imgs = d.getElementsByTagName('img');
-                for (var i = 0; i < imgs.length; i++) {
-                    if (imgs[i].getAttribute('data-src')) {
-                        imgs[i].setAttribute('src', imgs[i].getAttribute('data-src'));
-                    }
-                }
-            }
-
-            function go() {
-                css("/styles/syntaxhighlighter.css");
-                img();
-                socials();
-            }
-
-            if (w.addEventListener) { w.addEventListener("load", go, false); }
-            else if (w.attachEvent) { w.attachEvent("onload", go); }
-        }(window, document, 'script'));
-    </script>
-</body>
-
+  </body>
 </html>
