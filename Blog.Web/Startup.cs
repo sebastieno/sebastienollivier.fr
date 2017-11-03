@@ -1,87 +1,140 @@
-﻿using System.Collections.Generic;
+using System;
+using System.IO;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Blog.Data;
-using System.Globalization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Blog.Domain.Queries;
+using Swashbuckle.AspNetCore.Swagger;
+using Blog.Data;
 using Blog.Domain;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Rewrite;
-using Blog.Web.Sitemap;
+using Blog.Domain.Queries;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using System.Collections.Generic;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace Blog.Web
 {
-    public class Startup
+  public class Startup
+  {
+
+    public static void Main(string[] args)
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+      var host = new WebHostBuilder()
+          .UseKestrel()
+          .UseContentRoot(Directory.GetCurrentDirectory())
+          .UseIISIntegration()
+          .UseStartup<Startup>()
+          .Build();
 
-        public IConfiguration Configuration { get; }
+      host.Run();
+    }
+    public Startup(IHostingEnvironment env)
+    {
+      var builder = new ConfigurationBuilder()
+          .SetBasePath(env.ContentRootPath)
+          .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+          .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+          .AddEnvironmentVariables();
+      Configuration = builder.Build();
+    }
 
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddEntityFrameworkSqlServer()
-                .AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration["Data:BlogConnection:ConnectionString"]));
-            services.AddScoped<IBlogContext>(provider => provider.GetService<BlogContext>());
+    public IConfigurationRoot Configuration { get; }
 
-            services.AddScoped<QueryCommandBuilder>();
-            services.AddScoped<GetCategoriesWithPostsNumberQuery>();
-            services.AddScoped<GetDraftQuery>();
-            services.AddScoped<GetPostQuery>();
-            services.AddScoped<GetPostsQuery>();
-            services.AddScoped<GetCategoriesQuery>();
+    // This method gets called by the runtime. Use this method to add services to the container.
+    public void ConfigureServices(IServiceCollection services)
+    {
 
-            services.AddScoped<SitemapBuilder>();
+      services.AddEntityFrameworkSqlServer()
+          .AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration["Data:BlogConnection:ConnectionString"]));
+      services.AddScoped<IBlogContext>(provider => provider.GetService<BlogContext>());
 
-            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+      services.AddScoped<QueryCommandBuilder>();
+      services.AddScoped<GetCategoriesWithPostsNumberQuery>();
+      services.AddScoped<GetDraftQuery>();
+      services.AddScoped<GetPostQuery>();
+      services.AddScoped<GetPostsQuery>();
+      services.AddScoped<GetCategoriesQuery>();
 
-            services.AddMvc();
 
-            services.Configure<MvcOptions>(options =>
-            {
-                options.Filters.Add(new RequireHttpsAttribute());
-            });
+      services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
-            services.AddApplicationInsightsTelemetry(Configuration);
-        }
+      services.AddMvc();
+      services.AddNodeServices();
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+      services.AddSwaggerGen(c =>
+      {
+        c.SwaggerDoc("v1", new Info { Title = "Angular 5.0 Universal & ASP.NET Core advanced starter-kit web API", Version = "v1" });
+      });
+    }
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+    {
+      loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+      loggerFactory.AddDebug();
 
-            var options = new RewriteOptions().AddRedirectToHttps();
-            app.UseRewriter(options);
+      app.UseStaticFiles();
 
-            app.UseStaticFiles();
-
-            app.UseRequestLocalization(new RequestLocalizationOptions()
-            {
-                SupportedCultures = new List<CultureInfo>
+      app.UseRequestLocalization(new RequestLocalizationOptions()
+      {
+        SupportedCultures = new List<CultureInfo>
                 {
                     new CultureInfo("fr"),
                 },
-                DefaultRequestCulture = new RequestCulture("fr")
-            });
+        DefaultRequestCulture = new RequestCulture("fr")
+      });
 
-            app.UseMvc();
-        }
+      if (env.IsDevelopment())
+      {
+        app.UseDeveloperExceptionPage();
+        app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+        {
+          HotModuleReplacement = true,
+          HotModuleReplacementEndpoint = "/dist/"
+        });
+        app.UseSwagger();
+        app.UseSwaggerUI(c =>
+        {
+          c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+        });
+
+        // Enable middleware to serve swagger-ui (HTML, JS, CSS etc.), specifying the Swagger JSON endpoint.
+
+
+        app.MapWhen(x => !x.Request.Path.Value.StartsWith("/swagger", StringComparison.OrdinalIgnoreCase), builder =>
+        {
+          builder.UseMvc(routes =>
+          {
+            routes.MapSpaFallbackRoute(
+                name: "spa-fallback",
+                defaults: new { controller = "Home", action = "Index" });
+          });
+        });
+      }
+      else
+      {
+        app.UseMvc(routes =>
+        {
+          routes.MapRoute(
+           name: "default",
+           template: "{controller=Home}/{action=Index}/{id?}");
+
+          routes.MapRoute(
+           "Sitemap",
+           "sitemap.xml",
+           new { controller = "Home", action = "SitemapXml" });
+
+          routes.MapSpaFallbackRoute(
+            name: "spa-fallback",
+            defaults: new { controller = "Home", action = "Index" });
+
+        });
+        app.UseExceptionHandler("/Home/Error");
+      }
     }
+  }
 }

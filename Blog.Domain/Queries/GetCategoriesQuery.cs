@@ -1,5 +1,4 @@
 ﻿using Blog.Data;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace Blog.Domain.Queries

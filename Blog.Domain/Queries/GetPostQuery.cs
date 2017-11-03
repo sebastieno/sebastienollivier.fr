@@ -1,5 +1,4 @@
 ﻿using Blog.Data;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Blog.Domain.Entities;

@@ -1,6 +1,4 @@
-﻿using Blog.Data;
-
-namespace Blog.Domain.Entities
+﻿namespace Blog.Domain.Entities
 {
     public class CategoryWithPostsNumber
     {
