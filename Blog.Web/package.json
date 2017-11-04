@@ -65,7 +65,6 @@
     "zone.js": "^0.8.17"
   },
   "devDependencies": {
-    "@angular/cli": "^1.5.0",
     "@ngtools/webpack": "^1.8.0",
     "@types/chai": "^3.4.34",
     "@types/jasmine": "^2.5.37",
@@ -86,4 +85,3 @@
     "tslint": "^5.7.0",
     "webpack-bundle-analyzer": "^2.9.0"
   }
-}
