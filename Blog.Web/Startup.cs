@@ -54,30 +54,25 @@ namespace Blog.Web
       services.AddEntityFrameworkSqlServer()
             .AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration["Data:BlogConnection:ConnectionString"]));
       services.AddScoped<IBlogContext>(provider => provider.GetService<BlogContext>());
-
       services.AddScoped<QueryCommandBuilder>();
       services.AddScoped<GetCategoriesWithPostsNumberQuery>();
       services.AddScoped<GetDraftQuery>();
       services.AddScoped<GetPostQuery>();
       services.AddScoped<GetPostsQuery>();
       services.AddScoped<GetCategoriesQuery>();
-
-
       services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-
-
-
       services.AddMvc();
       services.AddNodeServices();
 
       services.AddAuthentication(options =>
       {
         options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-      }).AddJwtBearer(options =>
-          {
-            options.Audience = Configuration["Security:ClientId"];
-            options.Authority = $"https://login.microsoftonline.com/{Configuration["Security:TenantId"]}";
-          });
+      })
+      .AddJwtBearer(options =>
+      {
+        options.Audience = Configuration["Security:ClientId"];
+        options.Authority = $"https://login.microsoftonline.com/{Configuration["Security:TenantId"]}";
+      });
 
       services.AddSwaggerGen(c =>
       {
@@ -92,16 +87,6 @@ namespace Blog.Web
       loggerFactory.AddDebug();
 
       app.UseStaticFiles();
-
-      app.UseRequestLocalization(new RequestLocalizationOptions()
-      {
-        SupportedCultures = new List<CultureInfo>
-                {
-                    new CultureInfo("fr"),
-                },
-        DefaultRequestCulture = new RequestCulture("fr")
-      });
-
       app.UseAuthentication();
 
       if (env.IsDevelopment())
@@ -117,9 +102,6 @@ namespace Blog.Web
         {
           c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
         });
-
-        // Enable middleware to serve swagger-ui (HTML, JS, CSS etc.), specifying the Swagger JSON endpoint.
-
 
         app.MapWhen(x => !x.Request.Path.Value.StartsWith("/swagger", StringComparison.OrdinalIgnoreCase), builder =>
         {
