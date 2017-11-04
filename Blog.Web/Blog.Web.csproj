@@ -25,11 +25,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ClientApp\app\components\" />
-    <Folder Include="ClientApp\app\models\" />
     <Folder Include="ClientApp\app\shared\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Blog.Domain\Blog.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\models\Category.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\Post.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="appsettings.json">
