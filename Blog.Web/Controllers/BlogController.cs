@@ -7,6 +7,7 @@ using Blog.Domain.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Blog.Domain;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Blog.Web.Controllers
 {
@@ -59,9 +60,16 @@ namespace Blog.Web.Controllers
       return Json(post);
     }
 
+    [HttpPost]
+    [Route("")]
+    [Authorize(Roles="Blogger")]
+    public async Task<IActionResult> PostBlog(){
+      return Ok();
+    }
+
     [Route("draft/{id}/{postUrl}")]
     [HttpGet]
-    public async Task<ActionResult> Post(int id, string postUrl)
+    public async Task<IActionResult> Post(int id, string postUrl)
     {
       var post = await this.queryCommandBuilder.Build<GetDraftQuery>().ExecuteAsync(id, postUrl);
 

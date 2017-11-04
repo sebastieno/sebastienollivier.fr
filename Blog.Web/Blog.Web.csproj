@@ -24,14 +24,16 @@
     <Content Remove="ClientApp\**" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ClientApp\tsconfig.app.json" />
+    <Content Include="ClientApp\tsconfig.spec.json" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="ClientApp\app\components\" />
     <Folder Include="ClientApp\app\shared\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Blog.Domain\Blog.Domain.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\models\Category.ts" />
+    <ProjectReference Include="..\Blog.Domain\Blog.Domain.csproj" />
     <TypeScriptCompile Include="ClientApp\app\models\Post.ts" />
   </ItemGroup>
   <ItemGroup>
