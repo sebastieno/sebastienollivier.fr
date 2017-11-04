@@ -15,6 +15,9 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Threading.Tasks;
 
 namespace Blog.Web
 {
@@ -47,9 +50,9 @@ namespace Blog.Web
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-
+      services.AddAuthorization();
       services.AddEntityFrameworkSqlServer()
-          .AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration["Data:BlogConnection:ConnectionString"]));
+            .AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration["Data:BlogConnection:ConnectionString"]));
       services.AddScoped<IBlogContext>(provider => provider.GetService<BlogContext>());
 
       services.AddScoped<QueryCommandBuilder>();
@@ -62,8 +65,19 @@ namespace Blog.Web
 
       services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
+
+
       services.AddMvc();
       services.AddNodeServices();
+
+      services.AddAuthentication(options =>
+      {
+        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+      }).AddJwtBearer(options =>
+          {
+            options.Audience = Configuration["Security:ClientId"];
+            options.Authority = $"https://login.microsoftonline.com/{Configuration["Security:TenantId"]}";
+          });
 
       services.AddSwaggerGen(c =>
       {
@@ -87,6 +101,8 @@ namespace Blog.Web
                 },
         DefaultRequestCulture = new RequestCulture("fr")
       });
+
+      app.UseAuthentication();
 
       if (env.IsDevelopment())
       {
