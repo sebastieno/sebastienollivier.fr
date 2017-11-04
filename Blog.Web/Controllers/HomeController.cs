@@ -34,10 +34,6 @@ namespace Blog.Web.Controllers
       xml += "<loc>http://localhost:4251/home</loc>";
       xml += "<lastmod>" + DateTime.Now.ToString("yyyy-MM-dd") + "</lastmod>";
       xml += "</sitemap>";
-      xml += "<sitemap>";
-      xml += "<loc>http://localhost:4251/counter</loc>";
-      xml += "<lastmod>" + DateTime.Now.ToString("yyyy-MM-dd") + "</lastmod>";
-      xml += "</sitemap>";
       xml += "</sitemapindex>";
 
       return Content(xml, "text/xml");

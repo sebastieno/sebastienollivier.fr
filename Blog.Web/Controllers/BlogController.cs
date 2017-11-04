@@ -23,6 +23,7 @@ namespace Blog.Web.Controllers
 
     [Route("category/{categoryCode}", Name = "PostsListForCategory")]
     [Route("", Name = "PostsList")]
+    [HttpGet]
     public async Task<IActionResult> List(string categoryCode = null, int page = 1)
     {
       if (page < 1)
@@ -46,6 +47,7 @@ namespace Blog.Web.Controllers
     }
 
     [Route("{categoryCode}/{postUrl}", Order = 3)]
+    [HttpGet]
     public async Task<IActionResult> Post(string categoryCode, string postUrl)
     {
       var post = await this.queryCommandBuilder.Build<GetPostQuery>().ExecuteAsync(categoryCode, postUrl);
@@ -58,6 +60,7 @@ namespace Blog.Web.Controllers
     }
 
     [Route("draft/{id}/{postUrl}")]
+    [HttpGet]
     public async Task<ActionResult> Post(int id, string postUrl)
     {
       var post = await this.queryCommandBuilder.Build<GetDraftQuery>().ExecuteAsync(id, postUrl);

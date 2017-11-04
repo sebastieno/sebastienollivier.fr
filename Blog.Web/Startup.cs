@@ -67,7 +67,7 @@ namespace Blog.Web
 
       services.AddSwaggerGen(c =>
       {
-        c.SwaggerDoc("v1", new Info { Title = "Angular 5.0 Universal & ASP.NET Core advanced starter-kit web API", Version = "v1" });
+        c.SwaggerDoc("v1", new Info { Title = "Le gg blog", Version = "v1" });
       });
     }
 
@@ -119,19 +119,9 @@ namespace Blog.Web
       {
         app.UseMvc(routes =>
         {
-          routes.MapRoute(
-           name: "default",
-           template: "{controller=Home}/{action=Index}/{id?}");
-
-          routes.MapRoute(
-           "Sitemap",
-           "sitemap.xml",
-           new { controller = "Home", action = "SitemapXml" });
-
           routes.MapSpaFallbackRoute(
             name: "spa-fallback",
             defaults: new { controller = "Home", action = "Index" });
-
         });
         app.UseExceptionHandler("/Home/Error");
       }
