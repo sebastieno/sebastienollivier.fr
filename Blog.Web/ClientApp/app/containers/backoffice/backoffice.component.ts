@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-backoffice',
@@ -7,10 +9,14 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./backoffice.component.scss']
 })
 export class BackofficeComponent implements OnInit {
-
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit() {
-    this.http.post('/api/blog', null, { responseType: 'text' }).subscribe();
+    if (isPlatformBrowser(this.platformId)) {
+      this.http.post('/api/blog', null, { responseType: 'text' }).subscribe();
+    }
   }
 }
