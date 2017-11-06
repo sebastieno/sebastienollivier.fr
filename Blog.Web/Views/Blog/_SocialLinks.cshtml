@@ -1,7 +1,7 @@
-﻿@model Blog.Data.Post
+﻿@model Blog.Web.Models.PostModel
 
 @{ 
-    var postUrl = Url.Action("Post", "Blog", new { categoryCode = Model.Category.Code, postUrl = Model.Url }, this.Context.Request.IsHttps ? "https" : "http");
+    var postUrl = Url.Action("Post", "Blog", new { categoryCode = Model.CategoryCode, postUrl = Model.Url }, this.Context.Request.IsHttps ? "https" : "http");
 }
 
 <div class="mentions">

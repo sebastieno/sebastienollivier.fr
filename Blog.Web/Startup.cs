@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using Blog.Web.Sitemap;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using System;
+using Microsoft.Azure.Search;
 
 namespace Blog.Web
 {
@@ -38,6 +40,12 @@ namespace Blog.Web
             services.AddScoped<GetPostQuery>();
             services.AddScoped<GetPostsQuery>();
             services.AddScoped<GetCategoriesQuery>();
+            services.AddScoped<GetPostsFromSearchQuery>();
+
+            services.AddScoped<SearchServiceClient>((serviceProvider) =>
+            {
+                return new SearchServiceClient(Configuration["Data:AzureSearch:Name"], new SearchCredentials(Configuration["Data:AzureSearch:Key"]));
+            });
 
             services.AddScoped<SitemapBuilder>();
 

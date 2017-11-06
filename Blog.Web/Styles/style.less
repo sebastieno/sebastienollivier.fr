@@ -93,8 +93,18 @@ a, a:visited, a:hover {
     }
 }
 
-.categories {
-    display: none;
+.search {
+    margin: 15px 0 10px 0;
+    text-align: center;
+
+    input {
+        width: 100%;
+        padding: 4px;
+        box-sizing: border-box;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
+        outline: none;
+    }
 }
 
 .postheader {
@@ -200,57 +210,12 @@ a, a:visited, a:hover {
         }
     }
 
-    .categories {
-        margin-top: 100px;
-        display: block;
 
-        ul {
-            list-style-type: none;
-            padding: 0;
-            text-align: center;
+    .search {
+        margin: 30px 0;
 
-            li {
-                display: inline-block;
-
-                a {
-                    position: relative;
-                    display: inline-block;
-                    max-width: 100px;
-                    height: 26px;
-                    line-height: 26px;
-                    padding: 0 2.5em 0 1em;
-                    background-color: #fff;
-                    border: 1px solid #aaa;
-                    white-space: nowrap;
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                    color: #333;
-                    font-size: 13px;
-                    transition: .2s;
-
-                    &:hover {
-                        background-color: @mainColor;
-                        color: #fff;
-
-                        span {
-                            border-left-color: white;
-                            color: white;
-                        }
-                    }
-                }
-
-                span {
-                    position: absolute;
-                    border-left: 1px solid @mainColor;
-                    top: 1px;
-                    right: 3px;
-                    z-index: 2;
-                    width: 22px;
-                    bottom: 1px;
-                    font-size: 12px;
-                    text-align: center;
-                }
-            }
+        input {
+            max-width: 300px;
         }
     }
 
