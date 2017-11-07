@@ -23,7 +23,7 @@ namespace Blog.Functions.SearchIndexer
         {
             log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
 
-            var searchIndexer = new Indexer(ConfigurationManager.AppSettings["BlogConnection"], ConfigurationManager.AppSettings["AzureSearchName"], ConfigurationManager.AppSettings["AzureSearchKey"]);
+            var searchIndexer = new Indexer(ConfigurationManager.AppSettings["BlogConnection"], ConfigurationManager.AppSettings["AzureSearchName"], ConfigurationManager.AppSettings["AzureSearchKey"], ConfigurationManager.AppSettings["AzureSearchIndexName"]);
             await searchIndexer.LaunchIndexation();
         }
     }

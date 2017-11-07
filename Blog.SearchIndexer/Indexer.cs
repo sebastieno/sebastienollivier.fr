@@ -12,17 +12,17 @@ namespace Blog.SearchIndexer
 {
     public class Indexer
     {
-        private readonly string IndexName = "posts";
-
         private readonly string databaseConnectionString;
         private readonly string azureSearchName;
         private readonly string azureSearchKey;
+        private readonly string azureSearchIndexName;
 
-        public Indexer(string databaseConnectionString, string azureSearchName, string azureSearchKey)
+        public Indexer(string databaseConnectionString, string azureSearchName, string azureSearchKey, string azureSearchIndexName)
         {
             this.databaseConnectionString = databaseConnectionString;
             this.azureSearchName = azureSearchName;
             this.azureSearchKey = azureSearchKey;
+            this.azureSearchIndexName = azureSearchIndexName;
         }
 
         public async Task LaunchIndexation()
@@ -43,7 +43,7 @@ namespace Blog.SearchIndexer
         {
             var searchService = new SearchServiceClient(azureSearchName, new SearchCredentials(azureSearchKey));
 
-            if (!await searchService.Indexes.ExistsAsync(this.IndexName))
+            if (!await searchService.Indexes.ExistsAsync(this.azureSearchIndexName))
             {
                 var fields = new Field[]
            {
@@ -60,14 +60,14 @@ namespace Blog.SearchIndexer
 
                 var index = new Microsoft.Azure.Search.Models.Index
                 {
-                    Name = this.IndexName,
+                    Name = this.azureSearchIndexName,
                     Fields = fields
                 };
 
                 await searchService.Indexes.CreateAsync(index);
             }
 
-            var indexClient = searchService.Indexes.GetClient(this.IndexName);
+            var indexClient = searchService.Indexes.GetClient(this.azureSearchIndexName);
 
             var batch = IndexBatch.Upload(posts.Select(PostSearchModel.FromPost));
             await indexClient.Documents.IndexAsync(batch);
