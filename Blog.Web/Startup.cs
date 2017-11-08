@@ -74,7 +74,7 @@ namespace Blog.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/oops");
             }
 
             var options = new RewriteOptions().AddRedirectToHttps();

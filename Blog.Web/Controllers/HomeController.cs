@@ -16,5 +16,11 @@ namespace Blog.Web.Controllers
         {
             throw new ArgumentException("This is a bug");
         }
+
+        [Route("oops")]
+        public ActionResult Oops()
+        {
+            return View();
+        }
     }
 }
