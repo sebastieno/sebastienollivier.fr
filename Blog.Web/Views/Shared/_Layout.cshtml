@@ -67,7 +67,7 @@
             </div>
             <div class="clear"></div>
             <div class="search">
-                <form asp-action="List" asp-controller="Blog" method="get">
+                <form asp-action="List" asp-controller="Blog" asp-route-categorycode="@string.Empty" method="get">
                     <input type="text" placeholder="Je recherche..." name="search" value="@ViewBag.Search" />
                 </form>
             </div>
