@@ -81,6 +81,7 @@ namespace Blog.Web
             app.UseRewriter(options);
 
             app.UseStaticFiles();
+            app.UseStatusCodePagesWithReExecute("/oops/{0}");
 
             app.UseRequestLocalization(new RequestLocalizationOptions()
             {

@@ -1,0 +1,15 @@
+﻿@model Blog.Web.Models.PostModel
+
+@{
+    var postUrl = Url.Action("Post", "Blog", new { categoryCode = Model.CategoryCode, postUrl = Model.Url });
+}
+
+<div class="post">
+    @Html.Partial("_PostHeader", Model)
+    <div class="postdata">
+        @Html.Raw(Model.Description)
+        <p>
+            <a href="@postUrl#more" class="more-link">(lire plus&#8230;)</a>
+        </p>
+    </div>
+</div>

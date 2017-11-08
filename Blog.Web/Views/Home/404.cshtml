@@ -1,0 +1,14 @@
+﻿@model Blog.Web.Models.PostModel
+
+@{
+    ViewBag.Title = "404";
+    ViewBag.Description = "404";
+}
+
+<h1>J'ai l'impression que tu t'es perdu !</h1>
+
+<p>En attendant de retrouver ton chemin, je te propose mon dernier article sur @string.Join(", ", Model.Tags).</p>
+
+<br /><br />
+
+@Html.Partial("_PostResume", Model)
