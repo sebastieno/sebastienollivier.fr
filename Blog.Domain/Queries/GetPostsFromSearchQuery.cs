@@ -7,13 +7,13 @@ namespace Blog.Domain.Queries
 {
     public class GetPostsFromSearchQuery
     {
-        private readonly SearchServiceClient searchServiceClient;
+        private readonly ISearchIndexClient searchIndexClient;
         private int? skip;
         private int? take;
 
-        public GetPostsFromSearchQuery(SearchServiceClient searchServiceClient)
+        public GetPostsFromSearchQuery(ISearchIndexClient searchIndexClient)
         {
-            this.searchServiceClient = searchServiceClient;
+            this.searchIndexClient = searchIndexClient;
         }
 
         public GetPostsFromSearchQuery Paginate(int? skip, int? take)
@@ -26,9 +26,7 @@ namespace Blog.Domain.Queries
 
         public async Task<DocumentSearchResult<PostSearchModel>> ExecuteAsync(string term)
         {
-            var searchIndexClient = this.searchServiceClient.Indexes.GetClient("posts");
-
-            return await searchIndexClient.Documents.SearchAsync<PostSearchModel>(term, new SearchParameters
+            return await this.searchIndexClient.Documents.SearchAsync<PostSearchModel>(term, new SearchParameters
             {
                 Skip = this.skip,
                 Top = this.take,

@@ -42,9 +42,11 @@ namespace Blog.Web
             services.AddScoped<GetCategoriesQuery>();
             services.AddScoped<GetPostsFromSearchQuery>();
 
-            services.AddScoped<SearchServiceClient>((serviceProvider) =>
+            services.AddScoped<ISearchIndexClient>((serviceProvider) =>
             {
-                return new SearchServiceClient(Configuration["Data:AzureSearch:Name"], new SearchCredentials(Configuration["Data:AzureSearch:Key"]));
+                var searchServiceClient = new SearchServiceClient(Configuration["Data:AzureSearch:Name"], new SearchCredentials(Configuration["Data:AzureSearch:Key"]));
+
+                return searchServiceClient.Indexes.GetClient(Configuration["Data:AzureSearch:IndexName"]);
             });
 
             services.AddScoped<SitemapBuilder>();
