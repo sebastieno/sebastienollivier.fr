@@ -34,6 +34,7 @@ namespace Blog.Web.Controllers
         [Route("oops/{statusCode}")]
         public async Task<ActionResult> Oops(int statusCode = 500)
         {
+            Response.StatusCode = statusCode;
             if (statusCode == (int)HttpStatusCode.NotFound)
             {
                 var query = this.queryCommandBuilder.Build<GetPostsQuery>().Build();
