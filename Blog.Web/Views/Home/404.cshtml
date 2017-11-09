@@ -1,0 +1,12 @@
+﻿@model Blog.Web.Models.PostModel
+
+@{
+    ViewBag.Title = "Mais où est-tu allé ?";
+    ViewBag.Description = "404 - Cette page n'existe pas";
+}
+
+<h1>J'ai l'impression que tu t'es perdu !</h1>
+
+<p>En attendant de retrouver ton chemin, je te propose mon dernier article <b>@Model.Title</b> (@string.Join(" #", Model.Tags)) :</p>
+
+@Html.Partial("_PostResume", Model)

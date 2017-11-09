@@ -74,13 +74,14 @@ namespace Blog.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/oops");
             }
 
             var options = new RewriteOptions().AddRedirectToHttps();
             app.UseRewriter(options);
 
             app.UseStaticFiles();
+            app.UseStatusCodePagesWithReExecute("/oops/{0}");
 
             app.UseRequestLocalization(new RequestLocalizationOptions()
             {

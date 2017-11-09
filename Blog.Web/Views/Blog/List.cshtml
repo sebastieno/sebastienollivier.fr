@@ -2,16 +2,7 @@
 
 @foreach (var post in Model.Posts)
 {
-    var postUrl = Url.Action("Post", "Blog", new { categoryCode = post.CategoryCode, postUrl = post.Url });
-    <div class="post">
-        @Html.Partial("_PostHeader", post)
-        <div class="postdata">
-            @Html.Raw(post.Description)
-            <p>
-                <a href="@postUrl#more" class="more-link">(lire plus&#8230;)</a>
-            </p>
-        </div>
-    </div>
+    @Html.Partial("_PostResume", post)
 }
 
 @Html.Partial("_Pager", Model)
