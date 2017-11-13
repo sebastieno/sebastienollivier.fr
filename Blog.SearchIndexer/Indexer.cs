@@ -3,6 +3,7 @@ using Blog.Domain.Entities;
 using Blog.Domain.Queries;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using Microsoft.Azure.WebJobs.Host;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,13 +17,15 @@ namespace Blog.SearchIndexer
         private readonly string azureSearchName;
         private readonly string azureSearchKey;
         private readonly string azureSearchIndexName;
+        private readonly TraceWriter traceWriter;
 
-        public Indexer(string databaseConnectionString, string azureSearchName, string azureSearchKey, string azureSearchIndexName)
+        public Indexer(string databaseConnectionString, string azureSearchName, string azureSearchKey, string azureSearchIndexName, TraceWriter traceWriter)
         {
             this.databaseConnectionString = databaseConnectionString;
             this.azureSearchName = azureSearchName;
             this.azureSearchKey = azureSearchKey;
             this.azureSearchIndexName = azureSearchIndexName;
+            this.traceWriter = traceWriter;
         }
 
         public async Task LaunchIndexation()
@@ -30,11 +33,14 @@ namespace Blog.SearchIndexer
             var optionsBuilder = new DbContextOptionsBuilder<BlogContext>();
             optionsBuilder.UseSqlServer(this.databaseConnectionString);
 
+            this.traceWriter.Info("Getting posts...");
             IEnumerable<Post> posts = null;
             using (var dbContext = new BlogContext(optionsBuilder.Options))
             {
                 posts = await new GetPostsQuery(dbContext).Build().ToListAsync();
             }
+
+            this.traceWriter.Info($"{posts.Count()} posts founded");
 
             await this.IndexPosts(this.azureSearchName, this.azureSearchKey, posts);
         }
@@ -69,6 +75,7 @@ namespace Blog.SearchIndexer
 
             var indexClient = searchService.Indexes.GetClient(this.azureSearchIndexName);
 
+            this.traceWriter.Info("Indexing posts");
             var batch = IndexBatch.Upload(posts.Select(PostSearchModel.FromPost));
             await indexClient.Documents.IndexAsync(batch);
         }
