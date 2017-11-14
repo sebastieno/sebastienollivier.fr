@@ -16,6 +16,7 @@ using Blog.Web.Sitemap;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.ResponseCompression;
 using System;
+using Microsoft.Azure.Search;
 
 namespace Blog.Web
 {
@@ -40,6 +41,14 @@ namespace Blog.Web
             services.AddScoped<GetPostQuery>();
             services.AddScoped<GetPostsQuery>();
             services.AddScoped<GetCategoriesQuery>();
+            services.AddScoped<GetPostsFromSearchQuery>();
+
+            services.AddScoped<ISearchIndexClient>((serviceProvider) =>
+            {
+                var searchServiceClient = new SearchServiceClient(Configuration["Data:AzureSearch:Name"], new SearchCredentials(Configuration["Data:AzureSearch:Key"]));
+
+                return searchServiceClient.Indexes.GetClient(Configuration["Data:AzureSearch:IndexName"]);
+            });
 
             services.AddScoped<SitemapBuilder>();
 
@@ -51,6 +60,8 @@ namespace Blog.Web
             {
                 options.Filters.Add(new RequireHttpsAttribute());
             });
+
+            services.AddApplicationInsightsTelemetry(Configuration);
 
             services.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Optimal);
             services.AddResponseCompression();
@@ -67,12 +78,11 @@ namespace Blog.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/oops");
             }
 
             var options = new RewriteOptions().AddRedirectToHttps();
             app.UseRewriter(options);
-
             app.UseResponseCompression();
             app.UseStaticFiles(new StaticFileOptions
             {
@@ -85,6 +95,7 @@ namespace Blog.Web
                     }
                 }
             });
+            app.UseStatusCodePagesWithReExecute("/oops/{0}");
 
             app.UseRequestLocalization(new RequestLocalizationOptions()
             {

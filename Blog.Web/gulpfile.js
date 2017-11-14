@@ -5,7 +5,6 @@ var autoprefixer = require('gulp-autoprefixer');
 var cssnano = require("gulp-cssnano");
 var less = require("gulp-less");
 var concat = require("gulp-concat");
-var uglify = require("gulp-uglify");
 var notify = require("gulp-notify");
 var watch = require("gulp-watch");
 
