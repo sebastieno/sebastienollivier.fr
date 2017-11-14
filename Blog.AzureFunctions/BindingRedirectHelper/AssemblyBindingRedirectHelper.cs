@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -24,7 +25,7 @@ namespace Blog.Functions.SearchIndexer.BindingRedirectHelper
         private static List<BindingRedirect> GetBindingRedirects()
         {
             var result = new List<BindingRedirect>();
-            var bindingRedirectListJson = Environment.GetEnvironmentVariable("BindingRedirects");
+            var bindingRedirectListJson = ConfigurationManager.AppSettings["BindingRedirects"];
             using (var memoryStream = new MemoryStream(Encoding.Unicode.GetBytes(bindingRedirectListJson)))
             {
                 var serializer = new DataContractJsonSerializer(typeof(List<BindingRedirect>));

@@ -18,7 +18,7 @@ Here a visual overview of the solution :
 
 ## How to run the source code ?
 
-*If anything is unclear, feels free to add an issue here [https://github.com/sebastieno/sebastienollivier.fr/issues](https://github.com/sebastieno/sebastienollivier.fr/issues) explaining what is unclear, I will update this readme to be more specific*
+*If anything is unclear, feels free to add an issue here [https://github.com/sebastieno/sebastienollivier.fr/issues](https://github.com/sebastieno/sebastienollivier.fr/issues) explaining what is unclear, I will update this readme to be more specific.*
 
 ### Configure
 Before running the application, you must provide some configurations in the *Blog.Web/appsettings.json* :
