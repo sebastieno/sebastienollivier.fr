@@ -51,7 +51,10 @@ a, a:visited, a:hover {
 }
 
 .me {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0;
 
     a {
         color: @mainColor;
@@ -59,37 +62,35 @@ a, a:visited, a:hover {
         font-weight: 700;
     }
 
+    .description {
+        margin-left: 5px;
+    }
+
+    .job {
+        text-align: center;
+    }
+
     .name {
-        margin-top: 20px;
         font-family: 'Lobster', sans-serif;
         font-size: 34px;
     }
 
     img.headshot {
+        margin-right: 5px;
         border: 2px solid @mainColor;
         border-radius: 100%;
     }
 }
 
 .socials {
-    width: 100px;
-    margin: 0 auto;
-
-    .more-about {
-        position: relative;
-        display: block;
-        background-size: 30px !important;
-        width: 100px;
-        height: 30px;
-        background: url('./Images/more.png') no-repeat center center;
-    }
+    display: none;
 }
 
 .main {
     margin-left: 0;
 
     .container {
-        padding: 30px 10px;
+        padding: 15px 10px;
     }
 }
 
@@ -218,6 +219,19 @@ a, a:visited, a:hover {
         }
     }
 
+    .socials {
+        width: 100px;
+        margin: 0 auto;
+
+        .more-about {
+            position: relative;
+            display: block;
+            background-size: 30px !important;
+            width: 100px;
+            height: 30px;
+            background: url('./Images/more.png') no-repeat center center;
+        }
+    }
 
     .search {
         margin: 30px 0;
