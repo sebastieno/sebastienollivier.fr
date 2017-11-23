@@ -1,4 +1,7 @@
 ﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+@{
+    var isOnSearchResultPage = !string.IsNullOrEmpty(ViewBag.Search);
+}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -71,15 +74,16 @@
                 <li><a href="https://www.editions-eni.fr/sebastien-ollivier" target="_blank">Auteur <span>Angular</span> / <span>AngularJS</span></a></li>
                 <li><a href="https://github.com/sebastieno/" target="_blank">Open source contributor</a></li>
                 <li><a href="https://fr.slideshare.net/sebastieno" target="_blank">Speaker</a></li>
-                <li  class="more-of-me"><a asp-controller="Home" asp-action="Index">En savoir plus...</a></li>
+                <li class="more-of-me"><a asp-controller="Home" asp-action="Index">En savoir plus...</a></li>
             </ul>
         </div>
 
         <section role="search">
-            <div class="search off">
+            <div class="search @(isOnSearchResultPage ? "on" : "off")">
                 <form asp-action="List" asp-controller="Blog" asp-route-categorycode="@string.Empty" method="get">
-                    <input type="text" placeholder="Je cherche..." name="search" value="@ViewBag.Search" />
-                    <label>Appuies en Entrée pour rechercher...</label>
+                    <label>Je cherche...</label>
+                    <input type="text" name="search" value="@ViewBag.Search" />
+                    <label class="legend">Appuies sur Entrée pour rechercher</label>
                 </form>
             </div>
         </section>
@@ -126,7 +130,7 @@
             }
 
             function search() {
-                var o = false;
+                var o = @(isOnSearchResultPage ? "true" : "false");
                 var s = d.querySelector('.search');
                 var i = d.querySelector('.search input');
                 d.querySelector('.search-link').addEventListener('click', function () {
