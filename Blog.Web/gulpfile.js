@@ -19,11 +19,6 @@ gulp.task('compile-less', function () {
         .pipe(gulp.dest('./wwwroot/styles'));
 });
 
-var handlerError = function (err) {
-    notify.onError(err.message);
-    this.emit('end');
-};
-
 gulp.task('copy-syntaxhighlighter:css', function () {
     return gulp.src('./Styles/SyntaxHighlighter/**/*.css')
         .pipe(cssnano())
@@ -37,15 +32,18 @@ gulp.task('copy-images', function () {
         .pipe(gulp.dest('./wwwroot/images'));
 });
 
-gulp.task('server', function () {
-    gulp.src('./')
-       .pipe(shell(['dnx-watch web ASPNET_ENV=Development']));
+gulp.task('less-watch', ['compile-less'], function () {
+    gulp.src("./wwwroot/styles/**/*.css")
+        .pipe(browserSync.stream());
 });
 
 gulp.task('default', ['compile-less', 'copy-images'], function () {
     browserSync.init(null, {
-        proxy: "localhost:5000"
+        proxy: "https://localhost:44322"
     });
 
-    watch('./Styles/**/*.less', ['compile-less']);
+    gulp.watch('./Styles/**/*.less', ['less-watch']);
+    gulp.watch('./Views/**/*.cshtml', function () {
+        browserSync.reload();
+    });
 });

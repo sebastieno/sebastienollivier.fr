@@ -10,18 +10,17 @@ html, body {
     font-family: 'Open Sans', sans-serif;
     font-size: 15px;
     color: white;
-    position: relative;
     height: 100%;
     width: 100%;
-    overflow-x: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .me {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 95%;
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
 
     b {
@@ -45,30 +44,22 @@ a, a:visited, a:hover {
 }
 
 ul.links {
-    margin: 0 auto;
     list-style-type: none;
+    display: flex;
+    align-items: stretch;
+    margin: 10px 0;
     padding: 0;
-    height: 70px;
 
     li {
-        display: inline-block;
-        width: 100% / 5;
-        max-width: 80px;
-        padding: 0;
-        margin-right: -4px;
+        display: flex;
+        align-items: stretch;
         color: transparent;
-        position: relative;
-        height: 70px;
     }
 
     a {
         width: 56px;
         height: 56px;
-        display: block;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translateX(-50%) translateY(-50%);
+        margin: 0 10px;
     }
 
     a.twitter {
@@ -95,10 +86,6 @@ ul.links {
         background: url('./Images/social-linkedin.png') no-repeat;
         background-size: cover;
     }
-}
-
-.clear {
-    clear: both;
 }
 
 .blog-link {

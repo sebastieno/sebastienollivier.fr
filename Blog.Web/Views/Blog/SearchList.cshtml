@@ -1,9 +1,10 @@
 ﻿@model Blog.Web.Models.PostsSearchListModel
 @{
     ViewBag.Search = Model.Search;
+    ViewBag.ContainerClass = "search-result";
 }
 
-<p>Résultat(s) pour la recherche '@Model.Search' :</p>
+<p class="search-label">Résultat(s) pour la recherche '@Model.Search' :</p>
 
 @if(Model.Posts.Any()) {
     @Html.Partial("List", Model)
