@@ -43,5 +43,7 @@ gulp.task('default', ['compile-less', 'copy-images'], function () {
     });
 
     gulp.watch('./Styles/**/*.less', ['less-watch']);
-
+    gulp.watch('./Views/**/*.cshtml', function () {
+        browserSync.reload();
+    });
 });

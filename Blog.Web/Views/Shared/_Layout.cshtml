@@ -33,7 +33,7 @@
     <meta name="msapplication-starturl" content="https://sebastienollivier.fr/" />
     <meta name="msapplication-TileImage" content="/favicon.png" />
 
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Condensed:700|Lobster">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Condensed:700|Raleway:700">
 
     <script type="text/javascript">
         var _gaq = _gaq || [];
@@ -54,27 +54,35 @@
 </head>
 <body>
     <section role="presentation" class="presentation">
+        <a href="#" class="search-link">
+            <i class="search-icon"></i>
+        </a>
         <div class="container">
             <div class="me">
                 <a asp-route="PostsList">
                     <img src="/styles/images/headshot.png" alt="Moi" class="headshot" />
                 </a>
                 <div class="name">Sébastien Ollivier</div>
-                <div class="description">
-                    <div class="name">Sébastien Ollivier</div>
-                    <p class="job">TechLead Web <a href="https://www.infinitesquare.com" target="_blank">@@InfiniteSquare</a><br /> Microsoft <a href="https://mvp.microsoft.com/en-us/mvp/S%C3%A9bastien%20Ollivier-5001163" target="_blank">MVP ASP.NET / IIS</a></p>
-                </div> 
+                <div class="status">Développeur Web Full Stack</div>
             </div>
-            <div class="socials">
-                <a asp-controller="Home" asp-action="Index" class="more-about"></a>
-            </div>
-            <div class="clear"></div>
-            <div class="search">
+            <ul class="description">
+                <li>TechLead Web <a href="https://www.infinitesquare.com" target="_blank"><span>@@InfiniteSquare</span></a></li>
+                <li>Microsoft <a href="https://mvp.microsoft.com/en-us/mvp/S%C3%A9bastien%20Ollivier-5001163" target="_blank"><span>MVP ASP.NET / IIS</span></a></li>
+                <li><a href="https://www.editions-eni.fr/sebastien-ollivier" target="_blank">Auteur <span>Angular</span> / <span>AngularJS</span></a></li>
+                <li><a href="https://github.com/sebastieno/" target="_blank">Open source contributor</a></li>
+                <li><a href="https://fr.slideshare.net/sebastieno" target="_blank">Speaker</a></li>
+                <li  class="more-of-me"><a asp-controller="Home" asp-action="Index">En savoir plus...</a></li>
+            </ul>
+        </div>
+
+        <section role="search">
+            <div class="search off">
                 <form asp-action="List" asp-controller="Blog" asp-route-categorycode="@string.Empty" method="get">
-                    <input type="text" placeholder="Je recherche..." name="search" value="@ViewBag.Search" />
+                    <input type="text" placeholder="Je cherche..." name="search" value="@ViewBag.Search" />
+                    <label>Appuies en Entrée pour rechercher...</label>
                 </form>
             </div>
-        </div>
+        </section>
     </section>
 
     <section role="main" class="main">
@@ -117,10 +125,28 @@
                 }
             }
 
+            function search() {
+                var o = false;
+                var s = d.querySelector('.search');
+                var i = d.querySelector('.search input');
+                d.querySelector('.search-link').addEventListener('click', function () {
+                    o = !o;
+                    if (o) {
+                        s.classList.remove('off');
+                        i.focus();
+                        var tmp = i.value;
+                        i.value = '';
+                        i.value = tmp;
+                    }
+                    else s.classList.add('off');
+                });
+            }
+
             function go() {
                 css("/styles/syntaxhighlighter.css");
                 img();
                 socials();
+                search();
             }
 
             if (w.addEventListener) { w.addEventListener("load", go, false); }

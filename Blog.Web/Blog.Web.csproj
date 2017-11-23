@@ -7,6 +7,7 @@
     <Copyright>Sébastien Ollivier</Copyright>
     <PackageProjectUrl>https://sebastienollivier.fr/blog</PackageProjectUrl>
     <RepositoryUrl>https://github.com/sebastieno/sebastienollivier.fr</RepositoryUrl>
+    <UserSecretsId>184359c4-82a9-4917-aa5e-2a61c888f787</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
