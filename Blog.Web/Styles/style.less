@@ -1,4 +1,4 @@
-﻿@backgroundColor: #222222;
+﻿@backgroundColor: #222933;
 @mainColor: #4F9D69;
 @secondaryColor: #031927;
 
@@ -40,7 +40,7 @@ a, a:visited, a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-right: 2px solid @mainColor;
+    z-index: 1;
 
     .container {
         padding: 10px;
@@ -53,7 +53,7 @@ a, a:visited, a:hover {
     align-items: center;
     justify-content: center;
     padding-bottom: 15px;
-    border-bottom: 2px solid @mainColor;
+    margin: 35px 0 0;
 
     .name {
         font-family: 'Raleway', sans-serif;
@@ -78,23 +78,7 @@ a, a:visited, a:hover {
 }
 
 ul.description {
-    font-size: 15px;
-    text-align: right;
-
-    li {
-        list-style-type: none;
-    }
-
-    span {
-        color: @mainColor;
-        font-family: 'Roboto Condensed', sans-serif;
-        font-weight: 700;
-    }
-
-    .more-of-me {
-        margin-top: 15px;
-        font-size: 12px;
-    }
+    display: none;
 }
 
 .main {
@@ -102,9 +86,15 @@ ul.description {
     background-image: url('../images/bg-pattern.png');
     background-repeat: repeat;
     height: 100%;
+    z-index: 5;
 
     .container {
         padding: 15px 10px;
+
+        &.search-result .search-label {
+            margin: 0;
+            font-style: italic;
+        }
     }
 }
 
@@ -130,7 +120,6 @@ ul.description {
         justify-content: flex-end;
 
         input {
-            /*width: 100%;*/
             height: @searchIconSize;
             box-sizing: border-box;
             padding: 4px;
@@ -141,6 +130,7 @@ ul.description {
             color: white;
             font-family: 'Roboto Condensed', sans-serif;
             flex-grow: 1;
+            flex-basis: 70%;
         }
 
         label {
@@ -154,6 +144,7 @@ ul.description {
             display: block;
             text-align: right;
             font-family: 'Open Sans', sans-serif;
+            flex-grow: unset;
         }
     }
 }
@@ -273,10 +264,6 @@ ul.description {
 }
 
 @media (min-width: 767px) {
-    .socials {
-        display: block;
-    }
-
     .presentation {
         position: fixed;
         top: 0;
@@ -284,12 +271,37 @@ ul.description {
         bottom: 0;
         width: @presentationWidth;
         color: #fff;
-        background: #222933;
+        border-right: 2px solid @mainColor;
 
         .container {
             padding: 30px 10px;
             font-weight: 300;
             font-size: 16px;
+        }
+
+        .me {
+            border-bottom: 2px solid @mainColor;
+        }
+    }
+
+    ul.description {
+        display: block;
+        font-size: 15px;
+        text-align: right;
+
+        li {
+            list-style-type: none;
+        }
+
+        span {
+            color: @mainColor;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: 700;
+        }
+
+        .more-of-me {
+            margin-top: 15px;
+            font-size: 12px;
         }
     }
 
@@ -301,11 +313,6 @@ ul.description {
 
             &.search-result {
                 padding: 10px 30px;
-
-                .search-label {
-                    margin: 0;
-                    font-style: italic;
-                }
             }
         }
     }
