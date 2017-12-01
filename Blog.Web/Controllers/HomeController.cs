@@ -21,7 +21,7 @@ namespace Blog.Web.Controllers
         [Route("")]
         public ActionResult Index()
         {
-            return RedirectToAction("List", "Blog");
+            return View();
         }
 
         [Route("toutvapeter")]
