@@ -70,8 +70,8 @@ a, a:visited, a:hover {
 
     img.headshot {
         margin-bottom: 10px;
-        width: 100px;
-        height: 100px;
+        width: 150px;
+        height: 150px;
         border: 2px solid @mainColor;
         border-radius: 100%;
     }
@@ -131,6 +131,7 @@ ul.description {
             font-family: 'Roboto Condensed', sans-serif;
             flex-grow: 1;
             flex-basis: 70%;
+            border-radius: 0;
         }
 
         label {
@@ -263,6 +264,18 @@ ul.description {
     }
 }
 
+.post {
+    margin: 40px 0;
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
 @media (min-width: 767px) {
     .presentation {
         position: fixed;
@@ -297,6 +310,7 @@ ul.description {
             color: @mainColor;
             font-family: 'Roboto Condensed', sans-serif;
             font-weight: 700;
+            font-size: 16px;
         }
 
         .more-of-me {
