@@ -1,19 +1,18 @@
-﻿using Microsoft.AspNetCore;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Blog.Web
 {
-    public class Program
+  public class Program
+  {
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
-        {
-            BuildWebHost(args).Run();
-        }
-
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseApplicationInsights()
-                .UseStartup<Startup>()
-                .Build();
+      WebHost.CreateDefaultBuilder(args)
+        .UseApplicationInsights()
+        .UseUrls("http://*:5500")
+        .UseStartup<Startup>()
+        .Build()
+        .Run();
     }
+  }
 }
