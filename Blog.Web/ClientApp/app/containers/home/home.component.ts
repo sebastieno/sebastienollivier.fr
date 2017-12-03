@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BlogService } from '../../services/blog.service';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  pageCount: number;
+  currentIndex: number;
+  posts: Post[];
 
-  constructor() { }
+  constructor(private blogService: BlogService) { }
 
   ngOnInit() {
+    this.blogService.getPosts().subscribe(x => {
+      this.posts = x.posts;
+      this.currentIndex = x.currentPageIndex;
+      this.pageCount = x.totalPageNumber;
+    });
   }
 
 }

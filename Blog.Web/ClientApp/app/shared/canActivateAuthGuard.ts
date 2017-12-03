@@ -1,4 +1,4 @@
-import { isPlatformServer, isPlatformBrowser } from "@angular/common";
+import { isPlatformBrowser } from "@angular/common";
 import { AuthenticationContext } from "adal-ts";
 import { Injectable, Inject, PLATFORM_ID } from "@angular/core";
 import { CanActivate } from "@angular/router";

@@ -50,6 +50,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {
     //data from server
     this.request = this.injector.get(REQUEST);
+    console.log(this.request);
   }
 
   ngOnInit() {

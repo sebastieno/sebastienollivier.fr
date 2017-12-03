@@ -1,0 +1,22 @@
+html {
+    background: lightgray;
+    body {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        font-family: "Helvetica Neue LT","Helvetica Neue",Helvetica,Arial,sans-serif;
+        div.content {
+            background: white;
+            max-width: 1600px;
+            min-height: 100vh;
+            border: solid 1px lighten(#000, 80);
+            border-width: 0 1px;
+            header {
+                min-height: 200px;
+                padding: 60px;
+                background: #8DB4D0;
+                box-sizing: border-box;
+            }
+        }
+    }
+}

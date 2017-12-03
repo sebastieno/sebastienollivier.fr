@@ -1,0 +1,8 @@
+<article>
+  <p class="tags">{{post.tags.join(' ')}}</p>
+  <h1>
+    <a [routerLink]="['/post/',post.category.code,post.url]">{{post.title}}</a>
+  </h1>
+  <p>{{post.description}}</p>
+  <time>{{post.publicationDate | moment:'dddd DD MMMM YYYY'}}</time>
+</article>

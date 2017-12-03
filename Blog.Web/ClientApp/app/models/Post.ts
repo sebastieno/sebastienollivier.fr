@@ -10,3 +10,8 @@ interface Post {
   category: Category;
   tags: string[];
 }
+interface PostList {
+  posts: Post[];
+  currentPageIndex: number;
+  totalPageNumber: number;
+}
