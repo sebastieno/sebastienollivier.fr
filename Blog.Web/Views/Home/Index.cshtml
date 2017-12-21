@@ -21,21 +21,50 @@
 <body>
     <div class="me">
         <a asp-controller="Home" asp-action="Index">
-            <img src="/styles/images/headshot.png" alt="Moi" class="headshot" />
+            <img src="/images/headshot.png" alt="Moi" class="headshot" />
         </a>
         <div class="name">Sébastien Ollivier</div>
-        <p class="description"><b>Développeur Web</b><br /> TechLead Web <a href="https://www.infinitesquare.com" target="_blank"><b>@@InfiniteSquare</b></a><br /> Microsoft <a href="https://mvp.microsoft.com/en-us/mvp/S%C3%A9bastien%20Ollivier-5001163" target="_blank"><b>MVP ASP.NET / IIS</b></a><br />Contributeur Open source (<a href="https://github.com/sebastieno">Plugins Cordova</a>, <a href="https://github.com/sebastieno">VorlonJS</a>, etc.)<br /><a href="https://www.editions-eni.fr/livres/angularjs-developpez-aujourd-hui-les-applications-web-de-demain/.0511bc6c60f7d27307359f1325d26484.html" target="_blank"><b>Auteur</b> AngularJS</a></p>
-
-        <ul class="links">
-            <li><a href="https://twitter.com/SebastienOll" target="_blank" class="logo twitter">Twitter</a></li>
-            <li><a href="mailto:sebastien.ollivier@gmail.com" class="logo mail">Mail</a></li>
-            <li><a href="https://fr.linkedin.com/in/sebastienollivier" target="_blank" class="logo linkedin">LinkedIn</a></li>
-            <li><a href="https://github.com/sebastieno" target="_blank" class="logo github">GitHub</a></li>
-            <li><a href="https://mvp.microsoft.com/en-us/mvp/S%C3%A9bastien%20Ollivier-5001163" target="_blank" class="logo mvp">MVP</a></li>
-        </ul>
-        <p class="description">
-            <a asp-controller="Blog" asp-action="List" class="blog-link">-&gt; Aller sur mon blog</a>
-        </p>
+        <div class="status">Développeur Web Full Stack</div>
     </div>
+
+
+    <ul class="resume">
+        <li>
+            <span class="description">TechLead Web <a href="https://www.infinitesquare.com" target="_blank"><span class="important">@@InfiniteSquare</span></a></span>
+            <span class="legend"></span>
+        </li>
+        <li>
+            <span class="description">Microsoft <a href="https://mvp.microsoft.com/en-us/mvp/S%C3%A9bastien%20Ollivier-5001163" target="_blank"><span class="important">MVP ASP.NET / IIS</span></a></span>
+            <span class="legend"></span>
+           </a></li>
+        <li>
+            <span class="description"> <a href="https://www.editions-eni.fr/sebastien-ollivier" target="_blank">Auteur</a></span>
+            <span class="legend">(Angular, AngularJS)</span>
+        </li>
+        <li>
+            <span class="description"> <a href="https://github.com/sebastieno/" target="_blank">Open source contributor</a></span>
+            <span class="legend">(Cordova, VorlonJS, etc.)</span>
+        </li>
+        <li>
+            <span class="description"><a href="https://fr.slideshare.net/sebastieno" target="_blank">Speaker</a></span>
+            <span class="legend">(MS Experiences 2016, JS Open Day, ngParis, etc.)</span>
+        </li>
+        <li>
+            <span class="description">Formateur</span>
+            <span class="legend">(ASPNET Core, Cordova, Angular, etc.)</span>
+        </li>
+    </ul>
+
+    <ul class="socials">
+        <li><a href="https://twitter.com/SebastienOll" target="_blank" class="logo twitter"></a></li>
+        <li><a href="mailto:sebastien.ollivier@gmail.com" class="logo mail"></a></li>
+        <li><a href="https://fr.linkedin.com/in/sebastienollivier" target="_blank" class="logo linkedin"></a></li>
+        <li><a href="https://github.com/sebastieno" target="_blank" class="logo github"></a></li>
+        <li><a href="https://mvp.microsoft.com/en-us/mvp/S%C3%A9bastien%20Ollivier-5001163" target="_blank" class="logo mvp"></a></li>
+    </ul>
+
+    <p class="goto">
+        <a asp-controller="Blog" asp-action="List" class="blog-link">-> Accéder au blog <-</a>
+    </p>
 </body>
 </html>
