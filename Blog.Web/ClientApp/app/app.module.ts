@@ -1,6 +1,7 @@
 import { CanActivateViaAuthGuard } from './shared/canActivateAuthGuard';
 import { NgModule, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterModule, PreloadAllModules } from '@angular/router';
+import { MatButtonModule, MatCheckboxModule, MatCardModule, MatIconModule } from '@angular/material';
 import {
   CommonModule,
   APP_BASE_HREF,
@@ -37,6 +38,10 @@ import { PostComponent } from './containers/post/post.component';
   ],
   imports: [
     CommonModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
     BrowserModule.withServerTransition({
       appId: 'my-app-id'
     }),
@@ -68,7 +73,7 @@ import { PostComponent } from './containers/post/post.component';
         },
 
         {
-          path: 'post/:categoryCode/:postUrl',
+          path: 'posts/:categoryCode/:postUrl',
           component: PostComponent,
           data: {
             title: 'Article'

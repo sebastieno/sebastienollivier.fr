@@ -1,22 +1,40 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 html {
-    background: lightgray;
+    background: #e9ebec;
     body {
         margin: 0;
         display: flex;
         justify-content: center;
-        font-family: "Helvetica Neue LT","Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-family: "Helvetica Neue LT", "Helvetica Neue", Helvetica, Arial, sans-serif;
         div.content {
-            background: white;
-            max-width: 1600px;
-            min-height: 100vh;
-            border: solid 1px lighten(#000, 80);
-            border-width: 0 1px;
             header {
-                min-height: 200px;
-                padding: 60px;
-                background: #8DB4D0;
+                padding: 20px 0;
                 box-sizing: border-box;
             }
+        }
+        mat-card {
+            margin: 20px 0;
+            max-width: 900px;
+            [mat-card-image] {
+                height: 200px;
+                background-position: center;
+                background-size: cover;
+                position: relative;
+                h1{
+                  font-size: 24px;
+                  font-weight: 400;
+                  margin: 0;
+                  text-shadow: 1px 1px 8px #444;
+                  color: white;
+                  position: absolute;
+                  bottom: 15px;
+                  left: 15px;
+                }
+            }
+        }
+        .avatar-image {
+            background: url("http://williamklein.info/images/me.jpg");
+            background-size: cover;
         }
     }
 }

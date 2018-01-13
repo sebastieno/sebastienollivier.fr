@@ -34,9 +34,9 @@ namespace Blog.Web.Controllers
 
       var query = this.queryCommandBuilder.Build<GetPostsQuery>().ForCategory(categoryCode).Build();
       var pagesCount = Math.Ceiling((double)query.Count() / postsPerPage);
-
+       
       var posts = await query.Paginate((page - 1) * postsPerPage, postsPerPage).ToListAsync();
-
+ 
       var model = new PostsListModel
       {
         Posts = posts,

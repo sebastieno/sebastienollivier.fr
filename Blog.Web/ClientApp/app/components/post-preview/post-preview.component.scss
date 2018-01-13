@@ -1,19 +1,10 @@
 @import '../../colors.scss';
 :host {
-    article {
-        h1 a {
-            text-decoration: none;
-            color: $title;
-        }
-        p {
-            color: $text;
-            &.tags {
-                font-weight: bold;
-            }
-        }
-        time {
-            color: $text;
-            text-transform: capitalize;
-        }
+
+    mat-card{
+      cursor: pointer;
+      mat-card-header{
+        margin-bottom: -24px;
+      }
     }
 }

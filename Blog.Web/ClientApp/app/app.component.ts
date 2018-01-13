@@ -32,9 +32,7 @@ import { Authentication } from "adal-ts";
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit, OnDestroy {
-  // This will go at the END of your title for example "Home - Angular Universal..." <-- after the dash (-)
   private endPageTitle: string = "Blog de William Klein";
-  // If no Title is provided, we'll use a default one before the dash(-)
   private defaultPageTitle: string = "Blog de William Klein";
 
   private routerSub$: Subscription;
@@ -48,7 +46,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private injector: Injector,
     @Inject(PLATFORM_ID) private plateformId: Object
   ) {
-    //data from server
     this.request = this.injector.get(REQUEST);
     console.log(this.request);
   }
@@ -81,7 +78,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private _setMetaAndLinks(event) {
-    // Set Title if available, otherwise leave the default Title
     const title = event["title"]
       ? `${event["title"]} - ${this.endPageTitle}`
       : `${this.defaultPageTitle} - ${this.endPageTitle}`;
