@@ -24,6 +24,7 @@ namespace Blog.Domain.Queries
         public IQueryable<Post> Build()
         {
             var query = context.Posts.Include(p => p.Category).PublishedOnly();
+
             if (!string.IsNullOrEmpty(this.categoryCode))
             {
                 query = query.Where(p => p.Category.Code.ToLower() == this.categoryCode.ToLower());

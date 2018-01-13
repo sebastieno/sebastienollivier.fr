@@ -1,11 +1,4 @@
 :host {
-    padding: 50px;
     display: flex;
     flex-direction: column;
-    app-post-preview {
-        padding: 20px;
-        &:not(:first-child) {
-            border-top: 1px solid lighten(#000,80);
-        }
-    }
 }

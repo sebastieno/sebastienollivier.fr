@@ -8,6 +8,9 @@ namespace Blog.Data
         public int Id { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
+
+        public string ImageUrl { get; set; }
+        
         [JsonIgnore]
         public virtual ICollection<Post> Posts { get; set; }
     }
