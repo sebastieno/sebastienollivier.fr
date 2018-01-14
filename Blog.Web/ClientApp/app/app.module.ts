@@ -60,7 +60,8 @@ import { PostComponent } from './containers/post/post.component';
           path: 'home',
           component: HomeComponent,
           data: {
-            title: 'Homepage'
+            title: 'Homepage',
+            state: 'home'
           }
         },
         {
@@ -76,7 +77,8 @@ import { PostComponent } from './containers/post/post.component';
           path: 'posts/:categoryCode/:postUrl',
           component: PostComponent,
           data: {
-            title: 'Article'
+            title: 'Article',
+            state: 'post'
           }
         },
         {

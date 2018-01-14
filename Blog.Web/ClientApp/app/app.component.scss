@@ -1,6 +1,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 html {
     background: #e9ebec;
+    overflow-y: scroll;
     body {
         margin: 0;
         display: flex;
@@ -12,6 +13,10 @@ html {
                 box-sizing: border-box;
             }
         }
+        app-root {
+            max-width: 100%;
+            width: 948px;
+        }
         mat-card {
             margin: 20px 0;
             max-width: 900px;
@@ -20,15 +25,15 @@ html {
                 background-position: center;
                 background-size: cover;
                 position: relative;
-                h1{
-                  font-size: 24px;
-                  font-weight: 400;
-                  margin: 0;
-                  text-shadow: 1px 1px 8px #444;
-                  color: white;
-                  position: absolute;
-                  bottom: 15px;
-                  left: 15px;
+                h1 {
+                    font-size: 24px;
+                    font-weight: 400;
+                    margin: 0;
+                    text-shadow: 1px 1px 8px #444;
+                    color: white;
+                    position: absolute;
+                    bottom: 15px;
+                    left: 15px;
                 }
             }
         }

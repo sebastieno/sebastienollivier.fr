@@ -1,14 +1,18 @@
-img{
-  max-width: 100%;
-  height: auto;
-}
-
-[mat-card-image]{
-  position:relative;
-
-  button{
-    position: absolute;
-    bottom:-28px;
-    right: 24px;
-  }
+:host {
+    ::ng-deep img {
+        max-width: 100%;
+        height: auto;
+    }
+    ::ng-deep pre[class*=language-] {
+        margin: 0 -24px;
+        border-radius: 0;
+    }
+    [mat-card-image] {
+        position: relative;
+        button {
+            position: absolute;
+            bottom: -28px;
+            right: 24px;
+        }
+    }
 }

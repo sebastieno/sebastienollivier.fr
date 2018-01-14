@@ -7,7 +7,7 @@
     {
       "root": "ClientApp",
       "styles": [
-        "style.scss"
+        "styles.scss"
       ]
     }
   ],

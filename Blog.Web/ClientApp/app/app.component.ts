@@ -7,33 +7,35 @@ import {
   RendererFactory2,
   PLATFORM_ID,
   Injector
-} from "@angular/core";
+} from '@angular/core';
 import {
   Router,
   NavigationEnd,
   ActivatedRoute,
   PRIMARY_OUTLET
-} from "@angular/router";
+} from '@angular/router';
 import {
   Meta,
   Title,
   DOCUMENT,
   MetaDefinition
-} from "@angular/platform-browser";
-import { Subscription } from "rxjs/Subscription";
-import { isPlatformServer, isPlatformBrowser } from "@angular/common";
-import { REQUEST } from "@nguniversal/aspnetcore-engine";
-import { Authentication } from "adal-ts";
+} from '@angular/platform-browser';
+import { Subscription } from 'rxjs/Subscription';
+import { isPlatformServer, isPlatformBrowser } from '@angular/common';
+import { REQUEST } from '@nguniversal/aspnetcore-engine';
+import { Authentication } from 'adal-ts';
+import { routerTransition } from './app.router.transitions';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"],
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  animations: [routerTransition],
+  styleUrls: ['./app.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit, OnDestroy {
-  private endPageTitle: string = "Blog de William Klein";
-  private defaultPageTitle: string = "Blog de William Klein";
+  private endPageTitle: string = 'Blog de William Klein';
+  private defaultPageTitle: string = 'Blog de William Klein';
 
   private routerSub$: Subscription;
   private request;
@@ -55,11 +57,21 @@ export class AppComponent implements OnInit, OnDestroy {
     if (isPlatformBrowser(this.plateformId)) {
       Authentication.getAadRedirectProcessor().process();
     }
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      // setTimeout(() => window.scrollTo(0, 0), 100);
+    });
   }
 
   ngOnDestroy() {
     // Subscription clean-up
     this.routerSub$.unsubscribe();
+  }
+
+  getState(outlet) {
+    return outlet.activatedRouteData.state;
   }
 
   private _changeTitleOnNavigation() {
@@ -70,7 +82,7 @@ export class AppComponent implements OnInit, OnDestroy {
         while (route.firstChild) route = route.firstChild;
         return route;
       })
-      .filter(route => route.outlet === "primary")
+      .filter(route => route.outlet === 'primary')
       .mergeMap(route => route.data)
       .subscribe(event => {
         this._setMetaAndLinks(event);
@@ -78,14 +90,14 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private _setMetaAndLinks(event) {
-    const title = event["title"]
-      ? `${event["title"]} - ${this.endPageTitle}`
+    const title = event['title']
+      ? `${event['title']} - ${this.endPageTitle}`
       : `${this.defaultPageTitle} - ${this.endPageTitle}`;
 
     this.title.setTitle(title);
 
-    const metaData = event["meta"] || [];
-    const linksData = event["links"] || [];
+    const metaData = event['meta'] || [];
+    const linksData = event['links'] || [];
 
     for (let i = 0; i < metaData.length; i++) {
       this.meta.updateTag(metaData[i]);
