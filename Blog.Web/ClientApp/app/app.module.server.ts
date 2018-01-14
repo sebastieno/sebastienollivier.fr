@@ -12,10 +12,10 @@ import { ServerPrebootModule } from 'preboot/server';
 @NgModule({
   bootstrap: [AppComponent],
   imports: [
+    NoopAnimationsModule,
     AppModuleShared,
     ServerModule,
     ServerPrebootModule.recordEvents({ appRoot: 'app-root' }),
-    NoopAnimationsModule,
     // ServerTransferStateModule // <-- broken for the time-being with ASP.NET
   ]
 })

@@ -7,7 +7,7 @@
   <time>{{post.publicationDate | moment:'dddd DD MMMM YYYY'}}</time>
 </article> -->
 <mat-card (click)="goToPost()">
-  <div mat-card-image [style.backgroundImage]="'url('+this.post.category.imageUrl+')'" alt="Photo of a Shiba Inu">
+  <div mat-card-image [style.background-image]="'url('+this.post.category.imageUrl+')'" alt="Photo of a Shiba Inu">
     <h1>
       {{post.title}}
     </h1>

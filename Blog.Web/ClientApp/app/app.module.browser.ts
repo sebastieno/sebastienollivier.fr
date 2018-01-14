@@ -21,8 +21,8 @@ export function getRequest() {
 @NgModule({
   bootstrap: [AppComponent],
   imports: [
-    BrowserPrebootModule.replayEvents(),
     BrowserAnimationsModule,
+    BrowserPrebootModule.replayEvents(),
     AppModuleShared
   ],
   providers: [
