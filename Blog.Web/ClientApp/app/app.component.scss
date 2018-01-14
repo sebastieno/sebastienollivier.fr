@@ -21,6 +21,9 @@ html {
         mat-card {
             margin: 20px 0;
             max-width: 900px;
+            .mat-card-content, .mat-card-header .mat-card-title, .mat-card-subtitle{
+              font-size: 17px;
+            }
             [mat-card-image] {
                 height: 200px;
                 background-position: center;
