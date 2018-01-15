@@ -2,12 +2,12 @@
 
 html {
     background: #e9ebec;
-    overflow-y: scroll;
     body {
         margin: 0;
         display: flex;
         justify-content: center;
         font-family: "Helvetica Neue LT", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        overflow: hidden;
         div.content {
             header {
                 padding: 20px 0;
@@ -19,7 +19,7 @@ html {
             width: 948px;
         }
         mat-card {
-            margin: 20px 0;
+            margin: 20px auto;
             max-width: 900px;
             .mat-card-content, .mat-card-header .mat-card-title, .mat-card-subtitle{
               font-size: 17px;

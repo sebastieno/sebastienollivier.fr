@@ -27,6 +27,7 @@ import { MomentPipe } from './shared/moment.pipe';
 import { PostComponent } from './containers/post/post.component';
 import { PrebootModule } from 'preboot';
 import { ServerTransition } from './server-transition.module';
+import { ScrollContainerComponent } from './components/scroll-container/scroll-container.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ServerTransition } from './server-transition.module';
     BackofficeComponent,
     PostPreviewComponent,
     MomentPipe,
-    PostComponent
+    PostComponent,
+    ScrollContainerComponent
   ],
   imports: [
     CommonModule,

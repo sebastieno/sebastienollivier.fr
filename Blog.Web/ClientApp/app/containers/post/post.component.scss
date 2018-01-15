@@ -1,9 +1,9 @@
 :host {
-    ::ng-deep img {
+     ::ng-deep img {
         max-width: 100%;
         height: auto;
     }
-    ::ng-deep pre[class*=language-] {
+     ::ng-deep pre[class*=language-] {
         margin: 0 -24px;
         border-radius: 0;
     }

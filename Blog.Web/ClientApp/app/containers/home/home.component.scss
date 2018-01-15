@@ -1,4 +1,6 @@
 :host {
-    display: flex;
-    flex-direction: column;
+    app-scroll-container {
+        display: flex;
+        flex-direction: column;
+    }
 }
