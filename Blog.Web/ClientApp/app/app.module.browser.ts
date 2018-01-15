@@ -6,7 +6,6 @@ import { ORIGIN_URL, REQUEST } from '@nguniversal/aspnetcore-engine';
 import { AppModuleShared } from './app.module';
 import { AppComponent } from './app.component';
 import { BrowserTransferStateModule } from '@angular/platform-browser';
-import { BrowserPrebootModule } from 'preboot/browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './shared/token-interceptor';
 
@@ -22,7 +21,6 @@ export function getRequest() {
   bootstrap: [AppComponent],
   imports: [
     BrowserAnimationsModule,
-    BrowserPrebootModule.replayEvents(),
     AppModuleShared
   ],
   providers: [
@@ -41,4 +39,4 @@ export function getRequest() {
     }
   ]
 })
-export class AppModule {}
+export class AppModule { }

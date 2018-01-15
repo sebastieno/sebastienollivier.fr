@@ -25,6 +25,8 @@ import { BackofficeComponent } from './containers/backoffice/backoffice.componen
 import { PostPreviewComponent } from './components/post-preview/post-preview.component';
 import { MomentPipe } from './shared/moment.pipe';
 import { PostComponent } from './containers/post/post.component';
+import { PrebootModule } from 'preboot';
+import { ServerTransition } from './server-transition.module';
 
 @NgModule({
   declarations: [
@@ -39,15 +41,14 @@ import { PostComponent } from './containers/post/post.component';
   imports: [
     CommonModule,
     MatIconModule,
+    PrebootModule.withConfig({ appRoot: 'app-root', noReplay: true }),
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
-    BrowserModule.withServerTransition({
-      appId: 'my-app-id'
-    }),
+    ServerTransition.forRoot({ appId: 'my-app-id' }),
+    BrowserModule,//.withServerTransition({ appId: 'my-app-idds' }),
     HttpClientModule,
     TransferHttpCacheModule,
-    BrowserTransferStateModule,
     FormsModule,
     RouterModule.forRoot(
       [

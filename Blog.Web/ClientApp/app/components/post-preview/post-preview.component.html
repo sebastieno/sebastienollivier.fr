@@ -1,13 +1,5 @@
-<!-- <article>
-  <p class="tags">{{post.tags.join(', ')}}</p>
-  <h1>
-    <a [routerLink]="['/posts/',post.category.code,post.url]">{{post.title}}</a>
-  </h1>
-  <p>{{post.description}}</p>
-  <time>{{post.publicationDate | moment:'dddd DD MMMM YYYY'}}</time>
-</article> -->
 <mat-card (click)="goToPost()">
-  <div mat-card-image [style.background-image]="'url('+this.post.category.imageUrl+')'" alt="Photo of a Shiba Inu">
+  <div mat-card-image [style.background-image]="'url('+this.post.category.imageUrl+')'" alt="?">
     <h1>
       {{post.title}}
     </h1>
