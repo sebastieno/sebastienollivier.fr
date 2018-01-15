@@ -1,10 +1,13 @@
 @import '../../colors.scss';
 :host {
-
-    mat-card{
-      cursor: pointer;
-      mat-card-header{
-        margin-bottom: -24px;
-      }
+    app-scroll-container {
+        display: flex;
+        justify-content:  center;
+    }
+    mat-card {
+        cursor: pointer;
+        mat-card-header {
+            margin-bottom: -24px;
+        }
     }
 }
