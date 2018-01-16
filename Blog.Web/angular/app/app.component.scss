@@ -1,0 +1,48 @@
+
+html {
+    background: #e9ebec;
+    body {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        font-family: "Helvetica Neue LT", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        overflow: hidden;
+        div.content {
+            header {
+                padding: 20px 0;
+                box-sizing: border-box;
+            }
+        }
+        app-root {
+            max-width: 100%;
+            width: 948px;
+        }
+        mat-card {
+            margin: 20px auto;
+            max-width: 900px;
+            .mat-card-content, .mat-card-header .mat-card-title, .mat-card-subtitle{
+              font-size: 17px;
+            }
+            [mat-card-image] {
+                height: 200px;
+                background-position: center;
+                background-size: cover;
+                position: relative;
+                h1 {
+                    font-size: 24px;
+                    font-weight: 400;
+                    margin: 0;
+                    text-shadow: 1px 1px 8px #444;
+                    color: white;
+                    position: absolute;
+                    bottom: 15px;
+                    left: 15px;
+                }
+            }
+        }
+        .avatar-image {
+            background: url("http://williamklein.info/images/me.jpg");
+            background-size: cover;
+        }
+    }
+}

@@ -21,96 +21,92 @@ using System.Threading.Tasks;
 
 namespace Blog.Web
 {
-  public class Startup
-  {
-    public Startup(IHostingEnvironment env)
+    public class Startup
     {
-      var builder = new ConfigurationBuilder()
-          .SetBasePath(env.ContentRootPath)
-          .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-          .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-          .AddEnvironmentVariables();
-      Configuration = builder.Build();
+        public Startup(IHostingEnvironment env)
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+            Configuration = builder.Build();
+        }
+
+        public IConfigurationRoot Configuration { get; }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddAuthorization();
+            services.AddEntityFrameworkSqlServer()
+                  .AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration["Data:BlogConnection:ConnectionString"]));
+            services.AddScoped<IBlogContext>(provider => provider.GetService<BlogContext>());
+            services.AddScoped<QueryCommandBuilder>();
+            services.AddScoped<GetCategoriesWithPostsNumberQuery>();
+            services.AddScoped<GetDraftQuery>();
+            services.AddScoped<GetPostQuery>();
+            services.AddScoped<GetPostsQuery>();
+            services.AddScoped<GetCategoriesQuery>();
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.AddMvc();
+            services.AddNodeServices();
+            services.AddNodeServices();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.Audience = Configuration["Security:ClientId"];
+                options.Authority = $"https://login.microsoftonline.com/{Configuration["Security:TenantId"]}";
+            });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Le gg blog", Version = "v1" });
+            });
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+
+            app.UseStaticFiles();
+            app.UseAuthentication();
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                });
+
+                app.MapWhen(x => !x.Request.Path.Value.StartsWith("/swagger", StringComparison.OrdinalIgnoreCase), builder =>
+                {
+                    builder.UseMvc(routes =>
+            {
+                      routes.MapSpaFallbackRoute(
+                  name: "spa-fallback",
+                  defaults: new { controller = "Home", action = "Index" });
+                  });
+                });
+            }
+            else
+            {
+                app.UseMvc(routes =>
+                {
+                    routes.MapSpaFallbackRoute(
+              name: "spa-fallback",
+              defaults: new { controller = "Home", action = "Index" });
+                });
+                app.UseExceptionHandler("/Home/Error");
+            }
+        }
     }
-
-    public IConfigurationRoot Configuration { get; }
-
-    // This method gets called by the runtime. Use this method to add services to the container.
-    public void ConfigureServices(IServiceCollection services)
-    {
-      services.AddAuthorization();
-      services.AddEntityFrameworkSqlServer()
-            .AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration["Data:BlogConnection:ConnectionString"]));
-      services.AddScoped<IBlogContext>(provider => provider.GetService<BlogContext>());
-      services.AddScoped<QueryCommandBuilder>();
-      services.AddScoped<GetCategoriesWithPostsNumberQuery>();
-      services.AddScoped<GetDraftQuery>();
-      services.AddScoped<GetPostQuery>();
-      services.AddScoped<GetPostsQuery>();
-      services.AddScoped<GetCategoriesQuery>();
-      services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-      services.AddMvc();
-      services.AddNodeServices();
-
-      services.AddAuthentication(options =>
-      {
-        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-      })
-      .AddJwtBearer(options =>
-      {
-        options.Audience = Configuration["Security:ClientId"];
-        options.Authority = $"https://login.microsoftonline.com/{Configuration["Security:TenantId"]}";
-      });
-
-      services.AddSwaggerGen(c =>
-      {
-        c.SwaggerDoc("v1", new Info { Title = "Le gg blog", Version = "v1" });
-      });
-    }
-
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-    {
-      loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-      loggerFactory.AddDebug();
-
-      app.UseStaticFiles();
-      app.UseAuthentication();
-
-      if (env.IsDevelopment())
-      {
-        app.UseDeveloperExceptionPage();
-        app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-        {
-          HotModuleReplacement = true,
-          HotModuleReplacementEndpoint = "/dist/"
-        });
-        app.UseSwagger();
-        app.UseSwaggerUI(c =>
-        {
-          c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-        });
-
-        app.MapWhen(x => !x.Request.Path.Value.StartsWith("/swagger", StringComparison.OrdinalIgnoreCase), builder =>
-        {
-          builder.UseMvc(routes =>
-          {
-            routes.MapSpaFallbackRoute(
-                name: "spa-fallback",
-                defaults: new { controller = "Home", action = "Index" });
-          });
-        });
-      }
-      else
-      {
-        app.UseMvc(routes =>
-        {
-          routes.MapSpaFallbackRoute(
-            name: "spa-fallback",
-            defaults: new { controller = "Home", action = "Index" });
-        });
-        app.UseExceptionHandler("/Home/Error");
-      }
-    }
-  }
 }
