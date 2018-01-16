@@ -7,7 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
   <!-- New Meta Package has SpaServices in It -->
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
     <PackageReference Include="NETStandard.Library" Version="2.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.0.1" />
@@ -16,65 +16,17 @@
   <ItemGroup>
     <!-- Files not to show in IDE -->
     <None Remove="yarn.lock" />
-    <Content Remove="wwwroot\dist\**" />
-    <None Remove="ClientApp\dist\**" />
-    <Content Remove="coverage\**" />
-
-    <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
-    <Content Remove="ClientApp\**" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ClientApp\tsconfig.app.json" />
-    <Content Include="ClientApp\tsconfig.spec.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ClientApp\app\components\" />
-    <Folder Include="ClientApp\app\shared\" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\app\models\Category.ts" />
     <ProjectReference Include="..\Blog.Domain\Blog.Domain.csproj" />
-    <TypeScriptCompile Include="ClientApp\app\models\Post.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="appsettings.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
-  <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
-    <!-- Ensure Node.js is installed -->
-    <Exec Command="node --version" ContinueOnError="true">
-      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
-    </Exec>
-    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="cd angular &amp;&amp; npm run build" />
+  </Target>
 
-    <!-- In development, the dist files won't exist on the first run or when cloning to
-         a different machine, so rebuild them if not already present. -->
-    <Message Importance="high" Text="Performing first-run Webpack build..." />
-    <Exec Command="npm install" />
-    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js" />
-    <Exec Command="node node_modules/webpack/bin/webpack.js" />
-  </Target>
-  <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">
-    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
-    <Exec Command="npm install" />
-    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod" />
-    <Exec Command="node node_modules/webpack/bin/webpack.js --env.prod" />
-
-    <!-- Include the newly-built files in the publish output -->
-    <ItemGroup>
-      <DistFiles Include="wwwroot\dist\**; ClientApp\dist\**" />
-      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
-        <RelativePath>%(DistFiles.Identity)</RelativePath>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </ResolvedFileToPublish>
-    </ItemGroup>
-  </Target>
-  <Target Name="CleanDist" AfterTargets="Clean">
-    <ItemGroup>
-      <FilesToDelete Include="ClientApp\dist\**; wwwroot\dist\**" />
-    </ItemGroup>
-    <Delete Files="@(FilesToDelete)" />
-    <RemoveDir Directories="ClientApp\dist; wwwroot\dist" />
-  </Target>
 </Project>
