@@ -23,7 +23,9 @@ namespace Blog.Domain.Queries
 
         public IQueryable<Post> Build()
         {
-            var query = context.Posts.Include(p => p.Category).PublishedOnly();
+            var query = context.Posts.Include(p => p.Category)
+            .PublishedOnly()
+            .WithoutContent();
 
             if (!string.IsNullOrEmpty(this.categoryCode))
             {

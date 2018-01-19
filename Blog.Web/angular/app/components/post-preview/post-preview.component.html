@@ -1,0 +1,15 @@
+<mat-card (click)="goToPost()">
+  <div mat-card-image [style.background-image]="'url('+this.post.category.imageUrl+')'" alt="?">
+    <h1>
+      {{post.title}}
+    </h1>
+  </div>
+  <mat-card-content>
+    {{post.description}}
+  </mat-card-content>
+  <mat-card-header>
+    <div mat-card-avatar class="avatar-image"></div>
+    <mat-card-title>William Klein</mat-card-title>
+    <mat-card-subtitle>{{post.publicationDate | moment:'dddd DD MMMM YYYY'}}</mat-card-subtitle>
+  </mat-card-header>
+</mat-card>

@@ -1,9 +1,13 @@
 ﻿@Html.Raw(ViewData["SpaHtml"])
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/themes/prism-okaidia.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<link href="~/styles.bundle.css" asp-append-version="true" rel="stylesheet">
 
-<script src="~/dist/vendor.js" asp-append-version="true"></script>
 @section scripts {
     <!-- Our webpack bundle -->
-    <script src="~/dist/main-client.js" asp-append-version="true"></script>
+    <script type="text/javascript" asp-append-version="true" src="~/inline.bundle.js"></script>
+    <script type="text/javascript" asp-append-version="true" src="~/polyfills.bundle.js"></script>
+    <script type="text/javascript" asp-append-version="true" src="~/main.bundle.js"></script>
 }

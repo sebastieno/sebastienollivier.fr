@@ -1,0 +1,21 @@
+<!-- <div *ngIf="post" [innerHTML]="post.content"></div> -->
+<app-scroll-container>
+  <mat-card *ngIf="post">
+    <div mat-card-image [style.background-image]="'url('+this.post.category.imageUrl+')'" alt="Photo of a Shiba Inu">
+      <h1>
+        {{post.title}}
+      </h1>
+      <button mat-fab color="accent" (click)="back()">
+        <mat-icon aria-label="Example icon-button with a heart icon">arrow_back</mat-icon>
+      </button>
+    </div>
+
+    <mat-card-header>
+      <div mat-card-avatar class="avatar-image"></div>
+      <mat-card-title>William Klein</mat-card-title>
+      <mat-card-subtitle>{{post.publicationDate | moment:'dddd DD MMMM YYYY'}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content [innerHTML]="post.content">
+    </mat-card-content>
+  </mat-card>
+</app-scroll-container>
