@@ -8,6 +8,7 @@ import * as Prism from 'prismjs';
 import 'prismjs/components/prism-csharp';
 import 'prismjs/components/prism-json';
 import { EventReplayer } from 'preboot';
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-post',
@@ -16,6 +17,7 @@ import { EventReplayer } from 'preboot';
 })
 export class PostComponent implements OnInit {
   post: Post;
+  identifier: string;
 
   constructor
     (
@@ -32,6 +34,10 @@ export class PostComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.blogService.getPost(params['categoryCode'], params['postUrl']).subscribe(post => {
         this.post = post;
+        this.identifier = post.url;
+        if (!environment.production) {
+          this.identifier += '-dev';
+        }
         this.meta.addTag({
           name: 'description',
           content: this.post.description

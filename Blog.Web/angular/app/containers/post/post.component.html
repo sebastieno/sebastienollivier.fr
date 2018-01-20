@@ -1,6 +1,6 @@
 <!-- <div *ngIf="post" [innerHTML]="post.content"></div> -->
-<app-scroll-container>
-  <mat-card *ngIf="post">
+<app-scroll-container *ngIf="!!post">
+  <mat-card>
     <div mat-card-image [style.background-image]="'url('+this.post.category.imageUrl+')'" alt="Photo of a Shiba Inu">
       <h1>
         {{post.title}}
@@ -17,5 +17,6 @@
     </mat-card-header>
     <mat-card-content [innerHTML]="post.content">
     </mat-card-content>
+    <disqus [identifier]="identifier"></disqus>
   </mat-card>
 </app-scroll-container>
