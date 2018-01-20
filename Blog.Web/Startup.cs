@@ -52,6 +52,7 @@ namespace Blog.Web
             services.AddMvc();
             services.AddNodeServices();
             services.AddNodeServices();
+            services.AddCors(x => x.AddPolicy("dev", y => y.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials()));
 
             services.AddAuthentication(options =>
             {
@@ -80,6 +81,7 @@ namespace Blog.Web
 
             if (env.IsDevelopment())
             {
+                app.UseCors("dev");
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
@@ -91,10 +93,10 @@ namespace Blog.Web
                 {
                     builder.UseMvc(routes =>
             {
-                      routes.MapSpaFallbackRoute(
-                  name: "spa-fallback",
-                  defaults: new { controller = "Home", action = "Index" });
-                  });
+                routes.MapSpaFallbackRoute(
+            name: "spa-fallback",
+            defaults: new { controller = "Home", action = "Index" });
+            });
                 });
             }
             else
