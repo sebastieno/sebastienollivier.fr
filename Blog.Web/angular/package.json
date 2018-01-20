@@ -4,7 +4,8 @@
   "scripts": {
     "lint": "tslint -p tsconfig.json",
     "build": "ng build --prod  --output-hashing=none && ng build --prod --app server --output-hashing=none",
-    "clean": "rimraf wwwroot/dist clientapp/dist"
+    "clean": "rimraf wwwroot/dist clientapp/dist",
+    "start": "ng serve & "
   },
   "dependencies": {
     "@angular/animations": "^5.2.0",
@@ -43,6 +44,7 @@
     "jquery": "^3.2.1",
     "json-loader": "^0.5.7",
     "moment": "^2.20.1",
+    "ngx-disqus": "^2.3.7",
     "node-sass": "^4.7.2",
     "preboot": "^6.0.0-beta.1",
     "prismjs": "^1.9.0",

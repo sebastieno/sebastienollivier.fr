@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import '../models/Post';
 import '../models/Category';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class BlogService {
@@ -10,10 +11,10 @@ export class BlogService {
   constructor(private http: HttpClient) { }
 
   getPosts(page?: number): Observable<PostList> {
-    return this.http.get<PostList>('http://localhost:5500/api/blog');
+    return this.http.get<PostList>(`${environment.apiUrl}/blog`);
   }
 
   getPost(categoryCode, postUrl): Observable<Post> {
-    return this.http.get<Post>(`http://localhost:5500/api/blog/${categoryCode}/${postUrl}`);
+    return this.http.get<Post>(`${environment.apiUrl}/blog/${categoryCode}/${postUrl}`);
   }
 }
