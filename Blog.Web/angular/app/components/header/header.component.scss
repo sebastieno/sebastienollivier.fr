@@ -1,0 +1,41 @@
+:host {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+    max-width: 948px;
+    margin: auto;
+    flex-wrap: wrap;
+}
+
+mat-card {
+    flex: 1;
+    &.blog-header {
+        margin-right:20px;
+        min-width: 500px;
+        .mat-card-image {
+            background: url('../../../assets/header.png');
+            background-position: center;
+            background-size: cover;
+        }
+    }
+    &.me-header{
+      min-width:200px;
+    }
+}
+
+@media (max-width:800px) {
+    mat-card {
+        margin: 10px auto;
+        &.blog-header {
+          margin-right:0;
+            min-width: 600px;
+            @media (max-width:600px) {
+              min-width: 400px;
+            }
+
+            @media (max-width:400px) {
+              min-width: 250px;
+            }
+        }
+    }
+}
