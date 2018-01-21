@@ -6,6 +6,9 @@
      ::ng-deep pre[class*=language-] {
         margin: 0 -24px;
         border-radius: 0;
+        @media (max-width: 600px) {
+            margin: 0 -16px;
+        }
     }
     [mat-card-image] {
         position: relative;
