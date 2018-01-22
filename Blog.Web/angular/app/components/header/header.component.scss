@@ -10,16 +10,40 @@
 mat-card {
     flex: 1;
     &.blog-header {
-        margin-right:20px;
-        min-width: 500px;
+        margin-right: 20px;
+        min-width: 600px;
         .mat-card-image {
             background: url('../../../assets/header.png');
             background-position: center;
             background-size: cover;
         }
     }
-    &.me-header{
-      min-width:200px;
+    &.me-header {
+        min-width: 200px;
+        .mat-card-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .avatar {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
+                height: calc(100% - 50px);
+                border-radius: 30px;
+                img {
+                    height: 100%;
+                }
+            }
+        }
+        mat-card-header {
+            display: flex;
+            justify-content: space-between;
+            ::ng-deep .mat-card-header-text {
+                flex: 0;
+                margin: 0;
+            }
+        }
     }
 }
 
@@ -27,14 +51,14 @@ mat-card {
     mat-card {
         margin: 10px auto;
         &.blog-header {
-          margin-right:0;
+            margin-right: 0;
             min-width: 600px;
-            @media (max-width:600px) {
-              min-width: 400px;
+            @media (max-width: 600px) {
+                min-width: 400px;
             }
 
             @media (max-width:400px) {
-              min-width: 250px;
+                min-width: 250px;
             }
         }
     }
