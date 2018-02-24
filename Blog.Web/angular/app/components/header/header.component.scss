@@ -1,0 +1,85 @@
+:host {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+    max-width: 948px;
+    margin: auto;
+    flex-wrap: wrap;
+}
+
+mat-card {
+    flex: 1;
+    &.blog-header {
+        margin-right: 20px;
+        min-width: 600px;
+        .mat-card-image {
+            background: url('../../../assets/header.png');
+            background-position: center;
+            background-size: cover;
+        }
+    }
+    &.me-header {
+        min-width: 200px;
+        .mat-card-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .avatar {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
+                height: calc(100% - 50px);
+                border-radius: 30px;
+                img {
+                    height: 100%;
+                }
+            }
+        }
+        mat-card-header {
+            display: flex;
+            justify-content: space-between;
+             ::ng-deep .mat-card-header-text {
+                display: none;
+            }
+            a {
+                filter: grayscale(0.8);
+                &:hover {
+                    filter: grayscale(0);
+                }
+            }
+            .stackoverflow-image {
+                background: url("https://cdn.sstatic.net/Sites/stackoverflow/company/img/logos/so/so-icon.png") #eee;
+                background-size: cover;
+            }
+            .linkedin-image {
+                background: url("https://cdn1.iconfinder.com/data/icons/logotypes/32/square-linkedin-64.png");
+                background-size: cover;
+            }
+            .twitter-image {
+                background: url("https://cdn0.iconfinder.com/data/icons/social-flat-rounded-rects/512/twitter-64.png");
+                background-size: cover;
+            }
+            .github-image {
+                background: url("https://cdn0.iconfinder.com/data/icons/octicons/1024/mark-github-64.png");
+                background-size: cover;
+            }
+        }
+    }
+}
+
+@media (max-width:800px) {
+    mat-card {
+        margin: 10px auto;
+        &.blog-header {
+            margin-right: 0;
+            min-width: 600px;
+            @media (max-width: 600px) {
+                min-width: 400px;
+            }
+            @media (max-width:400px) {
+                min-width: 250px;
+            }
+        }
+    }
+}

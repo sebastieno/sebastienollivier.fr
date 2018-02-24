@@ -4,6 +4,7 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
+    <DefaultItemExcludes>angular\**;$(DefaultItemExcludes)</DefaultItemExcludes>
   </PropertyGroup>
   <ItemGroup>
   <!-- New Meta Package has SpaServices in It -->
@@ -25,8 +26,16 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="cd angular &amp;&amp; npm run build" />
+
+  <Target Name="PreBuild" BeforeTargets="Build"  Condition="'$(Configuration)' == 'Release' ">
+    <Message Text="Launch ng build" />
+    <Exec Command="npm run build" WorkingDirectory="angular" />
+     <Message Text="ng build Ok" />
   </Target>
 
+  <!-- <Target Name="PreBuild" BeforeTargets="Build"  Condition="'$(Configuration)' == 'Debug' ">
+    <Message Text="Launch ng serve" />
+    <Exec Command="npm run start" WorkingDirectory="angular" />
+     <Message Text="ng build serve" />
+  </Target> -->
 </Project>

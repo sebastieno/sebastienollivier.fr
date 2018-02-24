@@ -25,7 +25,9 @@ import { PostComponent } from './containers/post/post.component';
 import { PrebootModule } from 'preboot';
 import { ServerTransition } from './server-transition.module';
 import { ScrollContainerComponent } from './components/scroll-container/scroll-container.component';
+import { DisqusModule } from 'ngx-disqus';
 import '../rx-imports';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import '../rx-imports';
     PostPreviewComponent,
     MomentPipe,
     PostComponent,
-    ScrollContainerComponent
+    ScrollContainerComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
@@ -45,6 +48,7 @@ import '../rx-imports';
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
+    DisqusModule.forRoot('blog-ovent'),
     // ServerTransition.forRoot({ appId: 'my-app-id' }),
     BrowserModule.withServerTransition({ appId: 'my-app-idds' }),
     HttpClientModule,
