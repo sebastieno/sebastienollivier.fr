@@ -39,9 +39,30 @@ mat-card {
         mat-card-header {
             display: flex;
             justify-content: space-between;
-            ::ng-deep .mat-card-header-text {
-                flex: 0;
-                margin: 0;
+             ::ng-deep .mat-card-header-text {
+                display: none;
+            }
+            a {
+                filter: grayscale(0.8);
+                &:hover {
+                    filter: grayscale(0);
+                }
+            }
+            .stackoverflow-image {
+                background: url("https://cdn.sstatic.net/Sites/stackoverflow/company/img/logos/so/so-icon.png") #eee;
+                background-size: cover;
+            }
+            .linkedin-image {
+                background: url("https://cdn1.iconfinder.com/data/icons/logotypes/32/square-linkedin-64.png");
+                background-size: cover;
+            }
+            .twitter-image {
+                background: url("https://cdn0.iconfinder.com/data/icons/social-flat-rounded-rects/512/twitter-64.png");
+                background-size: cover;
+            }
+            .github-image {
+                background: url("https://cdn0.iconfinder.com/data/icons/octicons/1024/mark-github-64.png");
+                background-size: cover;
             }
         }
     }
@@ -56,7 +77,6 @@ mat-card {
             @media (max-width: 600px) {
                 min-width: 400px;
             }
-
             @media (max-width:400px) {
                 min-width: 250px;
             }
