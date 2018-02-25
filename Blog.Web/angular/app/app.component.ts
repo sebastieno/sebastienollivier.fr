@@ -24,6 +24,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { isPlatformServer, isPlatformBrowser } from '@angular/common';
 import { REQUEST } from '@nguniversal/aspnetcore-engine';
 import { routerTransition } from './app.router.transitions';
+import { AutService } from './services/aut.service';
 
 @Component({
   selector: 'app-root',
@@ -45,6 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private title: Title,
     private meta: Meta,
     private injector: Injector,
+    private autService: AutService,
     @Inject(PLATFORM_ID) private plateformId: Object
   ) {
     this.request = this.injector.get(REQUEST);
@@ -53,6 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._changeTitleOnNavigation();
+    this.autService.handleAuthentication();
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
         return;

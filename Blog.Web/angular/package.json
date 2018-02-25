@@ -29,6 +29,7 @@
     "adal-ts": "^0.6.0",
     "aspnet-prerendering": "^3.0.1",
     "aspnet-webpack": "^2.0.3",
+    "auth0-js": "^9.3.0",
     "moment": "^2.20.1",
     "ngx-disqus": "^2.3.7",
     "preboot": "^6.0.0-beta.1",

@@ -6,7 +6,7 @@ import {
   APP_BASE_HREF,
   isPlatformBrowser
 } from '@angular/common';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import {
   BrowserModule,
@@ -28,6 +28,8 @@ import { ScrollContainerComponent } from './components/scroll-container/scroll-c
 import { DisqusModule } from 'ngx-disqus';
 import '../rx-imports';
 import { HeaderComponent } from './components/header/header.component';
+import { AutInterceptor } from './interceptor/aut.interceptor';
+import { AutService } from './services/aut.service';
 
 @NgModule({
   declarations: [
@@ -101,7 +103,13 @@ import { HeaderComponent } from './components/header/header.component';
     )
   ],
   providers: [
-    BlogService
+    BlogService,
+    AutService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AutInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
