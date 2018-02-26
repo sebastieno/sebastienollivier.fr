@@ -30,6 +30,7 @@ import '../rx-imports';
 import { HeaderComponent } from './components/header/header.component';
 import { AutInterceptor } from './interceptor/aut.interceptor';
 import { AutService } from './services/aut.service';
+import { StorageService } from './services/storage.service';
 
 @NgModule({
   declarations: [
@@ -104,6 +105,7 @@ import { AutService } from './services/aut.service';
   ],
   providers: [
     BlogService,
+    StorageService,
     AutService,
     {
       provide: HTTP_INTERCEPTORS,

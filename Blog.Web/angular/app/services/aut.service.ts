@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as auth0 from 'auth0-js';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
+import { StorageService } from './storage.service';
 
 const AUTH_CONFIG = {
   clientID: 'Ygg0pdZ-QB74OA-fFj4QVn4OtxhzChfS',
@@ -22,42 +23,46 @@ export class AutService {
     scope: 'openid'
   });
 
-  constructor() { }
+  constructor(private storageService: StorageService) { }
 
   public login(): void {
     this.auth0.authorize();
   }
 
-  public handleAuthentication(): void {
-    return this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult);
-      } else if (err) {
-        console.log(err);
-      }
+  public handleAuthentication(): Promise<void> {
+    return new Promise((res, rej) => {
+      this.auth0.parseHash((err, authResult) => {
+        if (authResult && authResult.accessToken && authResult.idToken) {
+          this.setSession(authResult);
+        } else if (err) {
+          console.log(err);
+          rej(err);
+        }
+        res();
+      });
     });
   }
 
   private setSession(authResult): void {
     // Set the time that the access token will expire at
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('expires_at', expiresAt);
+    this.storageService.setItem('access_token', authResult.accessToken);
+    this.storageService.setItem('id_token', authResult.idToken);
+    this.storageService.setItem('expires_at', expiresAt);
   }
 
   public logout(): void {
     // Remove tokens and expiry time from localStorage
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('expires_at');
+    this.storageService.removeItem('access_token');
+    this.storageService.removeItem('id_token');
+    this.storageService.removeItem('expires_at');
     // Go back to the home route
   }
 
   public get isAuthenticated(): boolean {
     // Check whether the current time is past the
     // access token's expiry time
-    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    const expiresAt = this.storageService.getItem('expires_at');
     return new Date().getTime() < expiresAt;
   }
 
@@ -75,6 +80,6 @@ export class AutService {
   }
 
   public get token(): string {
-    return this.isAuthenticated ? localStorage.getItem('id_token') : null;
+    return this.isAuthenticated ? this.storageService.getItem('id_token') : null;
   }
 }
