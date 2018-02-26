@@ -26,7 +26,6 @@ export class PostComponent implements OnInit {
     private blogService: BlogService,
     private meta: Meta,
     private title: Title,
-    private replayer: EventReplayer,
     @Inject(PLATFORM_ID) private platformId
     ) { }
 
@@ -46,7 +45,6 @@ export class PostComponent implements OnInit {
         if (isPlatformBrowser(this.platformId)) {
           setTimeout(() => {
             Prism.highlightAll();
-            this.replayer.replayAll();
           });
         }
       });

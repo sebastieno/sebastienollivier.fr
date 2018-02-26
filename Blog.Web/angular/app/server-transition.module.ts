@@ -21,7 +21,7 @@ export function removeStyleTags(document: HTMLDocument): Function {
 export class ServerTransition {
   public static forRoot({ appId }: { appId: string }): ModuleWithProviders {
     return {
-      ngModule: this,
+      ngModule: ServerTransition,
       providers: [
         { provide: APP_ID, useValue: appId },
         { provide: ɵTRANSITION_ID, useValue: appId },

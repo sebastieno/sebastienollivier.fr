@@ -47,12 +47,11 @@ import { StorageService } from './services/storage.service';
   imports: [
     CommonModule,
     MatIconModule,
-    PrebootModule.withConfig({ appRoot: 'app-root', noReplay: true }),
+    PrebootModule.withConfig({ appRoot: 'app-root', replay: false }),
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
     DisqusModule.forRoot('blog-ovent'),
-    // ServerTransition.forRoot({ appId: 'my-app-id' }),
     BrowserModule.withServerTransition({ appId: 'my-app-idds' }),
     HttpClientModule,
     TransferHttpCacheModule,
@@ -97,8 +96,6 @@ import { StorageService } from './services/storage.service';
         }
       ],
       {
-        useHash: false,
-        preloadingStrategy: PreloadAllModules,
         initialNavigation: 'enabled'
       }
     )

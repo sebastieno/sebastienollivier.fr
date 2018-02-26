@@ -6,7 +6,8 @@ import {
   ViewEncapsulation,
   RendererFactory2,
   PLATFORM_ID,
-  Injector
+  Injector,
+  ApplicationRef
 } from '@angular/core';
 import {
   Router,
@@ -25,6 +26,8 @@ import { isPlatformServer, isPlatformBrowser } from '@angular/common';
 import { REQUEST } from '@nguniversal/aspnetcore-engine';
 import { routerTransition } from './app.router.transitions';
 import { AutService } from './services/aut.service';
+import { EventReplayer } from 'preboot';
+import { filter, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -47,7 +50,9 @@ export class AppComponent implements OnInit, OnDestroy {
     private meta: Meta,
     private injector: Injector,
     private autService: AutService,
-    @Inject(PLATFORM_ID) private plateformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private appRef: ApplicationRef,
+    private replayer: EventReplayer
   ) {
     this.request = this.injector.get(REQUEST);
     console.log(this.request);
@@ -59,7 +64,16 @@ export class AppComponent implements OnInit, OnDestroy {
       if (!(evt instanceof NavigationEnd)) {
         return;
       }
-      // setTimeout(() => window.scrollTo(0, 0), 100);
+      this.router.initialNavigation();
+      if (isPlatformBrowser(this.platformId)) {
+        this.appRef.isStable
+          .pipe(
+            filter(stable => stable),
+            take(1),
+        ).subscribe(() => {
+          this.replayer.replayAll();
+        });
+      }
     });
   }
 

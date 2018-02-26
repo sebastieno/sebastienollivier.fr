@@ -15,8 +15,6 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private blogService: BlogService,
-    private replayer: EventReplayer,
-    @Inject(PLATFORM_ID) private platformId
   ) { }
 
   ngOnInit() {
@@ -24,9 +22,6 @@ export class HomeComponent implements OnInit {
       this.posts = x.posts;
       this.currentIndex = x.currentPageIndex;
       this.pageCount = x.totalPageNumber;
-      if (isPlatformBrowser(this.platformId)) {
-        setTimeout(() => this.replayer.replayAll());
-      }
     });
   }
 

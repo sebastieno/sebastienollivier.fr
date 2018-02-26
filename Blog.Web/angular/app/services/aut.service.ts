@@ -7,7 +7,7 @@ import { StorageService } from './storage.service';
 const AUTH_CONFIG = {
   clientID: 'Ygg0pdZ-QB74OA-fFj4QVn4OtxhzChfS',
   domain: 'ovent.eu.auth0.com',
-  callbackURL: 'http://localhost:4200/back'
+  callbackURL: 'http://localhost:5500/back'
 };
 
 
