@@ -1,4 +1,4 @@
-﻿import { NgModule } from '@angular/core';
+﻿import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { APP_BASE_HREF } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { BrowserTransferStateModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './shared/token-interceptor';
+import { AutService } from './services/aut.service';
 
 export function getOriginUrl() {
   return window.location.origin;
@@ -15,6 +16,10 @@ export function getOriginUrl() {
 
 export function getRequest() {
   return { cookie: document.cookie };
+}
+
+export function handleToken(autService: AutService) {
+  return () => autService.handleAuthentication();
 }
 
 @NgModule({
@@ -28,6 +33,7 @@ export function getRequest() {
       provide: ORIGIN_URL,
       useFactory: getOriginUrl
     },
+    { provide: APP_INITIALIZER, useFactory: handleToken, deps: [AutService], multi: true },
     {
       provide: REQUEST,
       useFactory: getRequest

@@ -55,7 +55,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._changeTitleOnNavigation();
-    this.autService.handleAuthentication();
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
         return;

@@ -23,7 +23,7 @@ export class BackofficeComponent implements OnInit {
       if (!this.autService.isAuthenticated) {
         this.autService.login();
       }
-        this.autService.renewToken().subscribe(x => console.log(x));
+        // this.autService.renewToken().subscribe(x => console.log(x));
         this.http.post('http://localhost:5500/api/blog', null, { responseType: 'text' }).subscribe();
     }
   }
