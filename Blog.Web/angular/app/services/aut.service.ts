@@ -7,7 +7,7 @@ import { StorageService } from './storage.service';
 const AUTH_CONFIG = {
   clientID: 'Ygg0pdZ-QB74OA-fFj4QVn4OtxhzChfS',
   domain: 'ovent.eu.auth0.com',
-  callbackURL: 'http://localhost:5500/back'
+  callbackURL: 'http://localhost:4200/back'
 };
 
 
@@ -43,6 +43,10 @@ export class AutService {
     });
   }
 
+  public get hasToken() {
+    return !!this.storageService.getItem('access_token');
+  }
+
   private setSession(authResult): void {
     // Set the time that the access token will expire at
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
@@ -68,10 +72,18 @@ export class AutService {
 
   public renewToken(): Observable<string> {
     return Observable.create((observer: Observer<string>) => {
-      this.auth0.checkSession({}, (err, res) => {
+      this.auth0.checkSession({
+        clientID: AUTH_CONFIG.clientID,
+        domain: AUTH_CONFIG.domain,
+        responseType: 'token id_token',
+        audience: `https://${AUTH_CONFIG.domain}/userinfo`,
+        redirectUri: AUTH_CONFIG.callbackURL,
+        scope: 'openid'
+      }, (err, res) => {
         if (err) {
           observer.error(err);
         } else {
+          this.setSession(res);
           observer.next(res);
         }
       });

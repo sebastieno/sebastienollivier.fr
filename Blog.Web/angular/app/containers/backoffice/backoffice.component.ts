@@ -21,9 +21,16 @@ export class BackofficeComponent implements OnInit {
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       if (!this.autService.isAuthenticated) {
-        this.autService.login();
+        if (this.autService.hasToken) {
+          this.autService.renewToken().subscribe(token => {
+            this.http.post('http://localhost:5500/api/blog', null, { responseType: 'text' }).subscribe();
+          }, err => console.log(err));
+        } else {
+          this.autService.login();
+        }
+      } else {
+        this.http.post('http://localhost:5500/api/blog', null, { responseType: 'text' }).subscribe();
       }
-      this.http.post('http://localhost:5500/api/blog', null, { responseType: 'text' }).subscribe();
     }
   }
 }
