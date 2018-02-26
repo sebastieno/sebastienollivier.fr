@@ -56,12 +56,13 @@ namespace Blog.Web
 
             services.AddAuthentication(options =>
             {
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
             .AddJwtBearer(options =>
             {
-                options.Audience = Configuration["Security:ClientId"];
-                options.Authority = $"https://login.microsoftonline.com/{Configuration["Security:TenantId"]}";
+                options.Audience = "Ygg0pdZ-QB74OA-fFj4QVn4OtxhzChfS";
+                options.Authority = $"https://ovent.eu.auth0.com/";
             });
 
             services.AddSwaggerGen(c =>
