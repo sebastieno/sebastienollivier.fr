@@ -2,14 +2,12 @@ import { PLATFORM_ID } from '@angular/core';
 import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
-import { AutService } from '../../services/aut.service';
-import { AutInterceptor } from '../../interceptor/aut.interceptor';
+import { AutService } from '@bw/services/aut.service';
 
 @Component({
   selector: 'app-backoffice',
   templateUrl: './backoffice.component.html',
-  styleUrls: ['./backoffice.component.scss'],
-  providers: []
+  styleUrls: ['./backoffice.component.scss']
 })
 export class BackofficeComponent implements OnInit {
   constructor(

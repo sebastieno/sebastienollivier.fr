@@ -18,7 +18,6 @@ import { HomeComponent } from './containers/home/home.component';
 import { NotFoundComponent } from './containers/not-found/not-found.component';
 import { BlogService } from './services/blog.service';
 import { appConfig } from '../config';
-import { BackofficeComponent } from './containers/backoffice/backoffice.component';
 import { PostPreviewComponent } from './components/post-preview/post-preview.component';
 import { MomentPipe } from './shared/moment.pipe';
 import { PostComponent } from './containers/post/post.component';
@@ -31,13 +30,14 @@ import { HeaderComponent } from './components/header/header.component';
 import { AutInterceptor } from './interceptor/aut.interceptor';
 import { AutService } from './services/aut.service';
 import { StorageService } from './services/storage.service';
+import { BackOfficeModule } from './modules/backoffice/backoffice.module';
+import { appRouting } from './app.routing';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NotFoundComponent,
-    BackofficeComponent,
     PostPreviewComponent,
     MomentPipe,
     PostComponent,
@@ -56,49 +56,7 @@ import { StorageService } from './services/storage.service';
     HttpClientModule,
     TransferHttpCacheModule,
     FormsModule,
-    RouterModule.forRoot(
-      [
-        {
-          path: '',
-          redirectTo: 'home',
-          pathMatch: 'full'
-        },
-        {
-          path: 'home',
-          component: HomeComponent,
-          data: {
-            title: 'Homepage',
-            state: 'home'
-          }
-        },
-        {
-          path: 'back',
-          component: BackofficeComponent,
-          data: {
-            title: 'BackOffice'
-          }
-        },
-
-        {
-          path: 'posts/:categoryCode/:postUrl',
-          component: PostComponent,
-          data: {
-            title: 'Article',
-            state: 'post'
-          }
-        },
-        {
-          path: '**',
-          component: NotFoundComponent,
-          data: {
-            title: '404 - Not found'
-          }
-        }
-      ],
-      {
-        initialNavigation: 'enabled'
-      }
-    )
+    appRouting
   ],
   providers: [
     BlogService,

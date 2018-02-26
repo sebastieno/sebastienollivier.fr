@@ -1,6 +1,5 @@
 import { Component, OnInit, Optional, Inject, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BlogService } from '../../services/blog.service';
 import { Meta } from '@angular/platform-browser';
 import { Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
@@ -9,6 +8,7 @@ import 'prismjs/components/prism-csharp';
 import 'prismjs/components/prism-json';
 import { EventReplayer } from 'preboot';
 import { environment } from '../../../environments/environment.prod';
+import { BlogService } from '@bw/services/blog.service';
 
 @Component({
   selector: 'app-post',

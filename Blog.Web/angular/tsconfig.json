@@ -5,7 +5,11 @@
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
+    "baseUrl": ".",
     "experimentalDecorators": true,
+    "paths": {
+      "@bw/services/*" : ["./app/services/*"]
+    },
     "target": "es5",
     "typeRoots": [
       "node_modules/@types"

@@ -70,7 +70,7 @@ export class AutService {
     return new Date().getTime() < expiresAt;
   }
 
-  public renewToken(): Observable<string> {
+  public renewToken(): Observable<any> {
     return Observable.create((observer: Observer<string>) => {
       this.auth0.checkSession({
         clientID: AUTH_CONFIG.clientID,
