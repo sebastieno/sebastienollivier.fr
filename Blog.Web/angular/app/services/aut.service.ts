@@ -4,9 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { StorageService } from './storage.service';
 import { environment } from '../../environments/environment';
-import { ORIGIN_URL } from '@nguniversal/aspnetcore-engine';
-
-
 
 @Injectable()
 export class AutService {

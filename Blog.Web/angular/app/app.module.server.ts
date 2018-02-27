@@ -15,8 +15,8 @@ import { PrebootModule } from 'preboot';
     NoopAnimationsModule,
     AppModuleShared,
     ServerModule,
+    // ServerTransferStateModule, // <-- broken for the time-being with ASP.NET
     ModuleMapLoaderModule
-    // ServerTransferStateModule // <-- broken for the time-being with ASP.NET
   ]
 })
 export class AppModule { }
