@@ -8,7 +8,7 @@
     "baseUrl": ".",
     "experimentalDecorators": true,
     "paths": {
-      "@bw/services/*" : ["./app/services/*"],
+      "@bw/services" : ["./app/services"],
       "@bw/components" : ["./app/components"],
       "@bw/containers" : ["./app/containers"],
     },

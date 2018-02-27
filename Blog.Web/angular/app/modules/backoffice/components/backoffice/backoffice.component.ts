@@ -2,7 +2,7 @@ import { PLATFORM_ID } from '@angular/core';
 import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
-import { AutService } from '@bw/services/aut.service';
+import { AutService } from '@bw/services';
 
 @Component({
   selector: 'app-backoffice',

@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { AutService } from '../services/aut.service';
+import { AutService } from '@bw/services';
 
 @Injectable()
 export class AutInterceptor implements HttpInterceptor {

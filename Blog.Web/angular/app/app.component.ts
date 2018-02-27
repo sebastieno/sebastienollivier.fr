@@ -15,7 +15,7 @@ import { isPlatformServer, isPlatformBrowser } from '@angular/common';
 import { REQUEST } from '@nguniversal/aspnetcore-engine';
 import { routerTransition } from './app.router.transitions';
 import { EventReplayer } from 'preboot';
-import { AutService } from '@bw/services/aut.service';
+import { AutService } from '@bw/services';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({

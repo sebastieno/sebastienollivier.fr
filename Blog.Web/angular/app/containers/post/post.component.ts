@@ -8,7 +8,7 @@ import 'prismjs/components/prism-csharp';
 import 'prismjs/components/prism-json';
 import { EventReplayer } from 'preboot';
 import { environment } from '../../../environments/environment.prod';
-import { BlogService } from '@bw/services/blog.service';
+import { BlogService } from '@bw/services';
 
 @Component({
   selector: 'app-post',
