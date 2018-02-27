@@ -6,7 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AppModuleShared } from './app.module';
 import { AppComponent } from './app.component';
 import { ServerTransferStateModule } from '@angular/platform-server';
-
+import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
 import { PrebootModule } from 'preboot';
 
 @NgModule({
@@ -15,6 +15,7 @@ import { PrebootModule } from 'preboot';
     NoopAnimationsModule,
     AppModuleShared,
     ServerModule,
+    ModuleMapLoaderModule
     // ServerTransferStateModule // <-- broken for the time-being with ASP.NET
   ]
 })

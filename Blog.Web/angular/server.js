@@ -4,6 +4,7 @@ const readFileSync = require('fs').readFileSync;
 const file = readFileSync('./wwwroot/index.html').toString();
 const createServerRenderer = require('aspnet-prerendering').createServerRenderer;
 const createTransferScript = require('@nguniversal/aspnetcore-engine').createTransferScript;
+const { provideModuleMap } = require('@nguniversal/module-map-ngfactory-loader');
 const ngAspnetCoreEngine = require('@nguniversal/aspnetcore-engine').ngAspnetCoreEngine;
 require('zone.js');
 
@@ -24,12 +25,7 @@ module.exports = createServerRenderer(params => {
     ngModule: appServer.AppModuleNgFactory,
     request: params,
     providers: [
-      /* Other providers you want to pass into the App would go here
-      *    { provide: CookieService, useClass: ServerCookieService }
-
-      * ie: Just an example of Dependency injecting a Class for providing Cookies (that you passed down from the server)
-        (Where on the browser you'd have a different class handling cookies normally)
-      */
+      provideModuleMap(appServer.LAZY_MODULE_MAP)
     ]
   };
 
