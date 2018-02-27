@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { StorageService } from './storage.service';
 import { environment } from '../../environments/environment';
+import { ORIGIN_URL } from '@nguniversal/aspnetcore-engine';
 
 
 
@@ -44,11 +45,10 @@ export class AutService {
   }
 
   private setSession(authResult: AuthResult): void {
-    // Set the time that the access token will expire at
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-    this.storageService.setItem('access_token', authResult.accessToken);
-    this.storageService.setItem('id_token', authResult.idToken);
-    this.storageService.setItem('expires_at', expiresAt);
+    this.storageService.setItem('access_token', authResult.accessToken, { path: `/back` });
+    this.storageService.setItem('id_token', authResult.idToken, { path: `/back` });
+    this.storageService.setItem('expires_at', expiresAt, { path: `/back` });
   }
 
   public logout(): void {

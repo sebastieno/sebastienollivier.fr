@@ -24,13 +24,13 @@ export class StorageService {
 
   setItem(name: string, value: any, options?: CookieAttributes) {
     if (isPlatformBrowser(this.platformId)) {
-      set(name, value, options)
+      set(name, value, options);
     }
   }
 
   removeItem(name, options?: CookieAttributes) {
     if (isPlatformBrowser(this.platformId)) {
-      remove(name, options)
+      remove(name, options);
     }
   }
 }
