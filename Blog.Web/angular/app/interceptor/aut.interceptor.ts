@@ -1,7 +1,7 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { AutService } from '../services/aut.service';
+import { AutService } from '@bw/services';
 
 @Injectable()
 export class AutInterceptor implements HttpInterceptor {
@@ -11,14 +11,21 @@ export class AutInterceptor implements HttpInterceptor {
   public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     if (this.autService.isAuthenticated) {
-        const JWT = `Bearer ${this.autService.token}`;
-        console.log(JWT);
-        req = req.clone({
-          setHeaders: {
-            Authorization: JWT,
-          },
-        });
+      req = req.clone({
+        setHeaders: { Authorization: `Bearer ${this.autService.token}` },
+      });
     }
-    return next.handle(req);
+    return next.handle(req).catch((err: HttpErrorResponse) => {
+      if (err.status === 401) {
+        return this.autService.renewToken().mergeMap(token => {
+          req = req.clone({
+            setHeaders: { Authorization: `Bearer ${token.idToken}` },
+          });
+          return next.handle(req);
+        });
+      } else {
+        throw new Error(err.statusText);
+      }
+    });
   }
 }

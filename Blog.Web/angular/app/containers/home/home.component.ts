@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
-import { BlogService } from '../../services/blog.service';
 import { EventReplayer } from 'preboot';
 import { isPlatformBrowser } from '@angular/common';
+import { BlogService } from '@bw/services';
 
 @Component({
   selector: 'app-home',

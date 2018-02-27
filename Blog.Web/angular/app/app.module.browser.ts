@@ -7,7 +7,6 @@ import { AppModuleShared } from './app.module';
 import { AppComponent } from './app.component';
 import { BrowserTransferStateModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from './shared/token-interceptor';
 import { AutService } from './services/aut.service';
 
 export function getOriginUrl() {
@@ -37,11 +36,6 @@ export function handleToken(autService: AutService) {
     {
       provide: REQUEST,
       useFactory: getRequest
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
     }
   ]
 })

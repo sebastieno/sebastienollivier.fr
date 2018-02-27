@@ -9,25 +9,14 @@ import {
   Injector,
   ApplicationRef
 } from '@angular/core';
-import {
-  Router,
-  NavigationEnd,
-  ActivatedRoute,
-  PRIMARY_OUTLET
-} from '@angular/router';
-import {
-  Meta,
-  Title,
-  DOCUMENT,
-  MetaDefinition
-} from '@angular/platform-browser';
-import { Subscription } from 'rxjs/Subscription';
+import { Router, NavigationEnd, ActivatedRoute, PRIMARY_OUTLET } from '@angular/router';
+import { Meta, Title, DOCUMENT, MetaDefinition } from '@angular/platform-browser';
 import { isPlatformServer, isPlatformBrowser } from '@angular/common';
 import { REQUEST } from '@nguniversal/aspnetcore-engine';
 import { routerTransition } from './app.router.transitions';
-import { AutService } from './services/aut.service';
 import { EventReplayer } from 'preboot';
-import { filter, take } from 'rxjs/operators';
+import { AutService } from '@bw/services';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-root',
@@ -67,18 +56,16 @@ export class AppComponent implements OnInit, OnDestroy {
       this.router.initialNavigation();
       if (isPlatformBrowser(this.platformId)) {
         this.appRef.isStable
-          .pipe(
-            filter(stable => stable),
-            take(1),
-        ).subscribe(() => {
-          this.replayer.replayAll();
-        });
+          .filter(stable => stable)
+          .take(1)
+          .subscribe(() => {
+            this.replayer.replayAll();
+          });
       }
     });
   }
 
   ngOnDestroy() {
-    // Subscription clean-up
     this.routerSub$.unsubscribe();
   }
 
