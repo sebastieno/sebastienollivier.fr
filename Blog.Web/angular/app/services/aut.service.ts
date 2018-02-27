@@ -3,23 +3,19 @@ import * as auth0 from 'auth0-js';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { StorageService } from './storage.service';
+import { environment } from '../../environments/environment';
 
-const AUTH_CONFIG = {
-  clientID: 'Ygg0pdZ-QB74OA-fFj4QVn4OtxhzChfS',
-  domain: 'ovent.eu.auth0.com',
-  callbackURL: 'http://localhost:4200/back'
-};
 
 
 @Injectable()
 export class AutService {
 
   auth0 = new auth0.WebAuth({
-    clientID: AUTH_CONFIG.clientID,
-    domain: AUTH_CONFIG.domain,
+    clientID: environment.authConfig.clientID,
+    domain: environment.authConfig.domain,
     responseType: 'token id_token',
-    audience: `https://${AUTH_CONFIG.domain}/userinfo`,
-    redirectUri: AUTH_CONFIG.callbackURL,
+    audience: `https://${environment.authConfig.domain}/userinfo`,
+    redirectUri: environment.authConfig.callbackURL,
     scope: 'openid'
   });
 
@@ -47,7 +43,7 @@ export class AutService {
     return !!this.storageService.getItem('access_token');
   }
 
-  private setSession(authResult): void {
+  private setSession(authResult: AuthResult): void {
     // Set the time that the access token will expire at
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     this.storageService.setItem('access_token', authResult.accessToken);
@@ -56,30 +52,19 @@ export class AutService {
   }
 
   public logout(): void {
-    // Remove tokens and expiry time from localStorage
     this.storageService.removeItem('access_token');
     this.storageService.removeItem('id_token');
     this.storageService.removeItem('expires_at');
-    // Go back to the home route
   }
 
   public get isAuthenticated(): boolean {
-    // Check whether the current time is past the
-    // access token's expiry time
     const expiresAt = this.storageService.getItem('expires_at');
     return new Date().getTime() < expiresAt;
   }
 
-  public renewToken(): Observable<any> {
+  public renewToken(): Observable<AuthResult> {
     return Observable.create((observer: Observer<string>) => {
-      this.auth0.checkSession({
-        clientID: AUTH_CONFIG.clientID,
-        domain: AUTH_CONFIG.domain,
-        responseType: 'token id_token',
-        audience: `https://${AUTH_CONFIG.domain}/userinfo`,
-        redirectUri: AUTH_CONFIG.callbackURL,
-        scope: 'openid'
-      }, (err, res) => {
+      this.auth0.checkSession({}, (err, res) => {
         if (err) {
           observer.error(err);
         } else {
@@ -94,4 +79,10 @@ export class AutService {
   public get token(): string {
     return this.isAuthenticated ? this.storageService.getItem('id_token') : null;
   }
+}
+
+export interface AuthResult {
+  accessToken: string;
+  idToken: string;
+  expiresIn: number;
 }
