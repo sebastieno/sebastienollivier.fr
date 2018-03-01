@@ -31,7 +31,8 @@ namespace Blog.Domain.Queries
         public IQueryable<Post> Build()
         {
             var query = context.Posts.Include(p => p.Category)
-            .WithoutContent();
+            .WithoutContent()
+            .WithoutMarkDown();
 
             if (!this.withUnPublish)
             {

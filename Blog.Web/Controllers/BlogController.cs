@@ -52,7 +52,7 @@ namespace Blog.Web.Controllers
     [HttpGet]
     public async Task<IActionResult> Post(string categoryCode, string postUrl)
     {
-      var post = await this.queryCommandBuilder.Build<GetPostQuery>().ExecuteAsync(categoryCode, postUrl);
+      var post = await this.queryCommandBuilder.Build<GetPostQuery>().WithoutMarkDown().ExecuteAsync(categoryCode, postUrl);
       if (post == null)
       {
         return new NotFoundResult();

@@ -45,7 +45,7 @@ namespace Blog.Web.Controllers
     [HttpGet]
     public async Task<IActionResult> Post(string categoryCode, string postUrl)
     {
-      var post = await this.queryCommandBuilder.Build<GetPostQuery>().WithUnpublish().WithMarkDown().ExecuteAsync(categoryCode, postUrl);
+      var post = await this.queryCommandBuilder.Build<GetPostQuery>().WithUnpublish().WithoutContent().ExecuteAsync(categoryCode, postUrl);
       if (post == null)
       {
         return new NotFoundResult();
@@ -54,8 +54,8 @@ namespace Blog.Web.Controllers
       return Json(post);
     }
 
-    [Route("category/{categoryCode}", Name = "PostsListForCategory")]
-    [Route("", Name = "PostsList")]
+    [Route("category/{categoryCode}")]
+    [Route("posts")]
     [HttpGet]
     public async Task<IActionResult> AllPosts(string categoryCode = null)
     {

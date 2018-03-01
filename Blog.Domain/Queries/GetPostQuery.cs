@@ -9,17 +9,23 @@ namespace Blog.Domain.Queries
     {
         private IBlogContext context;
 
-        private bool withMarkDown = false;
         private bool withUnPublish = false;
-
+        private bool withContent = true;
+        private bool withMarkDown = true;
         public GetPostQuery(IBlogContext context)
         {
             this.context = context;
         }
 
-        public GetPostQuery WithMarkDown()
+        public GetPostQuery WithoutContent()
         {
-            this.withMarkDown = true;
+            this.withContent = false;
+            return this;
+        }
+
+        public GetPostQuery WithoutMarkDown()
+        {
+            this.withMarkDown = false;
             return this;
         }
 
@@ -36,6 +42,11 @@ namespace Blog.Domain.Queries
             if (!this.withUnPublish)
             {
                 query.PublishedOnly();
+            }
+
+            if (!this.withContent)
+            {
+                query.WithoutContent();
             }
 
             if (!this.withMarkDown)
