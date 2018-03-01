@@ -9,16 +9,27 @@ namespace Blog.Domain.Queries
     {
         private IBlogContext context;
 
+        private bool withMarkDown = false;
+
         public GetPostQuery(IBlogContext context)
         {
             this.context = context;
         }
 
+        public GetPostQuery WithMarkDown()
+        {
+            this.withMarkDown = true;
+            return this;
+        }
+
         public async Task<Post> ExecuteAsync(string categoryCode, string postUrl)
         {
-           return await context.Posts.Include(p => p.Category)
-                .PublishedOnly()
-                .FirstOrDefaultAsync(p => p.Category.Code.ToLower() == categoryCode.ToLower() && p.Url.ToLower() == postUrl.ToLower());
+            var query = context.Posts.Include(p => p.Category).PublishedOnly();
+            if (!this.withMarkDown)
+            {
+                query.WithoutMarkDown();
+            }
+            return await query.FirstOrDefaultAsync(p => p.Category.Code.ToLower() == categoryCode.ToLower() && p.Url.ToLower() == postUrl.ToLower());
         }
     }
 }

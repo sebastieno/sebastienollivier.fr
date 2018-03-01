@@ -28,6 +28,21 @@ namespace Blog.Domain.Entities
             });
         }
 
+        public static IQueryable<Post> WithoutMarkDown(this IQueryable<Post> queryable)
+        {
+            return queryable.Select(x => new Post
+            {
+                Category = x.Category,
+                Description = x.Description,
+                Url = x.Url,
+                Id = x.Id,
+                Content = x.Content,
+                PublicationDate = x.PublicationDate,
+                Tags = x.Tags,
+                Title = x.Title
+            });
+        }
+
 
 
     }

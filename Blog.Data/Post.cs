@@ -5,7 +5,7 @@ namespace Blog.Data
 {
     public class Post
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         public string Url { get; set; }
 
@@ -34,6 +34,8 @@ namespace Blog.Data
         }
 
         public string Content { get; set; }
+
+        public string MarkDownContent { get; set; }
 
         public DateTime? PublicationDate { get; set; }
 
