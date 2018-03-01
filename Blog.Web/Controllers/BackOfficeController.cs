@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using Blog.Domain;
 using Blog.Domain.Command;
 using Blog.Domain.Queries;
+using Blog.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -43,13 +45,25 @@ namespace Blog.Web.Controllers
     [HttpGet]
     public async Task<IActionResult> Post(string categoryCode, string postUrl)
     {
-      var post = await this.queryCommandBuilder.Build<GetPostQuery>().WithMarkDown().ExecuteAsync(categoryCode, postUrl);
+      var post = await this.queryCommandBuilder.Build<GetPostQuery>().WithUnpublish().WithMarkDown().ExecuteAsync(categoryCode, postUrl);
       if (post == null)
       {
         return new NotFoundResult();
       }
 
       return Json(post);
+    }
+
+    [Route("category/{categoryCode}", Name = "PostsListForCategory")]
+    [Route("", Name = "PostsList")]
+    [HttpGet]
+    public async Task<IActionResult> AllPosts(string categoryCode = null)
+    {
+      var query = this.queryCommandBuilder.Build<GetPostsQuery>().ForCategory(categoryCode).WithUnpublish().Build();
+
+      var posts = await query.ToListAsync();
+      
+      return Json(posts);
     }
   }
 }

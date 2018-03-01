@@ -10,6 +10,7 @@ namespace Blog.Domain.Queries
         private IBlogContext context;
 
         private bool withMarkDown = false;
+        private bool withUnPublish = false;
 
         public GetPostQuery(IBlogContext context)
         {
@@ -22,13 +23,26 @@ namespace Blog.Domain.Queries
             return this;
         }
 
+        public GetPostQuery WithUnpublish()
+        {
+            this.withUnPublish = true;
+            return this;
+        }
+
         public async Task<Post> ExecuteAsync(string categoryCode, string postUrl)
         {
-            var query = context.Posts.Include(p => p.Category).PublishedOnly();
+            var query = context.Posts.Include(p => p.Category);
+
+            if (!this.withUnPublish)
+            {
+                query.PublishedOnly();
+            }
+
             if (!this.withMarkDown)
             {
                 query.WithoutMarkDown();
             }
+
             return await query.FirstOrDefaultAsync(p => p.Category.Code.ToLower() == categoryCode.ToLower() && p.Url.ToLower() == postUrl.ToLower());
         }
     }
