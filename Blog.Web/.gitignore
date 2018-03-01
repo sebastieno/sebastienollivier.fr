@@ -262,4 +262,3 @@ _Pvt_Extensions
 coverage/
 
 .DS_Store
-package-lock.json

@@ -3,7 +3,6 @@ import { HomeComponent, NotFoundComponent, PostComponent } from '@bw/containers'
 import { BlogService, StorageService, AutService } from '@bw/services';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { MomentPipe } from './shared/moment.pipe';
 import { CommonModule } from '@angular/common';
 import { PrebootModule } from 'preboot';
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,6 +14,7 @@ import { AutInterceptor } from './interceptor/aut.interceptor';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { DisqusModule } from 'ngx-disqus';
 import '../rx-imports';
+import { SharedModule } from './modules/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -22,12 +22,12 @@ import '../rx-imports';
     HomeComponent,
     NotFoundComponent,
     PostPreviewComponent,
-    MomentPipe,
     PostComponent,
     ScrollContainerComponent,
     HeaderComponent
   ],
   imports: [
+    SharedModule,
     CommonModule,
     PrebootModule.withConfig({ appRoot: 'app-root', replay: false }),
     DisqusModule.forRoot('blog-ovent'),

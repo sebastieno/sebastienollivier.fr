@@ -1,0 +1,34 @@
+:host {
+    display: block;
+    padding: 20px;
+     ::ng-deep img {
+        max-width: 100%;
+        height: auto;
+    }
+     ::ng-deep pre[class*=language-] {
+        margin: 0 -24px;
+        border-radius: 0;
+        @media (max-width: 600px) {
+            margin: 0 -16px;
+        }
+    }
+    [mat-card-image] {
+        position: relative;
+        button {
+            position: absolute;
+            bottom: -28px;
+            right: 24px;
+        }
+    }
+    .mat-card {
+        float: left;
+        width: 900px;
+        margin: 0 20px;
+    }
+    textarea {
+        float: left;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        font-size: 16px;
+        padding: 10px;
+    }
+}
