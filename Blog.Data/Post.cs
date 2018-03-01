@@ -36,6 +36,8 @@ namespace Blog.Data
 
         public string Content { get; set; }
 
+        public string Markdown { get; set; }
+
         public DateTime? PublicationDate { get; set; }
 
         public int CategoryId { get; set; }

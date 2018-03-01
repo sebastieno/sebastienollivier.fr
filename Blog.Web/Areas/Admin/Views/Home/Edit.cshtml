@@ -4,6 +4,8 @@
 
 @using (Html.BeginForm())
 {
+    @Html.HiddenFor(m => m.Id)
+
     <label for="title">
         <span>Titre :</span>
         @Html.TextBoxFor(m => m.Title)
@@ -26,14 +28,17 @@
 
     <label>Contenu :</label>
     <div class="editor">
-        <textarea class="md-editor">
+        @Html.TextAreaFor(m => m.Markdown, 0, 0, new { @class = "md-editor" })
+        @*<textarea class="md-editor">
             @Model.Content
-        </textarea>
+        </textarea>*@
 
         <div class="post">
             <div class="postdata"></div>
         </div>
     </div>
+
+    @Html.HiddenFor(m => m.Content)
 
     <input type="submit" value="Enregistrer" />
 }
@@ -43,6 +48,7 @@
 <script type="text/javascript">
     var editor = document.querySelector('.md-editor');
     var result = document.querySelector('.postdata');
+    var resultValue = document.querySelector('#content');
 
     showdown.extension('highlightjs', function () {
         function htmlunencode(text) {
@@ -75,7 +81,9 @@
     var converter = new showdown.Converter({ extensions: ['highlightjs'] })
 
     var redrawResult = debounce(function () {
-        result.innerHTML = converter.makeHtml(editor.value);
+        var html = converter.makeHtml(editor.value);
+        result.innerHTML = html;
+        resultValue.value = html;
         setTimeout(function () { SyntaxHighlighter.highlight(); }, 0);
     }, 250);
 

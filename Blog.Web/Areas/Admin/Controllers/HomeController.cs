@@ -1,4 +1,5 @@
 ﻿using Blog.Domain;
+using Blog.Domain.Command;
 using Blog.Domain.Queries;
 using Blog.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +38,25 @@ namespace Blog.Web.Areas.Admin.Controllers
             }
 
             return View(PostModel.FromPost(post));
+        }
+
+        [HttpPost]
+        [Route("{categoryCode}/{postUrl}")]
+        public async Task<IActionResult> Edit(string categoryCode, string postUrl, PostModel model)
+        {
+            await this.queryCommandBuilder.Build<EditPostCommand>().ExecuteAsync(new Data.Post
+            {
+                Id = model.Id,
+                PublicationDate = null, //model.PublicationDate
+                Content = model.Content,
+                Markdown = model.Markdown,
+                Description = model.Description,
+                Title = model.Title,
+                Tags = model.Tags,
+                Url = model.Url
+            });
+
+            return RedirectToAction("Edit", new { categoryCode = model.CategoryCode, postUrl = model.Url });
         }
     }
 }

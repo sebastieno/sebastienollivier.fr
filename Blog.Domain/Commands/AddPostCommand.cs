@@ -15,7 +15,7 @@ namespace Blog.Domain.Command
         public Task<int> ExecuteAsync(Post post)
         {
             this.context.Posts.Add(post);
-            return context.SaveChangesAsync();
+            return this.context.SaveChangesAsync();
         }
     }
 }

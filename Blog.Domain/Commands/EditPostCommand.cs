@@ -15,6 +15,7 @@ namespace Blog.Domain.Command
         public Task<int> ExecuteAsync(Post post)
         {
             this.context.Posts.Attach(post);
+            this.context.Entry(post).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             return this.context.SaveChangesAsync();
         }
     }

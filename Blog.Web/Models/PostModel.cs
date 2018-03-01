@@ -16,6 +16,8 @@ namespace Blog.Web.Models
 
         public string Content { get; set; }
 
+        public string Markdown { get; set; }
+
         public DateTime? PublicationDate { get; set; }
 
         public string CategoryCode { get; set; }
@@ -33,6 +35,7 @@ namespace Blog.Web.Models
                 Title = post.Title,
                 Description = post.ComputedDescription,
                 Content = post.Content,
+                Markdown = post.Markdown ?? post.Content,
                 PublicationDate = post.PublicationDate,
                 Category = post.Category.Name,
                 CategoryCode = post.Category.Code,

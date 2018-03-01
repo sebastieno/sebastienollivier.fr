@@ -16,6 +16,7 @@ using Blog.Web.Sitemap;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System;
 using Microsoft.Azure.Search;
+using Blog.Domain.Command;
 
 namespace Blog.Web
 {
@@ -41,6 +42,9 @@ namespace Blog.Web
             services.AddScoped<GetPostsQuery>();
             services.AddScoped<GetCategoriesQuery>();
             services.AddScoped<GetPostsFromSearchQuery>();
+
+            services.AddScoped<AddPostCommand>();
+            services.AddScoped<EditPostCommand>();
 
             services.AddScoped<ISearchIndexClient>((serviceProvider) =>
             {
