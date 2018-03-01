@@ -2,11 +2,11 @@
 @{
     ViewData["Title"] = "List";
 }
-<h2>List</h2>
+<h2>Liste des articles</h2>
 
 @foreach (var post in Model)
 {
-    <div class="post">
-        @post.Title
-    </div>
+    <a href="@Url.Action("Edit", new { categoryCode = post.CategoryCode, postUrl = post.Url })" class="post">
+        @Html.Partial("_PostHeader", post)
+    </a>
 }

@@ -4,6 +4,7 @@ using Blog.Domain.Queries;
 using Blog.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,7 +24,7 @@ namespace Blog.Web.Areas.Admin.Controllers
         [Route("")]
         public async Task<IActionResult> List()
         {
-            var query = this.queryCommandBuilder.Build<GetPostsQuery>().WithDrafts().Build();
+            var query = this.queryCommandBuilder.Build<GetPostsQuery>().WithDrafts().Build().OrderByDescending(p => p.PublicationDate ?? DateTime.MaxValue);
 
             return View((await query.ToListAsync()).Select(PostModel.FromPost));
         }

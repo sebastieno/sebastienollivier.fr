@@ -9,7 +9,14 @@
 
 <div class="postheader @Model.CategoryCode">
     <a href="@postUrl" rel="bookmark">
-    <h1>@Model.Title</h1>
-    <div class='postdate'>Publi&eacute; le @Model.PublicationDate.Value.ToString("dd MMMM yyyy")</div>
+        <h1>@Model.Title</h1>
+        @if (Model.PublicationDate.HasValue)
+        {
+            <div class='postdate'>Publi&eacute; le @Model.PublicationDate.Value.ToString("dd MMMM yyyy")</div>
+        }
+        else
+        {
+            <div class='postdate'>Draft</div>
+        }
     </a>
 </div>
