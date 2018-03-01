@@ -1,0 +1,1 @@
+.main .container{height:calc(100% - 60px);display:-ms-flexbox;display:flex;-ms-flex-direction:row;flex-direction:row}.main .container .md-editor,.main .container .post{-ms-flex:1;flex:1;overflow-y:scroll}.main .container .md-editor{margin-right:5px}.main .container .post{margin:0 0 0 5px}

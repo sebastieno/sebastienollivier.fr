@@ -1,0 +1,78 @@
+﻿@model Blog.Web.Models.PostModel
+
+<link rel="stylesheet" href="/styles/bo.css" asp-append-version="true" />
+
+<textarea class="md-editor">
+#Hello
+
+- Hello
+- Hello
+
+```csharp
+    class Hello {
+    }
+```
+</textarea>
+
+<div class="post">
+    <div class="postdata"></div>
+</div>
+
+<script src="~/scripts/showdown.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    var editor = document.querySelector('.md-editor');
+    var result = document.querySelector('.postdata');
+
+    showdown.extension('highlightjs', function () {
+        function htmlunencode(text) {
+            return (text.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>'));
+        }
+        return [{
+            type: 'output',
+            filter: function (text, converter, options) {
+                var left = '<pre><code\\b[^>]*>';
+                var right = '</code></pre>';
+                var flags = 'g';
+
+                var replacement = function (wholeMatch, match, left, right) {
+                    match = htmlunencode(match);
+
+                    var languageRegex = 'code class="([a-zA-Z]+) language-';
+                    var languageMatch = left.match(languageRegex);
+                    if (languageMatch && languageMatch.length > 0) {
+                        var language = languageMatch[1];
+                    }
+
+                    return "<pre" + (language ? " class=\"" + "brush: " + language + "\"" : "") + ">" + match + "\n</pre>";
+                };
+
+                return showdown.helper.replaceRecursiveRegExp(text, replacement, left, right, flags);
+            }
+        }];
+    });
+
+    var converter = new showdown.Converter({ extensions: ['highlightjs'] })
+
+    var redrawResult = debounce(function () {
+        result.innerHTML = converter.makeHtml(editor.value);
+        setTimeout(function () { SyntaxHighlighter.highlight(); }, 0);
+    }, 250);
+
+    editor.addEventListener('keydown', redrawResult);
+    redrawResult();
+
+    function debounce(func, wait, immediate) {
+        var timeout;
+
+        return function () {
+            var context = this, args = arguments;
+            var later = function () {
+                timeout = null;
+                func.apply(context, args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    };
+</script>
