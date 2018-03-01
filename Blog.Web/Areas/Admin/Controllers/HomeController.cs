@@ -30,7 +30,7 @@ namespace Blog.Web.Areas.Admin.Controllers
         [Route("{categoryCode}/{postUrl}")]
         public async Task<IActionResult> Edit(string categoryCode, string postUrl)
         {
-            var post = await this.queryCommandBuilder.Build<GetPostQuery>().ExecuteAsync(categoryCode, postUrl);
+            var post = await this.queryCommandBuilder.Build<GetPostQuery>().WithDrafts().ExecuteAsync(categoryCode, postUrl);
             if (post == null)
             {
                 return new NotFoundResult();
