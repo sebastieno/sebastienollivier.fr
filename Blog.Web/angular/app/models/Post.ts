@@ -1,14 +1,15 @@
 interface Post {
-  id: number;
+  id?: number;
   url: string;
   title: string;
   description: string;
-  computedDescription: string;
+  computedDescription?: string;
   content: string;
+  markdownContent: string;
   publicationDate: Date;
   categoryId: number;
-  category: Category;
-  tags: string[];
+  category?: Category;
+  tags?: string[];
 }
 interface PostList {
   posts: Post[];

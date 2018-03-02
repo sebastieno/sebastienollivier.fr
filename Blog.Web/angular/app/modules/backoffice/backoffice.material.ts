@@ -6,7 +6,8 @@ import {
   MatCheckboxModule,
   MatFormFieldModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatAutocompleteModule
 } from '@angular/material';
 
 export const materialModule = [
@@ -17,5 +18,5 @@ export const materialModule = [
   MatCheckboxModule,
   MatFormFieldModule,
   MatDatepickerModule,
-  MatNativeDateModule
-];
+  MatNativeDateModule,
+  MatAutocompleteModule];

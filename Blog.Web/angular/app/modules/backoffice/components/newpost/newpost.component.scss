@@ -1,6 +1,7 @@
 :host {
     display: block;
     padding: 20px;
+    position: relative;
      ::ng-deep img {
         max-width: 100%;
         height: auto;
@@ -30,5 +31,16 @@
         font-family: Roboto, "Helvetica Neue", sans-serif;
         font-size: 16px;
         padding: 10px;
+    }
+    button {
+        position: absolute;
+        top: 50px;
+        right: 50px;
+    }
+    table{
+      float:left;
+    }
+    .desc{
+      width: 500px;
     }
 }

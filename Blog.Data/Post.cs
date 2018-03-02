@@ -13,26 +13,6 @@ namespace Blog.Data
 
         public string Description { get; set; }
 
-        public string ComputedDescription
-        {
-            get
-            {
-                if (!string.IsNullOrEmpty(this.Description))
-                {
-                    return this.Description;
-                }
-
-                var description = this.Content.Split(new string[] { "<!-- more -->", "<!--more-->" }, StringSplitOptions.RemoveEmptyEntries);
-
-                if (description.Length > 0)
-                {
-                    return description[0];
-                }
-
-                return string.Empty;
-            }
-        }
-
         public string Content { get; set; }
 
         public string MarkDownContent { get; set; }

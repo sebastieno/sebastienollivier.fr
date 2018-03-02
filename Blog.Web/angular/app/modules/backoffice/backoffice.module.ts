@@ -7,6 +7,7 @@ import { NewPostComponent } from './components/newpost/newpost.component';
 import { FormsModule } from '@angular/forms';
 import { MarkdownModule } from 'ngx-markdown';
 import { SharedModule } from '../shared/shared.module';
+import { BackOfficeService } from './services/backoffice.service';
 
 @NgModule({
   imports: [
@@ -20,6 +21,9 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     BackofficeComponent,
     NewPostComponent
+  ],
+  providers: [
+    BackOfficeService
   ]
 })
 export class BackOfficeModule { }

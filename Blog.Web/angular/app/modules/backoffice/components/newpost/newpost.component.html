@@ -1,27 +1,44 @@
-  <table cellspacing="20">
-    <tr>
-      <td>
-        <mat-form-field>
-          <input matInput [(ngModel)]="title" placeholder="Titre">
-        </mat-form-field>
-      </td>
-      <td>
-        <mat-form-field>
-          <input [(ngModel)]="date" matInput [matDatepicker]="picker" placeholder="Date de publication">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </td>
-    </tr>
-  </table>
+<table cellspacing="20">
+  <tr>
+    <td>
+      <mat-form-field>
+        <input matInput [(ngModel)]="title" placeholder="Titre">
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <input [(ngModel)]="date" matInput [matDatepicker]="picker" placeholder="Date de publication">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <input type="text" matInput [(ngModel)]="category" [matAutocomplete]="auto" placeholder="Categorie">
+      </mat-form-field>
+
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let category of categtories" [value]="category">
+          {{ category.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </td>
+  </tr>
+</table>
+<mat-form-field class="desc">
+  <textarea [(ngModel)]="description" matInput placeholder="Description" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5" cols="20"></textarea>
+</mat-form-field>
+<button mat-fab color="accent" (click)="post()">
+  <mat-icon aria-label="">check</mat-icon>
+</button>
 <div>
   <textarea cols="100" rows="50" [(ngModel)]="markdown"></textarea>
   <mat-card>
-      <div mat-card-image [style.background-color]="'gray'" alt="Photo of a Shiba Inu">
-          <h1>
-            {{title}}
-          </h1>
-        </div>
+    <div mat-card-image [style.background-image]="'url('+category?.imageUrl+')'" alt="Photo of a Shiba Inu">
+      <h1>
+        {{title}}
+      </h1>
+    </div>
     <mat-card-header>
       <div mat-card-avatar class="avatar-image"></div>
       <mat-card-title>William Klein</mat-card-title>

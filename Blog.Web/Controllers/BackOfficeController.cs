@@ -27,15 +27,15 @@ namespace Blog.Web.Controllers
 
     [HttpPost]
     [Route("")]
-    public async Task<IActionResult> AddPost(Data.Post post)
+    public async Task<IActionResult> AddPost([FromBody]Data.Post post)
     {
       await this.queryCommandBuilder.Build<AddPostCommand>().ExecuteAsync(post);
       return Ok();
     }
-    
+
     [HttpPost]
     [Route("{postUrl}")]
-    public async Task<IActionResult> EditPost(Data.Post post)
+    public async Task<IActionResult> EditPost([FromBody]Data.Post post)
     {
       await this.queryCommandBuilder.Build<EditPostCommand>().ExecuteAsync(post);
       return Ok();
@@ -62,7 +62,7 @@ namespace Blog.Web.Controllers
       var query = this.queryCommandBuilder.Build<GetPostsQuery>().ForCategory(categoryCode).WithUnpublish().Build();
 
       var posts = await query.ToListAsync();
-      
+
       return Json(posts);
     }
   }
