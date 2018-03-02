@@ -1,0 +1,12 @@
+﻿@model Blog.Web.Models.PostModel
+
+@{
+    ViewBag.Title = "Je peux pas te laisser entrer";
+    ViewBag.Description = "403 - Tu n'as pas le droit...";
+}
+
+<h1>Mais ! Qu'est-ce que tu essayes de faire ?</h1>
+
+<p>Tu as essayé de rentrer dans une zone privée. Puisque tu sembles perdu, je te propose mon dernier article <b>@Model.Title</b> (@string.Join(" #", Model.Tags)) :</p>
+
+@Html.Partial("_PostResume", Model)

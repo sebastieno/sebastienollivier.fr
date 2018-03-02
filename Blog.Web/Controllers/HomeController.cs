@@ -35,12 +35,12 @@ namespace Blog.Web.Controllers
         public async Task<ActionResult> Oops(int statusCode = 500)
         {
             Response.StatusCode = statusCode;
-            if (statusCode == (int)HttpStatusCode.NotFound)
+            if (statusCode == (int)HttpStatusCode.NotFound || statusCode == (int)HttpStatusCode.Forbidden)
             {
                 var query = this.queryCommandBuilder.Build<GetPostsQuery>().Build();
                 var post = await query.FirstAsync();
 
-                return View("404", PostModel.FromPost(post));
+                return View(statusCode.ToString(), PostModel.FromPost(post));
             }
 
             return View();

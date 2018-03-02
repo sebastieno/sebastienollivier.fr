@@ -2,6 +2,7 @@
 using Blog.Domain.Command;
 using Blog.Domain.Queries;
 using Blog.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Web.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "admin")]
     [Area("Admin")]
     [Route("admin")]
     public class HomeController : Controller
