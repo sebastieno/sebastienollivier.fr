@@ -7,6 +7,16 @@
 @foreach (var post in Model)
 {
     <a href="@Url.Action("Edit", new { categoryCode = post.CategoryCode, postUrl = post.Url })" class="post">
-        @Html.Partial("_PostHeader", post)
+        <div class="postheader @post.CategoryCode">
+            <h1>@post.Title</h1>
+            @if (post.PublicationDate.HasValue)
+            {
+                <div class='postdate'>Publi&eacute; le @post.PublicationDate.Value.ToString("dd MMMM yyyy")</div>
+            }
+            else
+            {
+                <div class='postdate'>Draft</div>
+            }
+        </div>
     </a>
 }

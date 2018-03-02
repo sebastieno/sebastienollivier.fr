@@ -48,9 +48,6 @@
     var resultValue = document.querySelector('#content');
 
     showdown.extension('highlightjs', function () {
-        function htmlunencode(text) {
-            return (text.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>'));
-        }
         return [{
             type: 'output',
             filter: function (text, converter, options) {
@@ -59,8 +56,6 @@
                 var flags = 'g';
 
                 var replacement = function (wholeMatch, match, left, right) {
-                    match = htmlunencode(match);
-
                     var languageRegex = 'code class="([a-zA-Z]+) language-';
                     var languageMatch = left.match(languageRegex);
                     if (languageMatch && languageMatch.length > 0) {
