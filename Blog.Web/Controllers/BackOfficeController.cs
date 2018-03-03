@@ -41,7 +41,7 @@ namespace Blog.Web.Controllers
       return Ok();
     }
 
-    [Route("{postUrl}", Order = 3)]
+    [Route("{categoryCode}/{postUrl}", Order = 3)]
     [HttpGet]
     public async Task<IActionResult> Post(string categoryCode, string postUrl)
     {

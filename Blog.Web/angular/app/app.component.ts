@@ -17,7 +17,7 @@ import { routerTransition } from './app.router.transitions';
 import { EventReplayer } from 'preboot';
 import { AutService } from '@bw/services';
 import { Subscription } from 'rxjs/Subscription';
-
+import './models';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

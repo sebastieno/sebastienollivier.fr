@@ -2,6 +2,8 @@ import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { EventReplayer } from 'preboot';
 import { isPlatformBrowser } from '@angular/common';
 import { BlogService } from '@bw/services';
+import { Router } from '@angular/router';
+import { Post } from '@bw/models';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +17,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private blogService: BlogService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -23,6 +26,10 @@ export class HomeComponent implements OnInit {
       this.currentIndex = x.currentPageIndex;
       this.pageCount = x.totalPageNumber;
     });
+  }
+
+  goToPost(post: Post) {
+    this.router.navigate(['/posts/', post.category.code, post.url]);
   }
 
 }

@@ -28,7 +28,7 @@
 <mat-form-field class="desc">
   <textarea [(ngModel)]="description" matInput placeholder="Description" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5" cols="20"></textarea>
 </mat-form-field>
-<button mat-fab color="accent" (click)="post()">
+<button mat-fab color="accent" (click)="submit()">
   <mat-icon aria-label="">check</mat-icon>
 </button>
 <div>
@@ -45,7 +45,7 @@
       <mat-card-subtitle>{{date| moment:'dddd DD MMMM YYYY'}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <markdown [data]="markdown"></markdown>
+      <markdown *ngIf="!isServer" [data]="markdown"></markdown>
     </mat-card-content>
   </mat-card>
 </div>

@@ -10,6 +10,8 @@
     "paths": {
       "@bw/services" : ["./app/services"],
       "@bw/components" : ["./app/components"],
+      "@bw/shared/components" : ["./app/modules/shared/components"],
+      "@bw/models" : ["./app/models"],
       "@bw/containers" : ["./app/containers"],
     },
     "target": "es5",
