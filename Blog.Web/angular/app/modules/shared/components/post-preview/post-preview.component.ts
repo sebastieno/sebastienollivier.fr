@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { Post } from '@bw/models';
 
 @Component({
   selector: 'app-post-preview',
@@ -14,9 +15,5 @@ export class PostPreviewComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-  }
-
-  goToPost() {
-    this.router.navigate(['/posts/', this.post.category.code, this.post.url]);
   }
 }

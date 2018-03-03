@@ -1,6 +1,6 @@
 import { PLATFORM_ID } from '@angular/core';
 import { Component, OnInit, Inject } from '@angular/core';
-import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
 import { AutService } from '@bw/services';
 
@@ -20,14 +20,10 @@ export class BackofficeComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       if (!this.autService.isAuthenticated) {
         if (this.autService.hasToken) {
-          this.autService.renewToken().subscribe(token => {
-            this.http.post('http://localhost:5500/api/blog', null, { responseType: 'text' }).subscribe();
-          }, err => console.log(err));
+          this.autService.renewToken().subscribe(token => {},  () => this.autService.login());
         } else {
           this.autService.login();
         }
-      } else {
-        this.http.post('http://localhost:5500/api/blog', null, { responseType: 'text' }).subscribe();
       }
     }
   }

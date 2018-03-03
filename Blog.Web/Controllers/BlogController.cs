@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Blog.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Blog.Domain.Command;
 
 namespace Blog.Web.Controllers
 {
@@ -34,9 +35,9 @@ namespace Blog.Web.Controllers
 
       var query = this.queryCommandBuilder.Build<GetPostsQuery>().ForCategory(categoryCode).Build();
       var pagesCount = Math.Ceiling((double)query.Count() / postsPerPage);
-       
+
       var posts = await query.Paginate((page - 1) * postsPerPage, postsPerPage).ToListAsync();
- 
+
       var model = new PostsListModel
       {
         Posts = posts,
@@ -51,7 +52,7 @@ namespace Blog.Web.Controllers
     [HttpGet]
     public async Task<IActionResult> Post(string categoryCode, string postUrl)
     {
-      var post = await this.queryCommandBuilder.Build<GetPostQuery>().ExecuteAsync(categoryCode, postUrl);
+      var post = await this.queryCommandBuilder.Build<GetPostQuery>().WithoutMarkDown().ExecuteAsync(categoryCode, postUrl);
       if (post == null)
       {
         return new NotFoundResult();
@@ -60,11 +61,12 @@ namespace Blog.Web.Controllers
       return Json(post);
     }
 
-    [HttpPost]
-    [Route("")]
-    [Authorize(Roles="Blogger")]
-    public async Task<IActionResult> PostBlog(){
-      return Ok();
+    [HttpGet]
+    [Route("categories")]
+    public async Task<IActionResult> GetCategories()
+    {
+      var categories = await this.queryCommandBuilder.Build<GetCategoriesQuery>().Build().ToListAsync();
+      return Json(categories);
     }
 
     [Route("draft/{id}/{postUrl}")]

@@ -13,7 +13,7 @@ namespace Blog.Domain.Entities
         {
             return queryable.Where(IsPublishedExpression);
         }
-
+        
         public static IQueryable<Post> WithoutContent(this IQueryable<Post> queryable)
         {
             return queryable.Select(x => new Post
@@ -22,6 +22,22 @@ namespace Blog.Domain.Entities
                 Description = x.Description,
                 Url = x.Url,
                 Id = x.Id,
+                MarkDownContent = x.MarkDownContent,
+                PublicationDate = x.PublicationDate,
+                Tags = x.Tags,
+                Title = x.Title
+            });
+        }
+
+        public static IQueryable<Post> WithoutMarkDown(this IQueryable<Post> queryable)
+        {
+            return queryable.Select(x => new Post
+            {
+                Category = x.Category,
+                Description = x.Description,
+                Url = x.Url,
+                Id = x.Id,
+                Content = x.Content,
                 PublicationDate = x.PublicationDate,
                 Tags = x.Tags,
                 Title = x.Title

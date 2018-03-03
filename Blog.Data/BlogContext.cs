@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Data
 {
@@ -16,8 +17,6 @@ namespace Blog.Data
                 post.HasKey(p => p.Id);
                 post.ToTable("Posts");
                 post.Property(p => p.InternalTags).HasColumnName("Tags");
-
-                post.Ignore(p => p.ComputedDescription);
                 post.Ignore(p => p.Tags);
             });
 
