@@ -1,23 +1,26 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import * as auth0 from 'auth0-js';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { StorageService } from './storage.service';
+import { ORIGIN_URL } from '@nguniversal/aspnetcore-engine';
 import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AutService {
 
-  auth0 = new auth0.WebAuth({
-    clientID: environment.authConfig.clientID,
-    domain: environment.authConfig.domain,
-    responseType: 'token id_token',
-    audience: `https://${environment.authConfig.domain}/userinfo`,
-    redirectUri: environment.authConfig.callbackURL,
-    scope: 'openid'
-  });
+  auth0: auth0.WebAuth;
 
-  constructor(private storageService: StorageService) { }
+  constructor(private storageService: StorageService, @Inject(ORIGIN_URL) private origin) {
+    this.auth0 = new auth0.WebAuth({
+      clientID: environment.authConfig.clientID,
+      domain: environment.authConfig.domain,
+      responseType: 'token id_token',
+      audience: `https://${environment.authConfig.domain}/userinfo`,
+      redirectUri: origin + '/back',
+      scope: 'openid'
+    });
+  }
 
   public login(): void {
     this.auth0.authorize();
