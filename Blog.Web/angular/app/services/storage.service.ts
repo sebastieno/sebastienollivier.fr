@@ -15,9 +15,9 @@ export class StorageService {
       return getJSON(name);
     } else {
       try {
-        return JSON.parse(this.req.cookies[name]);
+        return JSON.parse(this.req.cookies.find(x => x.key === name).value);
       } catch (err) {
-        return this.req ? this.req.cookies[name] : undefined;
+        return (this.req && this.req.cookies) ? this.req.cookies.find(x => x.key === name).value : undefined;
       }
     }
   }

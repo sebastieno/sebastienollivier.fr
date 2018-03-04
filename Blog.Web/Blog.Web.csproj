@@ -46,10 +46,4 @@
     <Exec Command="npm run build" WorkingDirectory="angular" />
      <Message Text="ng build Ok" />
   </Target>
-
-  <!-- <Target Name="PreBuild" BeforeTargets="Build"  Condition="'$(Configuration)' == 'Debug' ">
-    <Message Text="Launch ng serve" />
-    <Exec Command="npm run start" WorkingDirectory="angular" />
-     <Message Text="ng build serve" />
-  </Target> -->
 </Project>
