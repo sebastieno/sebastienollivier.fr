@@ -5,7 +5,7 @@ import { PostComponent } from './containers/post/post.component';
 import { NotFoundComponent } from './containers/not-found/not-found.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'back', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, data: { title: 'Homepage', state: 'home' } },
   { path: 'back', loadChildren: './modules/backoffice/backoffice.module#BackOfficeModule' },
   { path: 'posts/:categoryCode/:postUrl', component: PostComponent, data: { title: 'Article', state: 'post' } },

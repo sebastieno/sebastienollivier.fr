@@ -15,6 +15,7 @@ import { DisqusModule } from 'ngx-disqus';
 import '../rx-imports';
 import { SharedModule } from './modules/shared/shared.module';
 import { materialModule } from './app.module.material';
+import { RelativeUrlInterceptor } from './interceptor/relativeurl.interceptor';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,11 @@ import { materialModule } from './app.module.material';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AutInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RelativeUrlInterceptor,
       multi: true
     }
   ],
