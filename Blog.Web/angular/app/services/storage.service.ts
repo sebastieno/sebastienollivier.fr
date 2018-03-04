@@ -17,7 +17,11 @@ export class StorageService {
       try {
         return JSON.parse(this.req.cookies.find(x => x.key === name).value);
       } catch (err) {
-        return (this.req && this.req.cookies) ? this.req.cookies.find(x => x.key === name).value : undefined;
+        let cookie;
+        if (this.req && this.req.cookies) {
+          cookie = this.req.cookies.find(x => x.key === name);
+        }
+        return cookie ? cookie.value : undefined;
       }
     }
   }
