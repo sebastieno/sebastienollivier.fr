@@ -4,7 +4,7 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
-    <DefaultItemExcludes>angular\**;$(DefaultItemExcludes)</DefaultItemExcludes>
+    <DefaultItemExcludes>angular\node_modules\**;$(DefaultItemExcludes)</DefaultItemExcludes>
   </PropertyGroup>
   <ItemGroup>
   <!-- New Meta Package has SpaServices in It -->
@@ -22,12 +22,26 @@
     <ProjectReference Include="..\Blog.Domain\Blog.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Content Update="angular\package.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="angular\tsconfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Update="appsettings.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <None Update="angular\dist-server\main.bundle.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="angular\server.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
-  <Target Name="PreBuild" BeforeTargets="Build"  Condition="'$(Configuration)' == 'Release' ">
+  <Target Name="PreBuild" BeforeTargets="Build" Condition="'$(Configuration)' == 'Release' ">
     <Message Text="Launch ng build" />
     <Exec Command="npm run build" WorkingDirectory="angular" />
      <Message Text="ng build Ok" />
