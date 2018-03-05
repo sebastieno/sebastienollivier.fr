@@ -37,10 +37,22 @@
         top: 50px;
         right: 50px;
     }
-    table{
-      float:left;
+    table {
+        float: left;
+        width: 800px;
+        .mat-form-field {
+            width: 100%
+        }
     }
-    .desc{
-      width: 500px;
+    .desc {
+        width: 500px;
+    }
+    .editors {
+        width: 100%;
+        display: flex;
+        align-items: stretch;
+        textarea {
+            min-height: 300px;
+        }
     }
 }

@@ -21,6 +21,7 @@ export class EditPostComponent implements OnInit {
   categtories: Category[];
   category: Category;
   isServer: boolean;
+  showHeader = false;
   @Output()
   changed = new EventEmitter<Post>();
 
