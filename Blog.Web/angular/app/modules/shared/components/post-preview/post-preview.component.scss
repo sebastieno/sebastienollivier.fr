@@ -2,12 +2,16 @@
 :host {
     app-scroll-container {
         display: flex;
-        justify-content:  center;
+        justify-content: center;
     }
     mat-card {
         cursor: pointer;
         mat-card-header {
             margin-bottom: -24px;
         }
+    }
+    h1 a {
+        text-decoration: none;
+        color: white;
     }
 }

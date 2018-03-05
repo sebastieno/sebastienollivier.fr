@@ -6,9 +6,9 @@
         <h1>
           {{post.title}}
         </h1>
-        <button mat-fab color="accent" (click)="back()">
-          <mat-icon aria-label="Example icon-button with a heart icon">arrow_back</mat-icon>
-        </button>
+        <a mat-fab color="accent" [routerLink]="''">
+          <mat-icon  aria-label="Example icon-button with a heart icon">arrow_back</mat-icon>
+        </a>
       </div>
 
       <mat-card-header>
