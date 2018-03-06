@@ -35,14 +35,11 @@ export class PostComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.blogService.getPost(params['categoryCode'], params['postUrl']).subscribe(post => {
         this.post = post;
+        this.blogService.addMetaFromPost(this.meta, post);
         this.identifier = post.url;
         if (!environment.production) {
           this.identifier += '-dev';
         }
-        this.meta.addTag({
-          name: 'description',
-          content: this.post.description
-        });
         this.title.setTitle(this.post.title + ' - Blog de William Klein');
         if (isPlatformBrowser(this.platformId)) {
           setTimeout(() => {
