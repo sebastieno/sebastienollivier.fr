@@ -16,6 +16,8 @@ import '../rx-imports';
 import { SharedModule } from './modules/shared/shared.module';
 import { materialModule } from './app.module.material';
 import { RelativeUrlInterceptor } from './interceptor/relativeurl.interceptor';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -23,10 +25,11 @@ import { RelativeUrlInterceptor } from './interceptor/relativeurl.interceptor';
     HomeComponent,
     NotFoundComponent,
     PostComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     SharedModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     CommonModule,
     PrebootModule.withConfig({ appRoot: 'app-root', replay: false }),
     DisqusModule.forRoot('blog-ovent'),

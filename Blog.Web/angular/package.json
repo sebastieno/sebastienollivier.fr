@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^5.2.6",
     "@angular/platform-server": "^5.2.6",
     "@angular/router": "^5.2.6",
+    "@angular/service-worker": "^5.2.7",
     "@nguniversal/aspnetcore-engine": "^5.0.0-beta.5",
     "@nguniversal/common": "^5.0.0-beta.5",
     "@nguniversal/module-map-ngfactory-loader": "^5.0.0-beta.5",
@@ -61,7 +62,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.9",
     "tslint": "^5.9.1",
-    "webpack-bundle-analyzer": "^2.9.2",
-    "typescript": "2.7.2"
+    "typescript": "2.7.2",
+    "webpack-bundle-analyzer": "^2.9.2"
   }
 }
