@@ -1,6 +1,7 @@
 ﻿using Blog.Domain;
 using Blog.Domain.Command;
 using Blog.Domain.Queries;
+using Blog.Web.Areas.Admin.Models;
 using Blog.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +32,35 @@ namespace Blog.Web.Areas.Admin.Controllers
             return View((await query.ToListAsync()).Select(PostModel.FromPost));
         }
 
+        [Route("new")]
+        public async Task<IActionResult> Create()
+        {
+            var categories = await this.queryCommandBuilder.Build<GetCategoriesQuery>().Build().ToListAsync();
+
+            return View(new CreatePostModel
+            {
+                Categories = categories
+            });
+        }
+
+        [HttpPost]
+        [Route("new")]
+        public async Task<IActionResult> Create(PostModel model)
+        {
+            await this.queryCommandBuilder.Build<AddPostCommand>().ExecuteAsync(new Data.Post
+            {
+                PublicationDate = null, //model.PublicationDate
+                Content = model.Content,
+                Markdown = model.Markdown,
+                Description = model.Description,
+                Title = model.Title,
+                Tags = model.Tags,
+                Url = model.Url
+            });
+
+            return RedirectToAction("Edit", new { categoryCode = model.CategoryCode, postUrl = model.Url });
+        }
+
         [Route("{categoryCode}/{postUrl}")]
         public async Task<IActionResult> Edit(string categoryCode, string postUrl)
         {
@@ -40,7 +70,11 @@ namespace Blog.Web.Areas.Admin.Controllers
                 return new NotFoundResult();
             }
 
-            return View(PostModel.FromPost(post));
+            var categories = await this.queryCommandBuilder.Build<GetCategoriesQuery>().Build().ToListAsync();
+
+            EditPostModel model = EditPostModel.FromPost(post);
+            model.Categories = categories;
+            return View(model);
         }
 
         [HttpPost]

@@ -1,49 +1,35 @@
-﻿.main .container {
-    height: calc(~"100% - 60px");
+﻿@mainColor: #4F9D69;
 
-    input[type=text], textarea {
-        font-family: Open Sans,sans-serif;
-        font-size: 15px;
-        background-color: whitesmoke;
-        border: 1px solid black;
-        padding: 4px;
-        outline: none;
-    }
-
-    input[type=submit] {
-        align-self: flex-end;
-        margin: 20px 0;
-    }
-
-    label {
+.main .container {
+    .postitem {
         display: flex;
-        flex-direction: column;
-        margin: 10px 0;
+        height: 30px;
+        line-height: 30px;
+        position: relative;
+        margin: 15px 0;
 
-        span {
-            margin-bottom: 3px;
+        h1 {
+            font-size: 20px;
+            margin: 0;
         }
 
-        input {
-            flex: 1;
-        }
-    }
-
-    .editor {
-        display: flex;
-        flex-direction: row;
-
-        .md-editor, .post {
-            flex: 1;
-            overflow-y: scroll;
+        .postdate {
+            margin-right: 10px;
+            width: 90px;
         }
 
-        .md-editor {
-            margin-right: 5px;
+        &:before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            height: 100%;
+            width: 4px;
+            background-color: @mainColor;
         }
 
-        .post {
-            margin: 0 0 0 5px;
+        &.draft:before {
+            background-color: gray;
         }
     }
 }
+

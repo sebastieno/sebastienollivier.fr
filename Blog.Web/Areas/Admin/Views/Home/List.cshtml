@@ -2,21 +2,25 @@
 @{
     ViewData["Title"] = "List";
 }
+
+<link rel="stylesheet" href="/styles/bo.css" asp-append-version="true" />
+
 <h2>Liste des articles</h2>
 
 @foreach (var post in Model)
 {
     <a href="@Url.Action("Edit", new { categoryCode = post.CategoryCode, postUrl = post.Url })" class="post">
-        <div class="postheader @post.CategoryCode">
-            <h1>@post.Title</h1>
+        <div class="postitem @(post.PublicationDate.HasValue ? "" : "draft")">
             @if (post.PublicationDate.HasValue)
             {
-                <div class='postdate'>Publi&eacute; le @post.PublicationDate.Value.ToString("dd MMMM yyyy")</div>
+                <div class='postdate'>@post.PublicationDate.Value.ToString("dd/MM/yyyy")</div>
             }
             else
             {
                 <div class='postdate'>Draft</div>
             }
+
+            <h1>@post.Title</h1>
         </div>
     </a>
 }
