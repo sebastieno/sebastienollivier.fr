@@ -9,7 +9,8 @@
       "outDir": "../wwwroot",
       "assets": [
         "assets",
-        "favicon.ico"
+        "favicon.ico",
+        "favicon-256.png"
       ],
       "index": "index.html",
       "main": "boot.browser.ts",
