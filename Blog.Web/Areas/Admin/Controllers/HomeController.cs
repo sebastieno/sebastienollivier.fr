@@ -55,10 +55,13 @@ namespace Blog.Web.Areas.Admin.Controllers
                 Description = model.Description,
                 Title = model.Title,
                 Tags = model.Tags.Split(';'),
-                Url = model.Url
+                Url = model.Url,
+                CategoryId = model.CategoryId
             });
 
-            return RedirectToAction("Edit", new { categoryCode = model.CategoryCode, postUrl = model.Url });
+            var categories = await this.queryCommandBuilder.Build<GetCategoriesQuery>().Build().ToListAsync();
+
+            return RedirectToAction("Edit", new { categoryCode = categories.First(c => c.Id == model.CategoryId).Code, postUrl = model.Url });
         }
 
         [Route("{categoryCode}/{postUrl}")]
@@ -90,10 +93,13 @@ namespace Blog.Web.Areas.Admin.Controllers
                 Description = model.Description,
                 Title = model.Title,
                 Tags = model.Tags.Split(';'),
-                Url = model.Url
+                Url = model.Url,
+                CategoryId = model.CategoryId
             });
 
-            return RedirectToAction("Edit", new { categoryCode = model.CategoryCode, postUrl = model.Url });
+            var categories = await this.queryCommandBuilder.Build<GetCategoriesQuery>().Build().ToListAsync();
+
+            return RedirectToAction("Edit", new { categoryCode = categories.First(c => c.Id == model.CategoryId).Code, postUrl = model.Url });
         }
     }
 }

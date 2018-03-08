@@ -3,37 +3,44 @@
 <link rel="stylesheet" href="/styles/bo.css" asp-append-version="true" />
 <link rel="stylesheet" href="/styles/editor.css" asp-append-version="true" />
 
-@Html.ActionLink("Retour à la liste", "List")
-
 @using (Html.BeginForm())
 {
-    <label for="title">
-        <span>Titre :</span>
-        @Html.TextBoxFor(m => m.Title)
-    </label>
+    <div class="row">
+        <label for="title">
+            <span>Titre :</span>
+            @Html.TextBoxFor(m => m.Title)
+        </label>
 
-    <label for="url">
-        <span>Url :</span>
-        @Html.TextBoxFor(m => m.Url)
-    </label>
+        <label for="url">
+            <span>Url :</span>
+            @Html.TextBoxFor(m => m.Url)
+        </label>
+    </div>
 
-    <label for="category">
-        <span>Categorie :</span>
-        @Html.DropDownListFor(m => m.CategoryCode, Model.Categories.Select(c => new SelectListItem { Text = c.Name, Value = c.Code }))
-    </label>
+    <div class="row">
+        <label for="category">
+            <span>Categorie :</span>
+            @Html.DropDownListFor(m => m.CategoryId, Model.Categories.Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }))
+        </label>
 
-    <label for="tags">
-        <span>Tags (séparé par des ';') :</span>
-        <input type="text" name="@Html.NameFor(m => m.Tags)" />
-    </label>
+        <label for="publicationDate">
+            <span>Date de publication :</span>
+            @Html.TextBoxFor(m => m.PublicationDate)
+        </label>
 
-    <label for="publicationDate">
-        <span>Date de publication :</span>
-        @Html.TextBoxFor(m => m.PublicationDate)
+        <label for="tags">
+            <span>Tags (séparé par des ';') :</span>
+            @Html.TextBoxFor(m => m.Tags)
+        </label>
+    </div>
+
+    <label for="description">
+        <span>Description :</span>
+        @Html.TextAreaFor(m => m.Description)
     </label>
 
     <label>Contenu :</label>
-    <div class="editor">
+    <div class="editor content">
         @Html.TextAreaFor(m => m.Markdown, 0, 0, new { @class = "md-editor" })
 
         <div class="post">
@@ -49,3 +56,5 @@
 <script src="~/scripts/showdown.min.js" type="text/javascript"></script>
 <script src="~/scripts/pikaday.js" type="text/javascript"></script>
 <script src="~/scripts/editor.js" type="text/javascript"></script>
+
+@Html.ActionLink("<", "List", null, null, new { @class = "floating-btn left small" })

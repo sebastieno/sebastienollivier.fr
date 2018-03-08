@@ -1,6 +1,7 @@
 ﻿using Blog.Data;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Blog.Web.Areas.Admin.Models
 {
@@ -20,7 +21,7 @@ namespace Blog.Web.Areas.Admin.Models
 
         public DateTime? PublicationDate { get; set; }
 
-        public string CategoryCode { get; set; }
+        public int CategoryId { get; set; }
 
         public string Category { get; set; }
 
@@ -40,8 +41,8 @@ namespace Blog.Web.Areas.Admin.Models
                 Markdown = post.Markdown ?? post.Content,
                 PublicationDate = post.PublicationDate,
                 Category = post.Category.Name,
-                CategoryCode = post.Category.Code,
-                Tags = string.Join(';', post.Tags)
+                CategoryId = post.Category.Id,
+                Tags = string.Join(';', post.Tags.Where(t => !string.IsNullOrEmpty(t)))
             };
         }
     }
