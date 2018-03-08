@@ -39,8 +39,5 @@
     <ProjectReference Include="..\Blog.Data\Blog.Data.csproj" />
     <ProjectReference Include="..\Blog.Domain\Blog.Domain.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Models\" />
-  </ItemGroup>
 
 </Project>

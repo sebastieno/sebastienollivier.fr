@@ -1,9 +1,9 @@
-﻿@model Blog.Web.Areas.Admin.Models.EditPostModel
+﻿@model Blog.Web.Areas.Admin.Models.EditablePostModel
 
 <link rel="stylesheet" href="/styles/bo.css" asp-append-version="true" />
 <link rel="stylesheet" href="/styles/editor.css" asp-append-version="true" />
 
-@Html.ActionLink("<- Retour à la liste", "List")
+@Html.ActionLink("Retour à la liste", "List")
 
 @using (Html.BeginForm())
 {
@@ -32,8 +32,8 @@
     </div>
 
     <label for="tags">
-        <span>Tags :</span>
-        @Html.TextBoxFor(m => m.Tags)
+        <span>Tags (séparé par des ';') :</span>
+        <input type="text" name="@Html.NameFor(m => m.Tags)" value="@string.Concat(";", Model.Tags)" />
     </label>
 
 

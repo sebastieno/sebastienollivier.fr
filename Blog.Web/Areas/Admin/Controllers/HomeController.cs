@@ -37,7 +37,7 @@ namespace Blog.Web.Areas.Admin.Controllers
         {
             var categories = await this.queryCommandBuilder.Build<GetCategoriesQuery>().Build().ToListAsync();
 
-            return View(new CreatePostModel
+            return View(new EditablePostModel
             {
                 Categories = categories
             });
@@ -45,16 +45,16 @@ namespace Blog.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [Route("new")]
-        public async Task<IActionResult> Create(PostModel model)
+        public async Task<IActionResult> Create(EditablePostModel model)
         {
             await this.queryCommandBuilder.Build<AddPostCommand>().ExecuteAsync(new Data.Post
             {
-                PublicationDate = null, //model.PublicationDate
+                PublicationDate = model.PublicationDate,
                 Content = model.Content,
                 Markdown = model.Markdown,
                 Description = model.Description,
                 Title = model.Title,
-                Tags = model.Tags,
+                Tags = model.Tags.Split(';'),
                 Url = model.Url
             });
 
@@ -72,24 +72,24 @@ namespace Blog.Web.Areas.Admin.Controllers
 
             var categories = await this.queryCommandBuilder.Build<GetCategoriesQuery>().Build().ToListAsync();
 
-            EditPostModel model = EditPostModel.FromPost(post);
+            EditablePostModel model = EditablePostModel.FromPost(post);
             model.Categories = categories;
             return View(model);
         }
 
         [HttpPost]
         [Route("{categoryCode}/{postUrl}")]
-        public async Task<IActionResult> Edit(string categoryCode, string postUrl, PostModel model)
+        public async Task<IActionResult> Edit(string categoryCode, string postUrl, EditablePostModel model)
         {
             await this.queryCommandBuilder.Build<EditPostCommand>().ExecuteAsync(new Data.Post
             {
                 Id = model.Id,
-                PublicationDate = null, //model.PublicationDate
+                PublicationDate = model.PublicationDate,
                 Content = model.Content,
                 Markdown = model.Markdown,
                 Description = model.Description,
                 Title = model.Title,
-                Tags = model.Tags,
+                Tags = model.Tags.Split(';'),
                 Url = model.Url
             });
 

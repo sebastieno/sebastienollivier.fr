@@ -1,10 +1,10 @@
 ﻿using Blog.Data;
-using Blog.Domain.Entities;
 using System;
+using System.Collections.Generic;
 
-namespace Blog.Web.Models
+namespace Blog.Web.Areas.Admin.Models
 {
-    public class PostModel
+    public class EditablePostModel
     {
         public int Id { get; set; }
 
@@ -16,43 +16,32 @@ namespace Blog.Web.Models
 
         public string Content { get; set; }
 
+        public string Markdown { get; set; }
+
         public DateTime? PublicationDate { get; set; }
 
         public string CategoryCode { get; set; }
 
         public string Category { get; set; }
 
-        public string[] Tags { get; set; }
+        public string Tags { get; set; }
 
-        public static PostModel FromPost(Post post)
+        public IEnumerable<Category> Categories { get; set; }
+
+        public static EditablePostModel FromPost(Post post)
         {
-            return new PostModel
+            return new EditablePostModel
             {
                 Id = post.Id,
                 Url = post.Url,
                 Title = post.Title,
                 Description = post.ComputedDescription,
                 Content = post.Content,
+                Markdown = post.Markdown ?? post.Content,
                 PublicationDate = post.PublicationDate,
                 Category = post.Category.Name,
                 CategoryCode = post.Category.Code,
-                Tags = post.Tags
-            };
-        }
-
-        public static PostModel FromSearchModel(PostSearchModel post)
-        {
-            return new PostModel
-            {
-                Id = int.Parse(post.Id),
-                Url = post.Url,
-                Title = post.Title,
-                Description = post.Description,
-                Content = post.Content,
-                PublicationDate = post.PublicationDate,
-                Category = post.Category,
-                CategoryCode = post.CategoryCode,
-                Tags = post.Tags
+                Tags = string.Join(';', post.Tags)
             };
         }
     }
