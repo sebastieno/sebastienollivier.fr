@@ -19,20 +19,23 @@
         @Html.TextBoxFor(m => m.Url)
     </label>
 
-    <label for="category">
-        <span>Categorie :</span>
-        @Html.DropDownListFor(m => m.CategoryCode, Model.Categories.Select(c => new SelectListItem { Text = c.Name, Value = c.Code }))
-    </label>
+    <div class="row">
+        <label for="category">
+            <span>Categorie :</span>
+            @Html.DropDownListFor(m => m.CategoryCode, Model.Categories.Select(c => new SelectListItem { Text = c.Name, Value = c.Code }))
+        </label>
+
+        <label for="publicationDate">
+            <span>Date de publication :</span>
+            @Html.TextBoxFor(m => m.PublicationDate)
+        </label>
+    </div>
 
     <label for="tags">
         <span>Tags :</span>
         @Html.TextBoxFor(m => m.Tags)
     </label>
 
-    <label for="publicationDate">
-        <span>Date de publication :</span>
-        @Html.TextBoxFor(m => m.PublicationDate)
-    </label>
 
     <label>Contenu :</label>
     <div class="editor">

@@ -1,8 +1,22 @@
 ﻿new Pikaday({
     field: document.querySelector('[name=PublicationDate]'),
     firstDay: 1,
+    format: 'D/M/YYYY',
     minDate: new Date(),
-    maxDate: new Date(2999, 12, 31)
+    maxDate: new Date(2999, 12, 31),
+    i18n: {
+        previousMonth: 'Mois précédent',
+        nextMonth: 'Mois suivant',
+        months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+        weekdays: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+        weekdaysShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']
+    },
+    toString(date, format) {
+        const day = ("0" + date.getDate()).slice(-2);
+        const month = ("0" + (date.getMonth() + 1)).slice(-2);
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
 });
 
 var editor = document.querySelector('.md-editor');

@@ -5,7 +5,7 @@
 
 <link rel="stylesheet" href="/styles/bo.css" asp-append-version="true" />
 
-<h2>Liste des articles</h2>
+<h2>Liste des articles <span>(@Model.Count(m => m.PublicationDate.HasValue) publiés, @Model.Count(m => !m.PublicationDate.HasValue) draft(s))</span></h2>
 
 @foreach (var post in Model)
 {
@@ -24,3 +24,5 @@
         </div>
     </a>
 }
+
+@Html.ActionLink("+", "Create", null, null, new { @class = "create-btn" })
