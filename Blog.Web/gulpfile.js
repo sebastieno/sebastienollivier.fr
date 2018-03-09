@@ -19,14 +19,6 @@ gulp.task('compile-less', function () {
         .pipe(gulp.dest('./wwwroot/styles'));
 });
 
-gulp.task('copy-syntaxhighlighter:css', function () {
-    return gulp.src('./Styles/SyntaxHighlighter/**/shCoreRDark.css')
-        .pipe(cssnano())
-        .pipe(concat('syntaxhighlighter.css'))
-        .pipe(gulp.dest('./wwwroot/styles'));
-});
-
-
 gulp.task('copy-images', function () {
     return gulp.src('./Styles/Images/**')
         .pipe(gulp.dest('./wwwroot/images'));
