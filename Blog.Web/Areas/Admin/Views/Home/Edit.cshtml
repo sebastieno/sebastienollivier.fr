@@ -53,6 +53,8 @@
     @Html.HiddenFor(m => m.Content)
 
     <input class="floating-btn small" type="submit" value="Ok" />
+    @Html.ActionLink("draft", "Post", "Blog", new { id = Model.Id, postUrl = Model.Url }, new { @class = "floating-btn second small", target = "_blank" })
+    <input id="full" class="floating-btn small third" type="button" value="full" />
 }
 
 <script src="~/scripts/showdown.min.js" type="text/javascript"></script>
@@ -60,3 +62,18 @@
 <script src="~/scripts/editor.js" type="text/javascript"></script>
 
 @Html.ActionLink("<", "List", null, null, new { @class = "floating-btn left small" })
+
+<script type="text/javascript">
+    var isFullScreen = false;
+
+    var editorContainer = document.querySelector(".editor");
+    document.querySelector("#full").addEventListener('click', function (e) {
+        if (isFullScreen) {
+            editorContainer.classList.remove('fullscreen');
+        } else {
+            editorContainer.classList.add('fullscreen');
+        }
+
+        isFullScreen = !isFullScreen;
+    });
+</script>
