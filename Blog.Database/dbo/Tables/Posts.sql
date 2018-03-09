@@ -4,6 +4,7 @@
     [Title]       NVARCHAR (140) NOT NULL,
     [Description] NVARCHAR (MAX) NOT NULL,
     [Content]     NVARCHAR (MAX) NOT NULL,
+	[Markdown]     NVARCHAR (MAX) NULL,
     [PublicationDate] DATETIME NULL, 
     [CategoryId] INT NOT NULL, 
     [Tags]     NVARCHAR (MAX) NULL,

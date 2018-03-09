@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Blog.Web.Models.PostModel>
+@{
+    ViewData["Title"] = "List";
+}
+
+<link rel="stylesheet" href="/styles/bo.css" asp-append-version="true" />
+
+<h2>Liste des articles <span>(@Model.Count(m => m.PublicationDate.HasValue) publiés, @Model.Count(m => !m.PublicationDate.HasValue) draft(s))</span></h2>
+
+@foreach (var post in Model)
+{
+    <a href="@Url.Action("Edit", new { categoryCode = post.CategoryCode, postUrl = post.Url })" class="post">
+        <div class="postitem @(post.PublicationDate.HasValue ? "" : "draft")">
+            @if (post.PublicationDate.HasValue)
+            {
+                <div class='postdate'>@post.PublicationDate.Value.ToString("dd/MM/yyyy")</div>
+            }
+            else
+            {
+                <div class='postdate'>Draft</div>
+            }
+
+            <h1>@post.Title</h1>
+        </div>
+    </a>
+}
+
+@Html.ActionLink("+", "Create", null, null, new { @class = "floating-btn" })

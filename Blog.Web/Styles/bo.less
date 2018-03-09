@@ -1,0 +1,80 @@
+﻿@mainColor: #4F9D69;
+
+.main .container {
+    max-width: inherit;
+
+    .floating-btn {
+        background-color: @mainColor;
+        border-radius: 100%;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        color: white;
+        font-size: 35px;
+        border: none;
+        cursor: pointer;
+        transition: all linear 0.2s;
+        outline: none;
+
+        &.small {
+            font-size: 18px;
+        }
+
+        &:active {
+            transform: scale(0.9);
+        }
+
+        &.left {
+            left: 370px;
+            right: inherit;
+        }
+
+        &.second {
+            bottom: 80px;
+        }
+
+        &.third {
+            bottom: 140px;
+        }
+    }
+
+    h2 {
+        span {
+            font-size: 14px;
+        }
+    }
+
+    .postitem {
+        display: flex;
+        height: 30px;
+        line-height: 30px;
+        position: relative;
+        margin: 15px 0;
+
+        h1 {
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .postdate {
+            width: 90px;
+        }
+
+        &:before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            height: 100%;
+            width: 4px;
+            background-color: @mainColor;
+        }
+
+        &.draft:before {
+            background-color: gray;
+        }
+    }
+}

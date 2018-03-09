@@ -9,6 +9,7 @@ namespace Blog.Domain.Queries
     {
         private readonly IBlogContext context;
         private string categoryCode;
+        private bool publishedOnly = true;
 
         public GetPostsQuery(IBlogContext context)
         {
@@ -21,9 +22,20 @@ namespace Blog.Domain.Queries
             return this;
         }
 
+        public GetPostsQuery WithDrafts()
+        {
+            this.publishedOnly = false;
+            return this;
+        }
+
         public IQueryable<Post> Build()
         {
-            var query = context.Posts.Include(p => p.Category).PublishedOnly();
+            var query = context.Posts.Include(p => p.Category).AsQueryable();
+            if (this.publishedOnly)
+            {
+                query = query.PublishedOnly();
+            }
+
             if (!string.IsNullOrEmpty(this.categoryCode))
             {
                 query = query.Where(p => p.Category.Code.ToLower() == this.categoryCode.ToLower());

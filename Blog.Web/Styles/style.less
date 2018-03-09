@@ -21,6 +21,8 @@ body {
     font-size: 15px;
     color: black;
     height: 100%;
+    background-image: url(../images/bg-pattern.png);
+    background-repeat: repeat;
 }
 
 h1 {
@@ -85,15 +87,14 @@ ul.description {
 }
 
 .main {
-    margin-left: 0; // background-image: url('../images/bg-pattern.png');
-    // background-repeat: repeat;
+    margin-left: 0;
     height: 100%;
     z-index: 5;
 
     .container {
+        max-width: 1050px;
+        margin: auto;
         padding: 15px 10px;
-        background-image: url(../images/bg-pattern.png);
-        background-repeat: repeat;
 
         &.search-result .search-label {
             margin: 0;
@@ -376,4 +377,13 @@ div.postdata .syntaxhighlighter {
 
 .clear {
     clear: both;
+}
+
+/* === Fallback before SyntaxHighlighter loading === */
+pre {
+    background-color: #1b2426 !important;
+    overflow-x: auto;
+    color: #b9bdb6 !important;
+    padding: 8px 10px 12px 10px;
+    line-height: 1.4rem !important;
 }

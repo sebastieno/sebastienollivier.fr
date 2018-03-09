@@ -16,6 +16,11 @@ using Blog.Web.Sitemap;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System;
 using Microsoft.Azure.Search;
+using Blog.Domain.Command;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using System.Threading.Tasks;
 
 namespace Blog.Web
 {
@@ -42,6 +47,9 @@ namespace Blog.Web
             services.AddScoped<GetCategoriesQuery>();
             services.AddScoped<GetPostsFromSearchQuery>();
 
+            services.AddScoped<AddPostCommand>();
+            services.AddScoped<EditPostCommand>();
+
             services.AddScoped<ISearchIndexClient>((serviceProvider) =>
             {
                 var searchServiceClient = new SearchServiceClient(Configuration["Data:AzureSearch:Name"], new SearchCredentials(Configuration["Data:AzureSearch:Key"]));
@@ -61,6 +69,32 @@ namespace Blog.Web
             });
 
             services.AddApplicationInsightsTelemetry(Configuration);
+
+
+            // Add authentication services
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            })
+            .AddCookie(options =>
+            {
+                options.AccessDeniedPath = "/oops/403";
+                options.LoginPath = "/account/login";
+            })
+            .AddOpenIdConnect("Auth0", options =>
+            {
+                options.Authority = Configuration["Authentication:Authority"];
+                options.ClientId = Configuration["Authentication:ClientId"];
+                options.ClientSecret = Configuration["Authentication:ClientSecret"];
+                options.ResponseType = "code";
+                options.Scope.Clear();
+                options.Scope.Add("openid");
+
+                options.CallbackPath = new PathString("/signin-auth0");
+                options.ClaimsIssuer = "Auth0";
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -91,6 +125,8 @@ namespace Blog.Web
                 },
                 DefaultRequestCulture = new RequestCulture("fr")
             });
+
+            app.UseAuthentication();
 
             app.UseMvc();
         }
