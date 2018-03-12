@@ -28,7 +28,7 @@
 
         <label for="publicationDate">
             <span>Date de publication :</span>
-            @Html.TextBoxFor(m => m.PublicationDate)
+            <input type="text" name="@Html.NameFor(m => m.PublicationDate)" value="@Model.PublicationDate?.ToString("MM/dd/yyyy")" />
         </label>
 
         <label for="tags">
