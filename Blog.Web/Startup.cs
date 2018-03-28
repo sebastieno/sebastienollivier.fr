@@ -95,6 +95,8 @@ namespace Blog.Web
                 options.CallbackPath = new PathString("/signin-auth0");
                 options.ClaimsIssuer = "Auth0";
             });
+
+            services.AddMemoryCache();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
