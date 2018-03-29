@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using System.Threading.Tasks;
+using Blog.Web.Caching;
 
 namespace Blog.Web
 {
@@ -38,6 +39,8 @@ namespace Blog.Web
             services.AddEntityFrameworkSqlServer()
                 .AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration["Data:BlogConnection:ConnectionString"]));
             services.AddScoped<IBlogContext>(provider => provider.GetService<BlogContext>());
+
+            services.AddScoped<CacheService>();
 
             services.AddScoped<QueryCommandBuilder>();
             services.AddScoped<GetCategoriesWithPostsNumberQuery>();

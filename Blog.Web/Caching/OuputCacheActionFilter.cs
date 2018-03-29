@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Caching.Memory;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
-namespace Blog.Web.Filters
+namespace Blog.Web.Caching
 {
     public class OuputCacheActionFilterAttribute : ActionFilterAttribute
     {
@@ -17,6 +18,9 @@ namespace Blog.Web.Filters
 
             var nextResult = await cache.GetOrCreateAsync(url, async entry =>
             {
+                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(10);
+                entry.SlidingExpiration = TimeSpan.FromDays(3);
+
                 return await next();
             });
 

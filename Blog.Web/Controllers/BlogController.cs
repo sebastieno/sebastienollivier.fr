@@ -7,7 +7,7 @@ using Blog.Domain.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Blog.Domain;
 using Microsoft.EntityFrameworkCore;
-using Blog.Web.Filters;
+using Blog.Web.Caching;
 
 namespace Blog.Web.Controllers
 {
