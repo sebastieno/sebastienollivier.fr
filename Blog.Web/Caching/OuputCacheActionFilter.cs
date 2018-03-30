@@ -16,6 +16,22 @@ namespace Blog.Web.Caching
             var requestFeature = context.HttpContext.Features.Get<IHttpRequestFeature>();
             var url = requestFeature.RawTarget;
 
+            ActionExecutedContext result = null;
+            if (!cache.TryGetValue(url, out result))
+            {
+                var cacheEntryOptions = new MemoryCacheEntryOptions()
+                    .SetAbsoluteExpiration(TimeSpan.FromDays(10))
+                    .SetSlidingExpiration(TimeSpan.FromDays(3));
+
+                result = await next();
+
+                cache.Set(url, result, cacheEntryOptions);
+            }
+            else
+            {
+                context.HttpContext.Response.Headers.Add("cache-origin", "memory");
+            }
+
             var nextResult = await cache.GetOrCreateAsync(url, async entry =>
             {
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(10);
