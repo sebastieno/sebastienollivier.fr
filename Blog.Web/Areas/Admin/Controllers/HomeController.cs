@@ -114,5 +114,15 @@ namespace Blog.Web.Areas.Admin.Controllers
 
             return RedirectToAction("Edit", new { categoryCode = targetCategory, postUrl = model.Url });
         }
+
+        private async Task RenewPostEntries()
+        {
+            await this.cacheService.RenewEntry(Url.RouteUrl("PostsList"), HttpContext.Request.Scheme + "://" + HttpContext.Request.Host.Value);
+
+            for (var i = 1; i <= 10; i++)
+            {
+                await this.cacheService.RenewEntry(Url.RouteUrl("PostsList", new { page = i }), HttpContext.Request.Scheme + "://" + HttpContext.Request.Host.Value);
+            }
+        }
     }
 }
