@@ -7,6 +7,7 @@ using Blog.Domain.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Blog.Domain;
 using Microsoft.EntityFrameworkCore;
+using Blog.Web.Caching;
 
 namespace Blog.Web.Controllers
 {
@@ -21,6 +22,7 @@ namespace Blog.Web.Controllers
             this.queryCommandBuilder = queryCommandBuilder;
         }
 
+        [OuputCacheActionFilter]
         [Route("category/{categoryCode}", Name = "PostsListForCategory")]
         [Route("", Name = "PostsList")]
         public async Task<ActionResult> List(string categoryCode = null, string search = null, int page = 1)
@@ -51,7 +53,7 @@ namespace Blog.Web.Controllers
                 var model = new PostsSearchListModel
                 {
                     Search = search,
-                    TotalPageNumber = searchResult.Count.HasValue ? Math.Ceiling((double)searchResult.Count.Value / postsPerPage): page,
+                    TotalPageNumber = searchResult.Count.HasValue ? Math.Ceiling((double)searchResult.Count.Value / postsPerPage) : page,
                     Posts = searchResult.Results.Select(r => r.Document).Select(PostModel.FromSearchModel),
                     CurrentPageIndex = page
                 };
@@ -60,6 +62,7 @@ namespace Blog.Web.Controllers
             }
         }
 
+        [OuputCacheActionFilter]
         [Route("{categoryCode}/{postUrl}", Order = 3)]
         public async Task<ActionResult> Post(string categoryCode, string postUrl)
         {
