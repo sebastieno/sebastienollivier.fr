@@ -27,12 +27,14 @@ namespace Blog.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment Environment { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -68,11 +70,13 @@ namespace Blog.Web
 
             services.Configure<MvcOptions>(options =>
             {
-                options.Filters.Add(new RequireHttpsAttribute());
+                if (!Environment.IsDevelopment())
+                {
+                    options.Filters.Add(new RequireHttpsAttribute());
+                }
             });
 
             services.AddApplicationInsightsTelemetry(Configuration);
-
 
             // Add authentication services
             services.AddAuthentication(options =>
@@ -114,10 +118,9 @@ namespace Blog.Web
             else
             {
                 app.UseExceptionHandler("/oops");
+                var options = new RewriteOptions().AddRedirectToHttps();
+                app.UseRewriter(options);
             }
-
-            var options = new RewriteOptions().AddRedirectToHttps();
-            app.UseRewriter(options);
 
             app.UseStaticFiles();
             app.UseStatusCodePagesWithReExecute("/oops/{0}");
