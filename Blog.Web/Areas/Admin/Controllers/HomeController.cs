@@ -7,10 +7,8 @@ using Blog.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Blog.Web.Areas.Admin.Controllers
@@ -67,7 +65,7 @@ namespace Blog.Web.Areas.Admin.Controllers
             var categories = await this.queryCommandBuilder.Build<GetCategoriesQuery>().Build().ToListAsync();
             var targetCategory = categories.First(c => c.Id == model.CategoryId).Code;
 
-            await this.cacheService.RenewEntry(Url.RouteUrl("PostsList"), HttpContext.Request.Scheme + "://" + HttpContext.Request.Host.Value);
+            await RenewPostEntries();
             await this.cacheService.RenewEntry(Url.Action("Post", new { categoryCode = targetCategory, postUrl = model.Url }), HttpContext.Request.Scheme + "://" + HttpContext.Request.Host.Value);
 
             return RedirectToAction("Edit", new { categoryCode = targetCategory, postUrl = model.Url });
@@ -109,7 +107,7 @@ namespace Blog.Web.Areas.Admin.Controllers
             var categories = await this.queryCommandBuilder.Build<GetCategoriesQuery>().Build().ToListAsync();
             var targetCategory = categories.First(c => c.Id == model.CategoryId).Code;
 
-            await this.cacheService.RenewEntry(Url.RouteUrl("PostsList"), HttpContext.Request.Scheme + "://" + HttpContext.Request.Host.Value);
+            await RenewPostEntries();
             await this.cacheService.RenewEntry(Url.Action("Post", new { categoryCode = targetCategory, postUrl = model.Url }), HttpContext.Request.Scheme + "://" + HttpContext.Request.Host.Value);
 
             return RedirectToAction("Edit", new { categoryCode = targetCategory, postUrl = model.Url });
