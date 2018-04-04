@@ -3,15 +3,34 @@
 @{
     var absolutePostUrl = Url.Action("Post", "Blog", new { categoryCode = Model.CategoryCode, postUrl = Model.Url }, this.Context.Request.IsHttps ? "https" : "http");
     ViewBag.Title = Model.Title;
-    ViewBag.Description = Model.Title;
+    ViewBag.Description = Model.Description;
 }
 
 @section meta {
     @if (Model.Tags.Any())
     {
-    <meta name="keywords" content="@string.Join(", ", Model.Tags)" />
-
+        <meta name="keywords" content="@string.Join(", ", Model.Tags)" />
+        <meta property="article:tag" content="@string.Join(", ", Model.Tags)" />
     }
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@@SebastienOll">
+    <meta name="twitter:title" content="@Model.Title">
+    <meta name="twitter:description" content="@Model.Description">
+    <meta name="twitter:creator" content="@@SebastienOll">
+    @* Twitter summary card with large image must be at least 280x150px *@
+    @*<meta name="twitter:image:src" content="http://www.example.com/image.jpg">*@
+
+    <meta name="og:title" content="@Model.Title" />
+    <meta name="og:locale" content="fr_FR">
+    <meta name="og:type" content="article" />
+    <meta name="og:url" content="@absolutePostUrl" />
+    @*<meta name="og:image" content="http://example.com/image.jpg" />*@
+    <meta name="og:description" content="@Model.Description" />
+    <meta name="og:site_name" content="Blog de Sébastien Ollivier" />
+    <meta name="article:published_time" content="@Model.PublicationDate.Value.ToString("o")" />
+    <meta name="article:modified_time" content="@Model.PublicationDate.Value.ToString("o")" />
+    <meta name="article:section" content="@Model.Category" />
 }
 
 <div class="post">
