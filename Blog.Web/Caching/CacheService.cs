@@ -14,14 +14,14 @@ namespace Blog.Web.Caching
             this.cache = cache;
         }
 
-        public Task RenewEntry(string url, string host)
+        public async Task<string> RenewEntry(string url, string host)
         {
             cache.Remove(url);
             var targetUri = new Uri(new Uri(host), url).ToString();
 
             using (var client = new HttpClient())
             {
-                return client.GetStringAsync(targetUri.ToString());
+                return await client.GetStringAsync(targetUri.ToString());
             }
         }
     }
