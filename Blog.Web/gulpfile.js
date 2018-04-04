@@ -31,7 +31,7 @@ gulp.task('less-watch', ['compile-less'], function () {
 
 gulp.task('default', ['compile-less', 'copy-images'], function () {
     browserSync.init(null, {
-        proxy: "https://localhost:44322"
+        proxy: "http://localhost:62931"
     });
 
     gulp.watch('./Styles/**/*.less', ['less-watch']);

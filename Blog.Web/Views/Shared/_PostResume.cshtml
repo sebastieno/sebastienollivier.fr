@@ -6,10 +6,8 @@
 
 <div class="post">
     @Html.Partial("_PostHeader", Model)
-    <div class="postdata">
-        @Html.Raw(Model.Description)
-        <p>
-            <a href="@postUrl#more" class="more-link">(lire plus&#8230;)</a>
-        </p>
-    </div>
+    <div class="postresume">@Model.Description</div>
+    <p>
+        <a href="@postUrl" class="more-link">(lire plus&#8230;)</a>
+    </p>
 </div>
