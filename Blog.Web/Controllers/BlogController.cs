@@ -89,5 +89,13 @@ namespace Blog.Web.Controllers
 
             return View(PostModel.FromPost(post));
         }
+
+        [OuputCacheActionFilter]
+        [Route("related/{categoryCode}/{postUrl}")]
+        public async Task<ActionResult> RelatedPosts(string categoryCode, string postUrl)
+        {
+            var related  = await this.queryCommandBuilder.Build<GetRelatedPostsQuery>().Build(categoryCode, postUrl).ToListAsync();
+            return Json(related.Select(PostModel.FromPost));
+        }
     }
 }

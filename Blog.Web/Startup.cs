@@ -50,6 +50,7 @@ namespace Blog.Web
             services.AddScoped<GetPostQuery>();
             services.AddScoped<GetPostsQuery>();
             services.AddScoped<GetCategoriesQuery>();
+            services.AddScoped<GetRelatedPostsQuery>();
             services.AddScoped<GetPostsFromSearchQuery>();
 
             services.AddScoped<AddPostCommand>();

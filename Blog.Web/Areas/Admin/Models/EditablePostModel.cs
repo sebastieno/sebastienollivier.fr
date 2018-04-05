@@ -36,7 +36,7 @@ namespace Blog.Web.Areas.Admin.Models
                 Id = post.Id,
                 Url = post.Url,
                 Title = post.Title,
-                Description = post.ComputedDescription,
+                Description = post.Description,
                 Content = post.Content,
                 Markdown = post.Markdown ?? post.Content,
                 PublicationDate = post.PublicationDate,
