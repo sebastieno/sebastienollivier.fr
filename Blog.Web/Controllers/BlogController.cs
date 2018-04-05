@@ -95,7 +95,7 @@ namespace Blog.Web.Controllers
         public async Task<ActionResult> RelatedPosts(string categoryCode, string postUrl)
         {
             var related  = await this.queryCommandBuilder.Build<GetRelatedPostsQuery>().Build(categoryCode, postUrl).ToListAsync();
-            return Json(related.Select(PostModel.FromPost));
+            return PartialView(related.Select(PostModel.FromPost));
         }
     }
 }

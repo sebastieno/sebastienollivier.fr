@@ -44,24 +44,22 @@
 
     @Html.Partial("_SocialLinks", Model)
 
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-        var disqus_shortname = 'sebastienollivier';
-        var disqus_identifier = '@Model.Id';
-        var disqus_title = '@Model.Title';
-        var disqus_url = '@absolutePostUrl';
+    <div id="related"></div>
 
-        (function (w, d, s) {
-            function go() {
-                var js, fjs = d.getElementsByTagName(s)[0], load = function (url, id) {
-                    if (d.getElementById(id)) { return; }
-                    js = d.createElement(s); js.src = url; js.id = id;
-                    fjs.parentNode.insertBefore(js, fjs);
-                };
-                load('//' + disqus_shortname + '.disqus.com/embed.js', 'disqusjs');
-            }
-            if (w.addEventListener) { w.addEventListener("load", go, false); }
-            else if (w.attachEvent) { w.attachEvent("onload", go); }
-        }(window, document, 'script'));
+    <script type="text/javascript">
+        window.addEventListener('load', function() {
+            const req = new XMLHttpRequest();
+
+            req.onreadystatechange = function(event) {
+                if (this.readyState === XMLHttpRequest.DONE) {
+                    if (this.status === 200) {
+                        document.querySelector('#related').innerHTML = this.responseText;
+                    }
+                }
+            };
+
+            req.open('GET', '@Url.Action("RelatedPosts", new { postUrl = Model.Url, categoryCode = Model.CategoryCode})', true);
+            req.send(null);
+        });
     </script>
 </div>
