@@ -61,7 +61,6 @@ a:hover {
     margin: 35px 0 0;
 
     .name {
-        font-family: 'Raleway', sans-serif;
         font-size: 25px;
         font-weight: 700;
         text-transform: uppercase;
@@ -202,8 +201,13 @@ ul.description {
 }
 
 .mentions {
-    height: 36px;
-    display: inline-block;
+    .bold();
+    display: flex;
+    justify-content: center;
+
+    .twitter-share-button, .twitter-mention-button {
+        margin-bottom: -4px;
+    }
 }
 
 .postdata {

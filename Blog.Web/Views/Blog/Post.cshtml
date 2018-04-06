@@ -39,7 +39,9 @@
     <div class="postdata">
         @Html.Raw(Model.Content)
     </div>
-    
+
+    @Html.Partial("_SocialLinks", Model)
+
     <div class="related">
         <h2>Ces articles pourraient t'intéresser :</h2>
 
