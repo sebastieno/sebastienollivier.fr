@@ -36,15 +36,15 @@
 <div class="post">
     @Html.Partial("_PostHeader", Model)
 
-    @Html.Partial("_SocialLinks", Model)
-
     <div class="postdata">
         @Html.Raw(Model.Content)
     </div>
+    
+    <div class="related">
+        <h2>Ces articles pourraient t'intéresser :</h2>
 
-    @Html.Partial("_SocialLinks", Model)
-
-    <div id="related"></div>
+        <div class="content"></div>
+    </div>
 
     <script type="text/javascript">
         window.addEventListener('load', function() {
@@ -53,7 +53,7 @@
             req.onreadystatechange = function(event) {
                 if (this.readyState === XMLHttpRequest.DONE) {
                     if (this.status === 200) {
-                        document.querySelector('#related').innerHTML = this.responseText;
+                        document.querySelector('.related .content').innerHTML = this.responseText;
                     }
                 }
             };

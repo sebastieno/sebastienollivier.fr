@@ -22,7 +22,7 @@ namespace Blog.Domain.Queries
             return context.Posts.Include(p => p.Category).PublishedOnly()
                 .Where(p => p.Category.Code != categoryCode || p.Url != postUrl)
                 .OrderByDescending(p => p.Category.Code == categoryCode ? true : false).ThenByDescending(p => p.PublicationDate)
-                .Take(3);
+                .Take(4);
         }
     }
 }

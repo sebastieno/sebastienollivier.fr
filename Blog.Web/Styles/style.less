@@ -282,6 +282,33 @@ ul.description {
     }
 }
 
+.related {
+    border-top: 2px solid @mainColor;
+    border-bottom: 2px solid @mainColor;
+    padding: 10px 0;
+
+    h2 {
+        margin: 0 0 5px 0;
+        .bold();
+        font-size: 24px;
+    }
+
+    .content { 
+        display: flex;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+
+        a {
+            width: ~"calc(50% - 10px)";
+            margin: 5px;
+
+            h3 {
+                margin: 3px 0px
+            }
+        }
+    }
+}
+
 @media (min-width: 767px) {
     .presentation {
         position: fixed;
