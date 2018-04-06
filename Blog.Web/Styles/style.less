@@ -299,11 +299,11 @@ ul.description {
         box-sizing: border-box;
 
         a {
-            width: ~"calc(50% - 10px)";
-            margin: 5px;
+            margin: 5px 0;
 
             h3 {
-                margin: 3px 0px
+                margin: 3px 0;
+                .bold();
             }
         }
     }
@@ -361,6 +361,19 @@ ul.description {
             &.search-result {
                 padding: 10px 30px;
             }
+        }
+    }
+
+    .related .content {
+        a {
+            width: ~"calc(50% - 5px)";
+            &:nth-child(even) {
+                margin-left:5px;
+            } 
+    
+            &:nth-child(odd) {
+                margin-right:5px;
+            } 
         }
     }
 }
