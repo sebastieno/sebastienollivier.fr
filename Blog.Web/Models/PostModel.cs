@@ -31,7 +31,7 @@ namespace Blog.Web.Models
                 Id = post.Id,
                 Url = post.Url,
                 Title = post.Title,
-                Description = post.ComputedDescription,
+                Description = post.Description,
                 Content = post.Content,
                 PublicationDate = post.PublicationDate,
                 Category = post.Category.Name,

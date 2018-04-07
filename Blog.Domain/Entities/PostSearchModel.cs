@@ -27,7 +27,7 @@ namespace Blog.Domain.Entities
                 CategoryCode = post.Category.Code,
                 Url = post.Url,
                 Content = post.Content,
-                Description = post.ComputedDescription,
+                Description = post.Description,
                 PublicationDate = post.PublicationDate.GetValueOrDefault(),
                 Tags = post.Tags.ToArray(),
                 Title = post.Title

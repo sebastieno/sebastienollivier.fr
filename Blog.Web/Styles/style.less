@@ -61,16 +61,20 @@ a:hover {
     margin: 35px 0 0;
 
     .name {
-        font-family: 'Raleway', sans-serif;
         font-size: 25px;
         font-weight: 700;
         text-transform: uppercase;
     }
 
-    .status {
+    .status, {
         align-self: flex-end;
         color: @mainColor;
         font-weight: 700;
+    }
+
+    .twitter-follow-button {
+        align-self: flex-end;
+        margin-top: 8px;
     }
 
     img.headshot {
@@ -202,8 +206,13 @@ ul.description {
 }
 
 .mentions {
-    height: 36px;
-    display: inline-block;
+    .bold();
+    display: flex;
+    justify-content: center;
+
+    .twitter-share-button, .twitter-mention-button {
+        margin-bottom: -4px;
+    }
 }
 
 .postdata {
@@ -282,6 +291,33 @@ ul.description {
     }
 }
 
+.related {
+    border-top: 2px solid @mainColor;
+    border-bottom: 2px solid @mainColor;
+    padding: 10px 0;
+
+    h2 {
+        margin: 0 0 10px 0;
+        .bold();
+        font-size: 24px;
+    }
+
+    .content { 
+        display: flex;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+
+        a {
+            margin: 5px 0;
+
+            h3 {
+                margin: 3px 0;
+                .bold();
+            }
+        }
+    }
+}
+
 @media (min-width: 767px) {
     .presentation {
         position: fixed;
@@ -334,6 +370,19 @@ ul.description {
             &.search-result {
                 padding: 10px 30px;
             }
+        }
+    }
+
+    .related .content {
+        a {
+            width: ~"calc(50% - 5px)";
+            &:nth-child(even) {
+                margin-left:5px;
+            } 
+    
+            &:nth-child(odd) {
+                margin-right:5px;
+            } 
         }
     }
 }

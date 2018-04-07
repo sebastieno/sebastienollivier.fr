@@ -1,0 +1,14 @@
+@model IEnumerable<Blog.Web.Models.PostModel>
+
+@foreach (var post in Model)
+{
+    var postUrl = Url.Action("Post", "Blog", new { categoryCode = post.CategoryCode, postUrl = post.Url });
+    
+    <a href="@postUrl" rel="bookmark">
+        <h3>@post.Title</h3>
+        <div>
+            <div class="postresume">@post.Description</div>
+        </div>
+    </a>
+}
+
