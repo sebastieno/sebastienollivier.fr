@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Blog.Domain;
 using Microsoft.EntityFrameworkCore;
 using Blog.Web.Caching;
+using System.Text.RegularExpressions;
 
 namespace Blog.Web.Controllers
 {
@@ -72,6 +73,8 @@ namespace Blog.Web.Controllers
                 return new NotFoundResult();
             }
 
+            post.Content = Regex.Replace(post.Content, "(<img.+?)(src)(=[\"'].+?[\"'].+?>)", "$1data-src$3");
+
             return View(PostModel.FromPost(post));
         }
 
@@ -94,7 +97,7 @@ namespace Blog.Web.Controllers
         [Route("related/{categoryCode}/{postUrl}")]
         public async Task<ActionResult> RelatedPosts(string categoryCode, string postUrl)
         {
-            var related  = await this.queryCommandBuilder.Build<GetRelatedPostsQuery>().Build(categoryCode, postUrl).ToListAsync();
+            var related = await this.queryCommandBuilder.Build<GetRelatedPostsQuery>().Build(categoryCode, postUrl).ToListAsync();
             return PartialView(related.Select(PostModel.FromPost));
         }
     }
