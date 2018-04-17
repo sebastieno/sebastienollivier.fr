@@ -107,7 +107,49 @@
     <script src='~/scripts/prism.js' defer async></script>
 
     <script type="text/javascript">
-        (function (d, s) {
+        (function (w, d, s) {
+            var imgs = d.querySelectorAll('img[data-src]:not([src])');
+            var containerWidth = d.getElementsByClassName('postdata')[0].offsetWidth;
+            imgs.forEach(function(img) {
+                if(+img.getAttribute('width') > containerWidth) {
+                    img.style.height = containerWidth * +img.getAttribute('height') / +img.getAttribute('width') + 'px';
+                } else {
+                    img.style.height = +img.getAttribute('height') + 'px';
+                }
+            });
+
+            if ('IntersectionObserver' in w) {
+                function handleIntersect(entry, observer) {
+                    entry.forEach(entry => {
+                        if(entry.intersectionRatio > 0) {
+                            observer.unobserve(entry.target);
+                            loadImg(entry.target);
+                        }
+                    });
+                }
+
+                var observer = new IntersectionObserver(handleIntersect, {
+                    rootMargin: '0px',
+                    threshold:  0.01
+                });
+
+                imgs.forEach(function(img) {
+                    observer.observe(img);
+                });
+            } else {
+                w.addEventListener("load", function() {
+                    imgs.forEach(function(img) { loadImg(img); });
+                });
+            }
+
+            function loadImg(img) {
+                img.onload = function() {
+                    img.style.height = '';
+                }
+
+                img.setAttribute('src', img.getAttribute('data-src'));
+            }
+
             function socials() {
                 var js, fjs = d.getElementsByTagName(s)[0], load = function (url, id) {
                     if (d.getElementById(id)) { return; }
@@ -123,15 +165,6 @@
                 el.type = 'text/css';
                 el.href = url;
                 d.getElementsByTagName('head')[0].appendChild(el);
-            }
-
-            function img() {
-                var imgs = d.getElementsByTagName('img');
-                for (var i = 0; i < imgs.length; i++) {
-                    if (imgs[i].getAttribute('data-src')) {
-                        imgs[i].setAttribute('src', imgs[i].getAttribute('data-src'));
-                    }
-                }
             }
 
             function search() {
@@ -151,13 +184,12 @@
                 });
             }
             
-            window.addEventListener("load", function() {
+            w.addEventListener("load", function() {
                 css("/styles/prism.css");
-                img();
                 socials();
                 search();
             }, false);
-        }(document, 'script'));
+        }(window, document, 'script'));
     </script>
 </body>
 
