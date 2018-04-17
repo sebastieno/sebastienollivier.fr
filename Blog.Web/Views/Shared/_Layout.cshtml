@@ -109,47 +109,50 @@
     <script type="text/javascript">
         (function (w, d, s) {
             var imgs = d.querySelectorAll('img[data-src]:not([src])');
-            var containerWidth = d.getElementsByClassName('postdata')[0].offsetWidth;
-            imgs.forEach(function(img) {
-                if(+img.getAttribute('width') > containerWidth) {
-                    img.style.height = containerWidth * +img.getAttribute('height') / +img.getAttribute('width') + 'px';
-                } else {
-                    img.style.height = +img.getAttribute('height') + 'px';
-                }
-            });
+            var container = d.getElementsByClassName('postdata')[0];
+            
+            if(imgs && containerWidth) {
+                var containerWidth = container.offsetWidth;
+                imgs.forEach(function(img) {
+                    if(+img.getAttribute('width') > containerWidth) {
+                        img.style.height = containerWidth * +img.getAttribute('height') / +img.getAttribute('width') + 'px';
+                    } else {
+                        img.style.height = +img.getAttribute('height') + 'px';
+                    }
+                });
 
-            if ('IntersectionObserver' in w) {
-                function handleIntersect(entry, observer) {
-                    entry.forEach(entry => {
-                        if(entry.intersectionRatio > 0) {
-                            observer.unobserve(entry.target);
-                            loadImg(entry.target);
-                        }
+                if ('IntersectionObserver' in w) {
+                    function handleIntersect(entry, observer) {
+                        entry.forEach(entry => {
+                            if(entry.intersectionRatio > 0) {
+                                observer.unobserve(entry.target);
+                                loadImg(entry.target);
+                            }
+                        });
+                    }
+
+                    var observer = new IntersectionObserver(handleIntersect, {
+                        rootMargin: '0px',
+                        threshold:  0.01
+                    });
+
+                    imgs.forEach(function(img) {
+                        observer.observe(img);
+                    });
+                } else {
+                    w.addEventListener("load", function() {
+                        imgs.forEach(function(img) { loadImg(img); });
                     });
                 }
 
-                var observer = new IntersectionObserver(handleIntersect, {
-                    rootMargin: '0px',
-                    threshold:  0.01
-                });
+                function loadImg(img) {
+                    img.onload = function() {
+                        img.style.height = '';
+                    }
 
-                imgs.forEach(function(img) {
-                    observer.observe(img);
-                });
-            } else {
-                w.addEventListener("load", function() {
-                    imgs.forEach(function(img) { loadImg(img); });
-                });
-            }
-
-            function loadImg(img) {
-                img.onload = function() {
-                    img.style.height = '';
+                    img.setAttribute('src', img.getAttribute('data-src'));
                 }
-
-                img.setAttribute('src', img.getAttribute('data-src'));
             }
-
             function socials() {
                 var js, fjs = d.getElementsByTagName(s)[0], load = function (url, id) {
                     if (d.getElementById(id)) { return; }
