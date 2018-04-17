@@ -111,7 +111,7 @@
             var imgs = d.querySelectorAll('img[data-src]:not([src])');
             var container = d.getElementsByClassName('postdata')[0];
             
-            if(imgs && containerWidth) {
+            if(imgs && container) {
                 var containerWidth = container.offsetWidth;
                 imgs.forEach(function(img) {
                     if(+img.getAttribute('width') > containerWidth) {
