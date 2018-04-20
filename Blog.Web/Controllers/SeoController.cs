@@ -76,7 +76,7 @@ namespace Blog.Web.Controllers
             {
                 this.sitemapBuilder.AddUrl(new SitemapNode
                 {
-                    Url = this.Url.Action("Post", "Blog", new { categoryCode = post, postUrl = post.PostUrl }, "https"),
+                    Url = this.Url.Action("Post", "Blog", new { categoryCode = post.CategoryCode, postUrl = post.PostUrl }, "https"),
                     Priority = 0.5,
                     Modified = post.PublicationDate,
                     ChangeFrequency = ChangeFrequency.Always

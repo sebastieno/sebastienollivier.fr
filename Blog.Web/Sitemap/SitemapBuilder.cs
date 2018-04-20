@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -51,7 +52,7 @@ namespace Blog.Web.Sitemap
 
             if (url.Priority.HasValue)
             {
-                itemElement.Add(new XElement(NS + "priority", url.Priority.Value.ToString("N1")));
+                itemElement.Add(new XElement(NS + "priority", url.Priority.Value.ToString("N1", CultureInfo.InvariantCulture)));
             }
 
             return itemElement;
