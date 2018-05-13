@@ -23,6 +23,8 @@ namespace Blog.Web.Areas.Admin.Models
 
         public int CategoryId { get; set; }
 
+        public string CategoryCode { get; set; }
+
         public string Category { get; set; }
 
         public string Tags { get; set; }
@@ -41,6 +43,7 @@ namespace Blog.Web.Areas.Admin.Models
                 Markdown = post.Markdown ?? post.Content,
                 PublicationDate = post.PublicationDate,
                 Category = post.Category.Name,
+                CategoryCode = post.Category.Code,
                 CategoryId = post.Category.Id,
                 Tags = string.Join(';', post.Tags.Where(t => !string.IsNullOrEmpty(t)))
             };

@@ -53,8 +53,16 @@
 
     @Html.HiddenFor(m => m.Content)
 
-    <input class="floating-btn small" type="submit" value="Ok" />
-    @Html.ActionLink("draft", "Post", "Blog", new { id = Model.Id, postUrl = Model.Url }, new { @class = "floating-btn second small", target = "_blank" })
+    <input class="floating-btn small" type="submit" value="ok" />
+    @if (Model.PublicationDate.HasValue && Model.PublicationDate.Value < DateTime.Now)
+    {
+        @Html.ActionLink("post", "Post", "Blog", new { categoryCode = Model.CategoryCode, postUrl = Model.Url }, new { @class = "floating-btn second small", target = "_blank" })
+    }
+    else
+    {
+        @Html.ActionLink("draft", "Post", "Blog", new { id = Model.Id, postUrl = Model.Url }, new { @class = "floating-btn second small", target = "_blank" })
+
+    }
     <input id="full" class="floating-btn small third" type="button" value="full" />
 }
 
