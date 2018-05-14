@@ -108,6 +108,7 @@ namespace Blog.Web.Areas.Admin.Controllers
             var targetCategory = categories.First(c => c.Id == model.CategoryId).Code;
 
             await RenewPostEntries();
+            await this.cacheService.RenewEntry(Url.Action("Post", "Blog", new { id = model.Id, postUrl = model.Url }), HttpContext.Request.Scheme + "://" + HttpContext.Request.Host.Value);
             await this.cacheService.RenewEntry(Url.Action("Post", "Blog", new { categoryCode = targetCategory, postUrl = model.Url }), HttpContext.Request.Scheme + "://" + HttpContext.Request.Host.Value);
 
             return RedirectToAction("Edit", new { categoryCode = targetCategory, postUrl = model.Url });
