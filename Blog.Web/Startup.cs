@@ -123,7 +123,13 @@ namespace Blog.Web
                 app.UseRewriter(options);
             }
 
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=31536000"); // One year
+                }
+            });
             app.UseStatusCodePagesWithReExecute("/oops/{0}");
 
             app.UseRequestLocalization(new RequestLocalizationOptions()
