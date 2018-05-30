@@ -9,26 +9,34 @@
 @maxWidthTabletDevice: 991px;
 @maxWidthSmallScreenDevice: 1199px;
 
-.bold() {
-    font-family: 'Roboto Condensed', sans-serif;
-    font-weight: 700;
+.primaryFont() {
+    &.font-loaded {
+        font-family: 'Open Sans', sans-serif;
+    }
+}
+
+.secondaryFont() {
+    &.font-loaded {
+        font-family: 'Roboto Condensed', sans-serif;
+    }
 }
 
 html,
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Open Sans', sans-serif;
     font-size: 15px;
     color: black;
     height: 100%;
     background-image: url(../images/bg-pattern.png);
     background-repeat: repeat;
+    .primaryFont();
 }
 
 h1 {
     font-size: 28px;
-    .bold()
+    .secondaryFont();
+    font-weight: 700;
 }
 
 a,
@@ -67,7 +75,7 @@ a:hover {
         text-transform: uppercase;
     }
 
-    .status, {
+    .status {
         align-self: flex-end;
         color: @mainColor;
         font-weight: 700;
@@ -138,7 +146,7 @@ ul.description {
             outline: 0;
             background-color: transparent;
             color: white;
-            font-family: 'Roboto Condensed', sans-serif;
+            .secondaryFont();
             flex-grow: 1;
             flex-basis: 70%;
             border-radius: 0;
@@ -147,14 +155,14 @@ ul.description {
         label {
             flex-grow: 0;
             color: white;
-            font-family: 'Roboto Condensed', sans-serif;
+            .secondaryFont();
         }
 
         label.legend {
             font-size: 10px;
             display: block;
             text-align: right;
-            font-family: 'Open Sans', sans-serif;
+            .primaryFont();
             flex-grow: unset;
         }
     }
@@ -184,7 +192,7 @@ ul.description {
 .broken {
     a {
         color: @mainColor;
-        font-family: 'Roboto Condensed', sans-serif;
+        .secondaryFont();
         font-weight: 700;
     }
 }
@@ -200,14 +208,15 @@ ul.description {
     }
 
     .postdate {
-        font-family: 'Open Sans', sans-serif;
+        /*font-family: 'Open Sans', sans-serif;*/
         font-size: 15px;
         color: black;
     }
 }
 
 .mentions {
-    .bold();
+    .secondaryFont();
+    font-weight: 700;
     display: flex;
     justify-content: center;
 
@@ -242,23 +251,27 @@ ul.description {
 
     h1,
     h2 {
-        .bold();
+        .secondaryFont();
+        font-weight: 700;
         font-size: 24px;
     }
 
     h3 {
-        .bold();
+        .secondaryFont();
+        font-weight: 700;
         font-size: 20px;
     }
 
     h4 {
-        .bold();
+        .secondaryFont();
+        font-weight: 700;
         font-size: 15px;
         margin-bottom: 10px;
     }
 
     b {
-        .bold();
+        .secondaryFont();
+        font-weight: 700;
     }
 
     .inline-images {
@@ -299,11 +312,12 @@ ul.description {
 
     h2 {
         margin: 0 0 10px 0;
-        .bold();
+        .secondaryFont();
+        font-weight: 700;
         font-size: 24px;
     }
 
-    .content { 
+    .content {
         display: flex;
         flex-wrap: wrap;
         box-sizing: border-box;
@@ -313,7 +327,8 @@ ul.description {
 
             h3 {
                 margin: 3px 0;
-                .bold();
+                .secondaryFont();
+                font-weight: 700;
             }
         }
     }
@@ -351,7 +366,7 @@ ul.description {
 
         span {
             color: @mainColor;
-            font-family: 'Roboto Condensed', sans-serif;
+            .secondaryFont();
             font-weight: 700;
             font-size: 16px;
         }
@@ -377,13 +392,14 @@ ul.description {
     .related .content {
         a {
             width: ~"calc(50% - 5px)";
+
             &:nth-child(even) {
-                margin-left:5px;
-            } 
-    
+                margin-left: 5px;
+            }
+
             &:nth-child(odd) {
-                margin-right:5px;
-            } 
+                margin-right: 5px;
+            }
         }
     }
 }
@@ -407,7 +423,6 @@ img[data-src] {
         height: 100%;
     }
 }
-
 /* === Fallback for code === */
 pre {
     color: #b9bdb6 !important;

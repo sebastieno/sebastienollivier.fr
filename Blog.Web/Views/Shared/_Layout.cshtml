@@ -38,7 +38,6 @@
     <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
 
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Condensed:700">
     <link rel="stylesheet" href="/styles/style.css" asp-append-version="true" />
 
     @if (ViewBag.DisableAnalytics == null || ViewBag.DisableAnalytics == false)
@@ -153,6 +152,7 @@
                     img.setAttribute('src', img.getAttribute('data-src'));
                 }
             }
+
             function socials() {
                 var js, fjs = d.getElementsByTagName(s)[0], load = function (url, id) {
                     if (d.getElementById(id)) { return; }
@@ -160,6 +160,23 @@
                     fjs.parentNode.insertBefore(js, fjs);
                 };
                 load('//platform.twitter.com/widgets.js', 'tweetjs');
+            }
+
+            function fonts() {
+                if (!document.fonts) {
+                    var os = new FontFace('Open Sans', 'url(https://fonts.gstatic.com/s/opensans/v15/mem8YaGs126MiZpBA-UFVZ0b.woff2)');
+                    document.fonts.add(os);
+                    var rob = new FontFace('Roboto', 'url(https://fonts.gstatic.com/s/robotocondensed/v16/ieVi2ZhZI2eCN5jzbjEETS9weq8-32meGCQYbw.woff2)');
+                    document.fonts.add(rob);
+
+                    document.fonts.ready.then(function () {
+                        document.body.classList.add('font-loaded');
+                    });
+                }
+                else {
+                    //css("https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Condensed:700");
+                    document.body.classList.add('font-loaded');
+                }
             }
 
             function css(url) {
@@ -191,6 +208,7 @@
                 css("/styles/prism.css");
                 socials();
                 search();
+                fonts();
             }, false);
         }(window, document, 'script'));
     </script>
