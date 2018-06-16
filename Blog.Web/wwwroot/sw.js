@@ -1,13 +1,18 @@
 ﻿let cacheName = "v1";
 
 let urlsToCache = [
+  "/favicon-16x16.png",
+  "/favicon-32x32.png",
+  "/favicon.ico",
   "/images/headshot.png",
-  "/scripts/prism.js",
-  "/styles/prism.css",
   "/images/bg-pattern.png",
   "/images/search.svg",
+  "/scripts/prism.js",
+  "/styles/prism.css",
+  "/styles/style.css",
   "/offline",
-  "https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Condensed:700"
+  "https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Condensed:700",
+  "https://platform.twitter.com/widgets.js"
 ];
 
 this.addEventListener("install", function(event) {
