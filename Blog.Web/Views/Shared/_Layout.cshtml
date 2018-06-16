@@ -102,15 +102,13 @@
         </div>
     </section>
 
-    <div id="fb-root"></div>
-
     <script src='~/scripts/prism.js' defer async></script>
 
     <script type="text/javascript">
         (function (w, d, s) {
             var imgs = d.querySelectorAll('img[data-src]:not([src])');
             var container = d.getElementsByClassName('postdata')[0];
-            
+
             if(imgs && container) {
                 var containerWidth = container.offsetWidth;
                 imgs.forEach(function(img) {
@@ -182,17 +180,25 @@
                         var tmp = i.value;
                         i.value = '';
                         i.value = tmp;
-                    } else 
+                    } else
                         s.classList.add('off');
                 });
             }
-            
+
             w.addEventListener("load", function() {
                 css("/styles/prism.css");
                 socials();
                 search();
             }, false);
         }(window, document, 'script'));
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').then(function (reg) {
+                console.log('Registration succeeded');
+            }).catch(function (error) {
+                console.log('Registration failed with ' + error);
+            });
+        };
     </script>
 </body>
 

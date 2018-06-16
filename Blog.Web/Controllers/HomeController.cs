@@ -24,6 +24,12 @@ namespace Blog.Web.Controllers
             return View();
         }
 
+        [Route("offline")]
+        public ActionResult Offline()
+        {
+            return Content("C'est du offline.");
+        }
+
         [Route("toutvapeter")]
         public ActionResult Bug()
         {
