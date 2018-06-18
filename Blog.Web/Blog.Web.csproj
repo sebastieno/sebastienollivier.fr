@@ -37,4 +37,8 @@
     <ProjectReference Include="..\Blog.Domain\Blog.Domain.csproj" />
   </ItemGroup>
 
+  <Target Name="CreateLogsFolder" AfterTargets="AfterPublish">
+    <MakeDir Directories="$(PublishDir)LogFiles" Condition="!Exists('$(PublishDir)LogFiles')" />
+  </Target>
+
 </Project>
