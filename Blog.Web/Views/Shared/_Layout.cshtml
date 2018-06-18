@@ -35,6 +35,7 @@
     <meta name="application-name" content="S&eacute;bastien Ollivier" />
     <meta name="fb:app_id" content="310837429005416" />
 
+    <link rel="manifest" href="/manifest.json">
     <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
 
@@ -193,10 +194,8 @@
         }(window, document, 'script'));
 
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js').then(function (reg) {
-                console.log('Registration succeeded');
-            }).catch(function (error) {
-                console.log('Registration failed with ' + error);
+            navigator.serviceWorker.register('/sw.js').then(function () {}).catch(function (error) {
+                console.warn('Registration failed with ' + error);
             });
         };
     </script>

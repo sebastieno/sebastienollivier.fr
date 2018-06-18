@@ -1,0 +1,22 @@
+{
+    "name": "Blog de Sébastien Ollivier",
+    "short_name": "Sébastien Ollivier",
+    "background_color": "#4F9D69",
+    "description": "Je parle de ASP.NET Core, d'Angular, de Web et de bien d'autres trucs cool ! Bonne lecture.",
+    "orientation": "portrait-primary",
+    "start_url": "./",
+    "display": "standalone",
+    "theme_color": "#4F9D69",
+    "icons": [
+        {
+            "src": "favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        }
+    ]
+}
