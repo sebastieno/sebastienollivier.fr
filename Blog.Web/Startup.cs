@@ -138,6 +138,10 @@ namespace Blog.Web
                 {
                     new CultureInfo("fr"),
                 },
+                SupportedUICultures = new List<CultureInfo>
+                {
+                    new CultureInfo("fr")
+                },
                 DefaultRequestCulture = new RequestCulture("fr")
             });
 
