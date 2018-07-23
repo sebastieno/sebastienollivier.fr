@@ -88,9 +88,9 @@
         <section role="search">
             <div class="search @(isOnSearchResultPage ? "on" : "off")">
                 <form asp-action="List" asp-controller="Blog" asp-route-categorycode="@string.Empty" method="get">
-                    <label>Je cherche...</label>
-                    <input type="text" name="search" value="@ViewBag.Search" />
-                    <label class="legend">Appuies sur Entrée pour rechercher</label>
+                    <label for="searchInput">Je cherche...</label>
+                    <input type="text" name="search" id="searchInput" value="@ViewBag.Search" />
+                    <label class="legend" for="searchInput">Appuies sur Entrée pour rechercher</label>
                 </form>
             </div>
         </section>
