@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Domain", "Blog.Domain\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Web", "Blog.Web\Blog.Web.csproj", "{1071E5F8-824A-47AF-AE89-E1BB5B3B26CF}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Blog.Database", "Blog.Database\Blog.Database.sqlproj", "{F140667B-6B98-4A46-BBDD-02AF549EB8C5}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.SearchIndexer", "Blog.SearchIndexer\Blog.SearchIndexer.csproj", "{34FFC910-490D-4B81-9F51-630A85D46A67}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.AzureFunctions", "Blog.AzureFunctions\Blog.AzureFunctions.csproj", "{B25611AF-992F-4F0F-9825-301885EC8125}"
