@@ -38,7 +38,33 @@
     <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
 
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Condensed:700">
+    <style>
+        @@font-face {
+            font-family: 'Roboto Condensed';
+            font-style: normal;
+            font-weight: 700;
+            src: url('./fonts/roboto-condensed-v16-latin-700.eot'); /* IE9 Compat Modes */
+            src: local('Roboto Condensed Bold'), local('RobotoCondensed-Bold'),
+                url('./fonts/roboto-condensed-v16-latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+                url('./fonts/roboto-condensed-v16-latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+                url('./fonts/roboto-condensed-v16-latin-700.woff') format('woff'), /* Modern Browsers */
+                url('./fonts/roboto-condensed-v16-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
+                url('./fonts/roboto-condensed-v16-latin-700.svg#RobotoCondensed') format('svg'); /* Legacy iOS */
+        }
+
+        @@font-face {
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: 400;
+            src: url('./fonts/open-sans-v15-latin-regular.eot'); /* IE9 Compat Modes */
+            src: local('Open Sans Regular'), local('OpenSans-Regular'),
+                url('./fonts/open-sans-v15-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+                url('./fonts/open-sans-v15-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+                url('./fonts/open-sans-v15-latin-regular.woff') format('woff'), /* Modern Browsers */
+                url('./fonts/open-sans-v15-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+                url('./fonts/open-sans-v15-latin-regular.svg#OpenSans') format('svg'); /* Legacy iOS */
+        }
+    </style>
     <link rel="stylesheet" href="/styles/style.css" asp-append-version="true" />
 
     @if (ViewBag.DisableAnalytics == null || ViewBag.DisableAnalytics == false)
